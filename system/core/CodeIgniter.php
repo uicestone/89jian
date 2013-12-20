@@ -356,7 +356,15 @@
 
 		// Call the requested method.
 		// Any URI segments present (besides the class/function) will be passed to the method for convenience
-		call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
+		//uicestone 2013/7/25 在整个控制器外加一层异常捕获
+		try{
+			call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
+		}catch(Exception $exception){
+			$OUT->set_status_header($exception->getCode(), lang($exception->getMessage()));
+			if(!$IN->is_ajax_request()){
+				show_error(lang($exception->getMessage()), NULL);
+			}
+		}
 	}
 
 

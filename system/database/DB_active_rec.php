@@ -30,6 +30,7 @@ class CI_DB_active_record extends CI_DB_driver {
 
 	var $ar_select				= array();
 	var $ar_distinct			= FALSE;
+	var $ar_found_rows			= FALSE;//uicestone 2013/10/27
 	var $ar_from				= array();
 	var $ar_join				= array();
 	var $ar_where				= array();
@@ -244,6 +245,21 @@ class CI_DB_active_record extends CI_DB_driver {
 	}
 
 	// --------------------------------------------------------------------
+
+	/**
+	 * FOUND_ROWS
+	 *
+	 * Sets a flag which tells the query string compiler to add SQL_CALC_FOUND_ROWS
+	 * uicestone 2013/10/27
+	 * 
+	 * @param	bool
+	 * @return	object
+	 */
+	public function found_rows($val = TRUE)
+	{
+		$this->ar_found_rows = (is_bool($val)) ? $val : TRUE;
+		return $this;
+	}
 
 	/**
 	 * From
@@ -538,9 +554,10 @@ class CI_DB_active_record extends CI_DB_driver {
 			return;
 		}
 
-		if ( ! is_array($values))
+		//uicestone 2013/5/24 work around with empty input
+		if(is_null($values) || $values === array())
 		{
-			$values = array($values);
+			$values = array(NULL);
 		}
 
 		$not = ($not) ? ' NOT' : '';
@@ -703,7 +720,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	 * @param	string
 	 * @return	object
 	 */
-	public function group_by($by)
+	public function group_by($by, $escape=true)//增加不转义选项 uicestone 2013/4/8
 	{
 		if (is_string($by))
 		{
@@ -716,11 +733,11 @@ class CI_DB_active_record extends CI_DB_driver {
 
 			if ($val != '')
 			{
-				$this->ar_groupby[] = $this->_protect_identifiers($val);
+				$this->ar_groupby[] = $escape ? $this->_protect_identifiers($val) : $val;//增加不转义选项 uicestone 2013/4/8
 
 				if ($this->ar_caching === TRUE)
 				{
-					$this->ar_cache_groupby[] = $this->_protect_identifiers($val);
+					$this->ar_cache_groupby[] = $escape ? $this->_protect_identifiers($val) : $val;//增加不转义选项 uicestone 2013/4/8
 					$this->ar_cache_exists[] = 'groupby';
 				}
 			}
@@ -1243,6 +1260,57 @@ class CI_DB_active_record extends CI_DB_driver {
 		return $this->query($sql);
 	}
 
+	/**
+	 * On Duplicate Key Update
+	 *
+	 * Compiles an on duplicate key update string and runs the query
+	 * uicestone 2013/10/27
+	 * 
+	 * @author    Chris Miller <chrismill03@hotmail.com>
+	 * @since     1.6.2
+	 * @access    public
+	 * @param     string    the table to retrieve the results from
+	 * @param     array     an associative array of update value
+	 * @return    object
+	 */
+
+	function upsert($table = '', $set = NULL )
+	{
+		if ( ! is_null($set))
+		{
+			$this->set($set);
+		}
+
+		if (count($this->ar_set) == 0)
+		{
+				if ($this->db_debug)
+			{
+					return $this->display_error('db_must_use_set');
+			}
+				return FALSE;
+		}
+
+		if ($table == '')
+		{
+			if ( ! isset($this->ar_from[0]))
+			{
+				if ($this->db_debug)
+				{
+					return $this->display_error('db_must_set_table');
+				}
+				return FALSE;
+			}
+
+			$table = $this->ar_from[0];
+		}
+
+
+		$sql = $this->_upsert($this->_protect_identifiers($this->dbprefix.$table), $this->ar_set );
+
+		$this->_reset_write();
+		return $this->query($sql);
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -1685,7 +1753,17 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 		else
 		{
-			$sql = ( ! $this->ar_distinct) ? 'SELECT ' : 'SELECT DISTINCT ';
+			//$sql = ( ! $this->ar_distinct) ? 'SELECT ' : 'SELECT DISTINCT ';
+			//uicestone 2013/10/27 添加FOUND_ROWS支持
+			$sql = 'SELECT ';
+			
+			if($this->ar_distinct){
+				$sql.='DISTINCT ';
+			}
+			
+			if($this->ar_found_rows){
+				$sql.='SQL_CALC_FOUND_ROWS ';
+			}
 
 			if (count($this->ar_select) == 0)
 			{
