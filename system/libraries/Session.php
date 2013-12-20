@@ -91,7 +91,8 @@ class CI_Session {
 		// Are we using a database?  If so, load it
 		if ($this->sess_use_database === TRUE AND $this->sess_table_name != '')
 		{
-			$this->CI->load->database();
+			//$this->CI->load->database();
+			$this->db = $this->CI->load->database('default', true);//Seperate the DB object of Session from main controller. uicestone 2013/12/20
 		}
 
 		// Set the "now" time.  Can either be GMT or server time, based on the
@@ -128,8 +129,6 @@ class CI_Session {
 		// Delete expired sessions if necessary
 		$this->_sess_gc();
 		
-		$this->db=$this->CI->db; // uicestone 2013/12/20
-
 		log_message('debug', "Session routines successfully run");
 	}
 
