@@ -41,6 +41,16 @@
 $route['default_controller'] = "index";
 $route['404_override'] = '';
 
+$route['article/(:any)'] = 'article/index/$1';
+$route['category/(:any)'] = 'category/index/$1';
+
+$route['signup'] = 'user/signup';
+$route['login'] = 'user/login';
+$route['logout'] = 'user/logout';
+$route['profile'] = 'user/profile';
+$route['order'] = 'user/order';
+$route['card'] = 'user/card';
+$route['repository'] = 'user/repository';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
