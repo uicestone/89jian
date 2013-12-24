@@ -27,7 +27,7 @@
 class CI_Form_validation {
 
 	protected $CI;
-	protected $_field_data			= array();
+	public $_field_data			= array();
 	protected $_config_rules		= array();
 	protected $_error_array			= array();
 	protected $_error_messages		= array();

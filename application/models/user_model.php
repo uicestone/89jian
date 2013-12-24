@@ -2,11 +2,9 @@
 class User_model extends Object_model{
 	
 	var $name='';
+	var $groups=array();
 	
-	var $groups=array();//当前用户user.id和直接或间接所在组的所有id
-	var $groups_name=array();//当前用户直接或间接所在组的代号
-	
-	static $field;
+	static $fields;
 	
 	function __construct(){
 		parent::__construct();
@@ -14,6 +12,8 @@ class User_model extends Object_model{
 		$this->table='user';
 		
 		self::$fields=array(
+			'name'=>'',
+			'email'=>'',
 			'alias'=>'',//别名
 			'password'=>''//密码
 		);
@@ -23,7 +23,7 @@ class User_model extends Object_model{
 		isset($id) && $this->id=$id;
 		
 		if(is_null($this->id) && $this->session->userdata('user_id')){
-			$this->id=$this->session->userdata('user_id');
+			$this->id=intval($this->session->userdata('user_id'));
 		}
 		
 		if(!$this->id){
@@ -32,8 +32,7 @@ class User_model extends Object_model{
 		
 		$user=$this->fetch();
 		$this->name=$user['name'];
-		$this->groups[]=$this->id;
-		$this->groups_name=explode(',',$user['group']);
+		$this->groups=explode(',',$user['group']);
 
 		$this->config->user=$this->config();
 	}
@@ -41,19 +40,19 @@ class User_model extends Object_model{
 	function getList(array $args=array()){
 		
 		$this->db
-			->join('people','user.id = people.id','inner')
-			->where('object.company',$this->company->id)
-			->where('object.display',true);
-		
-		$args+=array('display'=>false,'company'=>false);
+			->join('object','user.id = object.id','inner')
+			->where('object.company',$this->company->id);
 		
 		return parent::getList($args);
 	}
 	
 	function add(array $data){
+		
+		$data['type'] = 'user';
+		
 		$insert_id=parent::add($data);
 
-		$data=array_intersect_key($data, self::$fields);
+		$data=array_merge(self::$fields,array_intersect_key($data,self::$fields));
 		
 		$data['id']=$insert_id;
 		$data['company']=$this->company->id;
@@ -99,24 +98,17 @@ class User_model extends Object_model{
 	}
 	
 	/**
-	 * 根据用户名或uid直接为其设置登录状态
+	 * 根据uid直接为其设置登录状态
 	 */
-	function sessionLogin($uid=NULL,$username=NULL){
-		$this->db->select('user.id,user.`group`,user.username,staff.position')
+	function sessionLogin($uid){
+		$this->db->select('user.*')
 			->from('user')
-			->join('staff','user.id = staff.id','left');
+			->where('user.id',$uid);
 
-		if(isset($uid)){
-			$this->db->where('user.id',$uid);
-		}
-		elseif(!is_null($username)){
-			$this->db->where('user.name',$username);
-		}
-		
 		$user=$this->db->get()->row_array();
 		
 		if($user){
-			$this->session->set_userdata('user/id', $user['id']);
+			$this->session->set_userdata('user_id', $user['id']);
 			return true;
 		}
 		
@@ -133,87 +125,17 @@ class User_model extends Object_model{
 	/**
 	 * 判断是否以某用户组登录
 	 * $check_type要检查的用户组,NULL表示只检查是否登录
-	 * $refresh_permission会刷新用户权限，只需要在每次请求开头刷新即可
 	 */
-	function isLogged($check_type=NULL){
-		if(is_null($check_type)){
+	function isLogged($group=NULL){
+		if(is_null($group)){
 			if(empty($this->id)){
 				return false;
 			}
-		}elseif(empty($this->groups) || !in_array($check_type,$this->group)){
+		}elseif(empty($this->groups) || !in_array($group,$this->groups)){
 			return false;
 		}
 
 		return true;
-	}
-	
-	function inTeam($team){
-		if(array_key_exists($team, $this->groups)){
-			return true;
-		}
-		
-		if(in_subarray($team, $this->groups, 'num')){
-			return true;
-		}
-		
-		if(in_subarray($team, $this->groups,'name')){
-			return true;
-		}
-		
-		return false;
-	}
-
-	function generateNav(){
-		
-		$query="
-			SELECT * FROM (
-				SELECT * FROM nav
-				WHERE (company_type is null or company_type = '{$this->company->type}')
-					AND (company ={$this->company->id} OR company IS NULL)
-					AND (team IS NULL OR team{$this->db->escape_int_array(array_keys($this->groups))})
-				ORDER BY company_type DESC, company DESC, team DESC
-			)nav_ordered
-			GROUP BY href
-			ORDER BY parent, `order`
-		";
-				
-		$result=$this->db->query($query);
-		
-		$nav=array();
-		
-		foreach($result->result() as $row){
-			if(is_null($row->parent)){
-				$nav[0][]=$row;
-			}else{
-				$nav[$row->parent][]=$row;
-			}
-		}
-		
-		function generate($nav,$parent=0,$level=0){
-		
-			$out='<ul level="'.$level.'">';
-
-			foreach($nav[$parent] as $nav_item){
-				$out.='<li href="'.$nav_item->href.'">';
-				if(isset($nav[$nav_item->id])){
-					$out.='<span class="arrow"><img src="images/arrow_r.png" alt=">" /></span>';
-				}
-				$out.='<a href="'.$nav_item->href.'" '.(isset($nav[$nav_item->id])?'':'class="dink"').'>'.$nav_item->name.'</a>';
-				if($nav_item->add_href){
-					$out.='<a href="'.$nav_item->add_href.'" class="add"> <span style="font-size:12px;color:#CEDDEC">+</span></a>';
-				}
-				if(isset($nav[$nav_item->id])){
-					$out.=generate($nav,$nav_item->id,$level+1);
-				}
-				$out.='</li>';
-
-			}
-			$out.='</ul>';
-				
-			return $out;
-		}
-		
-		return generate($nav);
 	}
 	
 	/**
@@ -272,7 +194,7 @@ class User_model extends Object_model{
 				$value=json_encode($value);
 			}
 			
-			return $this->db->upsert('user_config', array('value'=>$value));
+			return $this->db->upsert('user_config', array('user'=>$this->id,'key'=>$key,'value'=>$value));
 		}
 	}
 

@@ -1,9 +1,9 @@
-<?$this->view('header')?>
+<?php $this->view('header'); ?>
 	<div class="title">
 		<h1>注册</h1>
 	</div>
 	<div class="main">
-		<div id="left" class="span5"><img src="style/register-banner.png"></div>
+		<div id="left" class="span5"></div>
 		<div class="span7">
 			<form id="registerform" method="post" class="form-horizontal">
 				<input name="forward"   type="hidden" value='<?//=$forward?>' />
@@ -47,7 +47,7 @@
 					<div class="controls">
 						<label class="checkbox" for="agree">
 							<input name="agree" id="agree" type="checkbox"<?=set_checkbox('agree','on')?> />
-							<span>同意"<a href="/wit/9" target="_blank">Witower智塔用户协议</a>"</span>
+							<span>同意"<a href="/article/user-term" target="_blank">用户协议</a>"</span>
 							<span class="label label-important"><?=form_error('agree')?></span>
 						</label>
 					</div>
@@ -61,5 +61,4 @@
 			</form>
 		</div>
 	</div>
-<div class="c-b"></div>
-<?$this->view('footer')?>
+<?php $this->view('footer'); ?>

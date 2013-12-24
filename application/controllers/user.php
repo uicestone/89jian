@@ -79,7 +79,7 @@ class User extends LB_Controller{
 					redirect(urldecode($this->input->post('forward')));
 				}
 			}catch(Exception $e){
-				show_error($e->getMessage());
+				
 			}
 		}
 		

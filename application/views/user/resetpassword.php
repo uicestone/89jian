@@ -1,4 +1,4 @@
-<?$this->view('header')?>
+<?php $this->view('header'); ?>
 	<div class="title">
 		<h1>找回密码</h1>
 	</div>
@@ -52,5 +52,4 @@
 			</form>
 		</div>
 	</div>
-<div class="c-b"></div>
-<?$this->view('footer')?>
+<?php $this->view('footer'); ?>
