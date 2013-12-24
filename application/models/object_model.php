@@ -286,7 +286,7 @@ class Object_model extends CI_Model{
 				}
 			}
 			
-			elseif(in_array($arg_name,array('name','type'))){
+			elseif(in_array($arg_name,array('name','type','uid','time'))){
 				$where[] = $this->_parse_criteria($arg_value, '`object`.'.$arg_name);
 			}
 			

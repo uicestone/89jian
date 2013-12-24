@@ -1,52 +1,47 @@
 <?php $this->view('header'); ?>
-	<div id="left" class="span9">
-		<form method="post" class="form-horizontal" enctype="multipart/form-data">
-			<div class="model model-b tab-content">
-				<?=$this->view('alert')?>
+	<div class="span9">
+		<form method="post" class="form-horizontal">
+			<div class="tab-content">
+				<?php $this->view('alert'); ?>
 				<div id="address" class="main tab-pane">
-					<div class="warning">
-						<p>如果你在智塔活动中获得了奖品或者获得奖金，我们将按照以下收货人信息发送奖品或者汇款到你指定的银行账
-							户，所以请填写真实的收货信息，注*为必填项。</p>
-					</div>
-
 					<div class="control-group">
-						<label class="control-label">* 收货人姓名：</label><input type="text" name="profiles[收货人姓名]" value="<?=set_value('profiles[收货人姓名]',$profiles['收货人姓名'])?>">
+						<label class="control-label">* 收货人姓名：</label><input type="text" name="meta[收货人姓名]" value="<?=set_value('meta[收货人姓名]',$meta['收货人姓名'])?>">
 					</div>	
 					<div class="control-group">
 						<label class="control-label">* 证件类型：</label>
-						<select name="profiles[证件类型]">
-							<?=options(array('身份证','军官证','港澳台胞证','护照'), set_value('profiles[证件类型]',$profiles['证件类型']),'证件类型')?>
+						<select name="meta[证件类型]">
+							<?=options(array('身份证','军官证','港澳台胞证','护照'), set_value('meta[证件类型]',$meta['证件类型']),'证件类型')?>
 						</select>
 						
 					</div>	
 					<div class="control-group">
-						<label class="control-label">* 证件号码：</label><input type="text" name="profiles[证件号码]" value="<?=set_value('profiles[证件号码]',$profiles['证件号码'])?>">
+						<label class="control-label">* 证件号码：</label><input type="text" name="meta[证件号码]" value="<?=set_value('meta[证件号码]',$meta['证件号码'])?>">
 					</div>	
 					<div class="control-group">
-						<label class="control-label">* 银行账号：</label><input type="text" name="profiles[银行账号]" value="<?=set_value('profiles[银行账号]',$profiles['银行账号'])?>">
+						<label class="control-label">* 银行账号：</label><input type="text" name="meta[银行账号]" value="<?=set_value('meta[银行账号]',$meta['银行账号'])?>">
 					</div>	
 					<div class="control-group">
 						<label class="control-label">* 所在地：</label>
-						<select name="profiles[邮寄省市]">
-							<?=options(array('上海'), set_value('profiles[邮寄省市]',$profiles['邮寄省市']), '省市')?>
+						<select name="meta[邮寄省市]">
+							<?=options(array('上海'), set_value('meta[邮寄省市]',$meta['邮寄省市']), '省市')?>
 						</select>
-						<select name="profiles[邮寄地区]">
-							<?=options(array('徐汇','浦东','黄浦','静安','普陀','闸北','杨浦','虹口','宝山','嘉定','青浦','闵行','松江','奉贤'), set_value('profiles[邮寄地区]',$profiles['邮寄地区']),'地区')?>
+						<select name="meta[邮寄地区]">
+							<?=options(array('徐汇','浦东','黄浦','静安','普陀','闸北','杨浦','虹口','宝山','嘉定','青浦','闵行','松江','奉贤'), set_value('meta[邮寄地区]',$meta['邮寄地区']),'地区')?>
 						</select>
 					</div>	
 					<div class="control-group">
-						<label class="control-label">* 详细地址：</label><input type="text" name="profiles[详细地址]" value="<?=set_value('profiles[详细地址]',$profiles['详细地址'])?>">
+						<label class="control-label">* 详细地址：</label><input type="text" name="meta[详细地址]" value="<?=set_value('meta[详细地址]',$meta['详细地址'])?>">
 					</div>	
 					<div class="control-group">
-						<label class="control-label">* 邮政编码：</label><input type="text" name="profiles[邮政编码]" value="<?=set_value('profiles[邮政编码]',$profiles['邮政编码'])?>">
+						<label class="control-label">* 邮政编码：</label><input type="text" name="meta[邮政编码]" value="<?=set_value('meta[邮政编码]',$meta['邮政编码'])?>">
 					</div>	
 					<div class="control-group">
-						<label class="control-label">* 联系电话：</label><input type="text" name="profiles[联系电话]" value="<?=set_value('profiles[联系电话]',$profiles['联系电话'])?>">
+						<label class="control-label">* 联系电话：</label><input type="text" name="meta[联系电话]" value="<?=set_value('meta[联系电话]',$meta['联系电话'])?>">
 					</div>	
 					<div class="control-group">
 						<label class="control-label">* 送货时间：</label>
-						<select name="profiles[送货时间]">
-							<?=options(array('工作日','双休日','不限'), set_value('profiles[送货时间]',$profiles['送货时间']),'送货时间')?>
+						<select name="meta[送货时间]">
+							<?=options(array('工作日','双休日','不限'), set_value('meta[送货时间]',$meta['送货时间']),'送货时间')?>
 						</select>
 					</div>	
 				</div>

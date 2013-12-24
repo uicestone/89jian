@@ -7,7 +7,9 @@ class Test extends LB_Controller{
 	}
 	
 	function index(){
-		
+		var_export($this->session->all_userdata());
+		echo "\n";
+		var_export($this->user);
 	}
 	
 }

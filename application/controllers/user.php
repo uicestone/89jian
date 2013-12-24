@@ -361,12 +361,22 @@ class User extends LB_Controller{
 	/**
 	 * 我的订单
 	 */
-	function order(){
+	function order($id = null){
 		if(is_null($this->user->id)){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 		
-		$this->load->view('user/order');
+		if(is_null($id)){
+			
+			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->id,'with_status'=>true,'with_meta'=>true))['data'];
+
+			$this->load->view('user/order', compact('orders'));
+		}
+		else{
+			$order = $this->object->fetch($id);
+			$this->load->view('user/order_detail', compact('order'));
+		}
+		
 		
 	}
 	
