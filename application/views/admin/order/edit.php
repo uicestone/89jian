@@ -15,10 +15,10 @@
 	</table>
 	
 	<table>
-		<?php foreach($order['meta'] as $meta){ ?>
+		<?php foreach($order['meta'] as $key => $value){ ?>
 		<tr>
-			<td><?=$meta['key']?></td>
-			<td><?=$meta['value']?></td>
+			<td><?=$key?></td>
+			<td><?=implode(', ', $value)?></td>
 		</tr>
 		<?php } ?>
 	</table>

@@ -40,21 +40,21 @@
 								<button class="btn btn-primary" type="submit" name="submit">保存</button>
 							</div>
 						</div>
-<?php if(isset($user['id'])){ ?>
+						<?php if(isset($user['id'])){ ?>
 						<table class="table table-bordered">
 							<thead>
 								<tr><th>资料项</th><th>内容</th></tr>
 							</thead>
 							<tbody>
-								<?php foreach ($meta as $key => $value) { ?>
+								<?php foreach ($user['meta'] as $key => $value) { ?>
 									<tr> 
 										<td><?=$key?></td>
-										<td><?=$value?></td>
+										<td><?=implode(', ',$value)?></td>
 									</tr>
 								<?php } ?>
 							</tbody>
 						</table>
-<?php } ?>
+						<?php } ?>
 					</form>
 				</div>
 			</div>

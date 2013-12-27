@@ -9,8 +9,6 @@ class User_model extends Object_model{
 	function __construct(){
 		parent::__construct();
 		
-		$this->table='user';
-		
 		self::$fields=array(
 			'name'=>'',
 			'email'=>'',
@@ -37,11 +35,14 @@ class User_model extends Object_model{
 		$this->config->user=$this->config();
 	}
 	
+	function fetch($id=null, $args = array()){
+		$this->db->join('user','user.id = object.id','inner');
+		return parent::fetch($id, $args);
+	}
+	
 	function getList(array $args=array()){
 		
-		$this->db
-			->join('object','user.id = object.id','inner')
-			->where('object.company',$this->company->id);
+		$this->db->join('user','user.id = object.id','inner');
 		
 		return parent::getList($args);
 	}
@@ -57,7 +58,7 @@ class User_model extends Object_model{
 		$data['id']=$insert_id;
 		$data['company']=$this->company->id;
 
-		$this->db->insert($this->table,$data);
+		$this->db->insert('user',$data);
 		
 		return $insert_id;
 	}

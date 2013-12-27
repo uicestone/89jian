@@ -52,5 +52,8 @@ $route['order'] = 'user/order';
 $route['card'] = 'user/card';
 $route['repository'] = 'user/repository';
 
+$route['admin/(:any)/(:any)'] = 'admin/$1edit/$2';
+$route['admin/(:any)'] = 'admin/$1list';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -9,8 +9,6 @@ class Object_model extends CI_Model{
 	var $status;
 	var $tags;//具体对象的标签
 	
-	var $table='object';//具体对象存放于数据库的表名
-	
 	static $fields=array(
 		'name'=>NULL,
 		'type'=>'',
@@ -79,14 +77,10 @@ class Object_model extends CI_Model{
 				'object.company'=>$this->company->id,
 			));
 		
-		if($this->table!=='object'){
-			$this->db->join($this->table,"object.id = {$this->table}.id",'inner');
-		}
-
 		$object=$this->db->get()->row_array();
 		
 		if(!$object){
-			throw new Exception(lang($this->table).' '.$id.' '.lang('not_found'), 404);
+			throw new Exception(lang('object').' '.$id.' '.lang('not_found'), 404);
 		}
 		
 		foreach(array('meta','relative','status','tag') as $field){
@@ -159,10 +153,6 @@ class Object_model extends CI_Model{
 		
 		$this->db->stop_cache();
 		
-		if($this->table!=='object'){
-			$this->db->delete($this->table);
-		}
-		
 		$this->db->delete('object');
 		
 		$this->db->flush_cache();
@@ -180,10 +170,6 @@ class Object_model extends CI_Model{
 			->from('object')
 			->where('object.company',$this->company->id)
 			->like('object.name', $part_of_name);
-		
-		if($this->table!=='object'){
-			$this->db->join($this->table,"object.id = {$this->table}.id",'inner');
-		}
 		
 		return $this->db->get()->result_array();
 	}
@@ -218,8 +204,8 @@ class Object_model extends CI_Model{
 			return $field.' = '.$this->db->escape($args);
 		}
 		
-		//如果参数数组全是数字键，则作in处理
-		if(array_reduce(array_keys($args), function($result, $item){
+		//如果参数数组不为空，且全是数字键，则作in处理
+		if($args && array_reduce(array_keys($args), function($result, $item){
 			return $result && is_integer($item);
 		}, true)){
 			$args = array('in'=>$args);
