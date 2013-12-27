@@ -6,7 +6,7 @@
 		<div id="left" class="span5"></div>
 		<div class="span7">
 			<form id="registerform" method="post" class="form-horizontal">
-				<input name="forward"   type="hidden" value='<?//=$forward?>' />
+				<input name="forward"   type="hidden" value='<?=$this->input->get('forward')?>' />
 				<div class="control-group">
 					<label class="control-label" for="email">E-mail：</label>
 					<div class="controls">

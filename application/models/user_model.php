@@ -14,7 +14,7 @@ class User_model extends Object_model{
 		self::$fields=array(
 			'name'=>'',
 			'email'=>'',
-			'alias'=>'',//别名
+			'alias'=>NULL,//别名
 			'password'=>''//密码
 		);
 	}
@@ -108,6 +108,7 @@ class User_model extends Object_model{
 		$user=$this->db->get()->row_array();
 		
 		if($user){
+			$this->initialize($user['id']);
 			$this->session->set_userdata('user_id', $user['id']);
 			return true;
 		}

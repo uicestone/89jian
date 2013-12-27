@@ -68,14 +68,14 @@ class Object_model extends CI_Model{
 		
 		if(is_null($id)){
 			$id=$this->id;
-		}else{
+		}elseif(!array_key_exists('set_id', $args) || $args['set_id']){
 			$this->id=$id;
 		}
 		
 		$this->db
 			->from('object')
 			->where(array(
-				'object.id'=>$this->id,
+				'object.id'=>$id,
 				'object.company'=>$this->company->id,
 			));
 		
@@ -86,7 +86,7 @@ class Object_model extends CI_Model{
 		$object=$this->db->get()->row_array();
 		
 		if(!$object){
-			throw new Exception(lang($this->table).' '.$this->id.' '.lang('not_found'), 404);
+			throw new Exception(lang($this->table).' '.$id.' '.lang('not_found'), 404);
 		}
 		
 		foreach(array('meta','relative','status','tag') as $field){
@@ -431,7 +431,19 @@ class Object_model extends CI_Model{
 			return $this->db->get()->row_array();
 		}
 		
-		return $this->db->get()->result_array();
+		$result = $this->db->get()->result_array();
+		
+		if(array_key_exists('as_rows', $args)){
+			return $result;
+		}
+		
+		$meta = array();
+		
+		foreach($result as $row){
+			$meta[$row['key']][] = $row['value'];
+		}
+		
+		return $meta;
 		
 	}
 	
@@ -468,6 +480,26 @@ class Object_model extends CI_Model{
 		}
 		
 		return $this;
+	}
+	
+	/**
+	 * 给$key项增加$value
+	 * 若$key项不存在则先创建
+	 * @param string $key
+	 * @param string $value
+	 */
+	function increaseMeta($key, $value){
+		$meta = $this->getMeta();
+		if(array_key_exists($key, $meta)){
+			$this->db->set("`value` = `value` + ".$this->db->escape($value), null, false)
+				->where('object_meta.object', $this->id)
+				->where('object_meta.key', $key)
+				->update('object_meta')
+				->limit(1);
+		}
+		else{
+			$this->addMeta(compact('key', 'value'));
+		}
 	}
 	
 	/**
@@ -511,9 +543,8 @@ class Object_model extends CI_Model{
 	
 	function getRelative(array $args = array()){
 		
-		$this->db->select('object.*, object_relationship.*')
+		$this->db
 			->from('object_relationship')
-			->join('object','object.id = object_relationship.relative','inner')
 			->where('object_relationship.object',$this->id);
 		
 		if(array_key_exists('relation', $args)){
@@ -525,7 +556,19 @@ class Object_model extends CI_Model{
 			return $this->db->get()->row_array();
 		}
 		
-		return $this->db->get()->result_array();
+		$result = $this->db->get()->result_array();
+		
+		if(array_key_exists('as_rows', $args)){
+			return $result;
+		}
+		
+		$relatives = array();
+		
+		foreach($result as $row){
+			$relatives[$row['relation']][] = $this->fetch($row['relative'], array('with_meta'=>false, 'with_relative'=>false, 'with_status'=>false, 'with_tag'=>false, 'set_id'=>false));
+		}
+		
+		return $relatives;
 		
 	}
 	
@@ -545,8 +588,13 @@ class Object_model extends CI_Model{
 	
 	function addRelatives(array $data){
 		
-		foreach($data as $row){
-			$this->addRelative($row);
+		foreach($data as $index => $row){
+			if(is_integer($index)){
+				$this->addRelative($row);
+			}
+			else{
+				$this->addRelative(array('relation'=>$index,'relative'=>$row));
+			}
 		}
 		
 		return $this;
@@ -584,9 +632,10 @@ class Object_model extends CI_Model{
 		
 		$this->db->select('object_status.*')
 			->select('UNIX_TIMESTAMP(date) timestamp', false)
-			->select('DATE(date) date')
+			->select('date')
 			->from('object_status')
-			->where('object',$this->id);
+			->where('object',$this->id)
+			->order_by('date');
 		
 		if(array_key_exists('id', $args)){
 			$this->db->where('object_status.id',$args['id']);

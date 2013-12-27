@@ -20,23 +20,23 @@ class Buy extends LB_Controller{
 	 */
 	function productOption(){
 		
+		if($this->user->config('incompleted_order')){
+			redirect('buy/logistic');
+		}
+		
 		if($this->input->post() !== false){
 			
 			$order_id = $this->object->add(array(
 				'type'=>'order',
 				'name'=>$this->object->fetch($this->input->post('package'))['name'].' '.$this->input->post('number').'次',
 				'meta'=>array(
-					array(
-						'key'=>'number',
-						'value'=>$this->input->post('number')
-					),
-					array(
-						'key'=>'is_card',
-						'value'=>$this->input->post('is_card')
-					)
+					'number'=>$this->input->post('number'),
+					'is_card'=>$this->input->post('is_card'),
+					'date_first_delivery'=>$this->input->post('date_first_delivery')
 				),
 				'relative'=>array(
 					array(
+						'relation'=>'package',
 						'relative'=>$this->input->post('package')
 					)
 				),
@@ -66,6 +66,8 @@ class Buy extends LB_Controller{
 			$this->user->addMetas($this->input->post('meta'));
 			
 			$this->object->addStatus(array('name'=>'下单'));
+			
+			$this->user->config('incompleted_order', false);
 			
 			redirect('user/order');
 			

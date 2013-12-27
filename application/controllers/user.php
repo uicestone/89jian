@@ -111,6 +111,11 @@ class User extends LB_Controller{
 			$user=$this->user->verify($this->input->post('username'), $this->input->post('password'));
 			if($user){
 				$this->user->sessionLogin($user['id']);
+				
+				if(!$this->input->post('forward') && $this->user->isLogged('admin')){
+					redirect('admin');
+				}
+				
 				redirect(urldecode($this->input->post('forward')));
 			}else{
 				$alert[]=array('title'=>'错误：','message'=>'用户名或密码错误');
@@ -368,7 +373,7 @@ class User extends LB_Controller{
 		
 		if(is_null($id)){
 			
-			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->id,'with_status'=>true,'with_meta'=>true))['data'];
+			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->id,'status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true))['data'];
 
 			$this->load->view('user/order', compact('orders'));
 		}

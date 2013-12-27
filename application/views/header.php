@@ -12,8 +12,14 @@
 			<li><a href="/article/logistic">配送</a></li>
 			<li><a href="/user">会员专区</a></li>
 		</ul>
-		<?php if($this->user->isLogged()){ ?>
 		<ul>
+		<?php if($this->user->isLogged()){ ?>
 			<li><?=$this->user->name?></li>
-		</ul>
+			<li><a href="/logout">退出</a></li>
+			<?php if($this->user->isLogged('admin')){ ?>
+			<li><a href="/admin">管理</a></li>
+			<?php } ?>
+		<?php }else{ ?>
+			<li><a href="/login">登录</a></li>
 		<?php } ?>
+		</ul>

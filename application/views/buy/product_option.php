@@ -1,7 +1,8 @@
 <form method="post">
-	<input type="radio" name="package" value="2" checked="checked">388套餐
-	<input type="text" name="number" />周
-	<input type="radio" name="is_card" value="no">现货
-	<input type="radio" name="is_card" value="yes">礼品卡
+	<?=radio(array_column($this->object->getList(array('type'=>'package'))['data'], 'name', 'id'), 'package', NULL, true)?>
+	<input type="number" name="number" />周
+	<input type="radio" name="is_card" value="">现货
+	<input type="radio" name="is_card" value="1">礼品卡
+	首次送餐日：<input type="date" name="date_first_delivery" />
 	<button type="submit">下一步</button>
 </form>

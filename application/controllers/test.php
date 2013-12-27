@@ -10,6 +10,7 @@ class Test extends LB_Controller{
 		var_export($this->session->all_userdata());
 		echo "\n";
 		var_export($this->user);
+		echo "\n";
 	}
 	
 }

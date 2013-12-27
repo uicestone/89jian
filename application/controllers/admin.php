@@ -23,7 +23,49 @@ class Admin extends LB_Controller{
 	 * @param int $id
 	 */
 	function order($id = null){
-		$this->load->view('admin/order');
+		
+		if(is_null($id)){
+			
+			if($this->input->post('confirm') !== false && is_array($this->input->post('checked'))){
+				foreach($this->input->post('checked') as $checked){
+					$this->object->id = intval($checked);
+					$this->object->addStatus(array('name'=>'已确认'));
+					
+					$order = $this->object->fetch();
+					
+					if(end($order['meta']['is_card'])){
+						$this->object->add(array(
+							'type'=>'card',
+							'name'=>end($order['meta']['number']).'次 '.end($order['relative']['package'])['name'].'卡',
+							'relative'=>array(
+								array('relation'=>'user','relative'=>$order['uid']),
+								array('relation'=>'package','relative'=>end($order['relative']['package'])['id']),
+							),
+							'meta'=>array('次数'=>end($order['meta']['number']))
+						));
+					}
+					else{
+						for($i=0; $i<end($order['meta']['number']); $i++){
+							$this->object->add(array(
+								'type'=>'meal',
+								'name'=>end($order['relative']['package'])['name'],
+								'relative'=>array('package'=>end($order['relative']['package'])['id']),
+								'meta'=>array('delivery'=>date('Y-m-d',strtotime(end($order['meta']['date_first_delivery']))+$i*7*86400))
+							));
+						}
+					}
+				}
+			}
+			
+			$orders = $this->object->getList(array('type'=>'order','status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true))['data'];
+			
+			$this->load->view('admin/order', compact('orders'));
+		}
+		else{
+			$order = $this->object->fetch($id);
+			$this->load->view('admin/order_detail', compact('order'));
+		}
+		
 	}
 	
 	/**
