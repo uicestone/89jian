@@ -1,0 +1,113 @@
+#poetry .hd,
+#poetry .article .origin,
+#team .title,
+#team .content,
+#team .slogan {
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+}
+#poetry .hd .title,
+#poetry .hd .author {
+  font-family: "Songti SC", "SimSun", serif;
+}
+#poetry .container {
+  zoom: 1;
+  padding-top: 80px;
+  position: relative;
+  padding-bottom: 265px;
+  background: url("img/about-section-bg-1.png") no-repeat bottom;
+}
+#poetry .container:before,
+#poetry .container:after {
+  content: "";
+  display: table;
+}
+#poetry .container:after {
+  clear: both;
+}
+#poetry .hd {
+  position: absolute;
+  right: 35px;
+  top: 80px;
+}
+#poetry .hd .title,
+#poetry .hd .author {
+  line-height: 1.1;
+  margin: 0;
+  font-size: 48px;
+}
+#poetry .article {
+  margin-right: 187px;
+  float: right;
+}
+#poetry .article .origin {
+  float: right;
+  margin: 0 auto;
+  font-size: 26px;
+  line-height: 1.5;
+}
+#poetry .article .origin p {
+  margin-bottom: 20px;
+}
+#poetry .article .scene {
+  margin-bottom: 42px;
+}
+#poetry .article .annotation .title {
+  font-size: 32px;
+}
+#poetry .article .annotation .content {
+  text-indent: 2em;
+  font-size: 20px;
+  line-height: 1.5;
+}
+#quality {
+  background-color: #1d3c35;
+  color: #fff;
+}
+#quality .container {
+  background: url("img/about-section-bg-2.png") no-repeat;
+  padding-bottom: 45px;
+}
+#quality .article {
+  margin-left: 390px;
+  padding-top: 85px;
+  padding-bottom: 10px;
+}
+#quality .article .title {
+  font-size: 32px;
+  margin-bottom: 35px;
+}
+#quality .article .content {
+  font-size: 20px;
+}
+#team .container {
+  zoom: 1;
+  background: url("img/about-section-bg-3.png") no-repeat left top;
+  position: relative;
+  height: 670px;
+  padding-top: 93px;
+  padding-bottom: 105px;
+}
+#team .container:before,
+#team .container:after {
+  content: "";
+  display: table;
+}
+#team .container:after {
+  clear: both;
+}
+#team .title {
+  float: right;
+  font-size: 48px;
+}
+#team .content {
+  float: right;
+  text-indent: 2em;
+  font-size: 25px;
+}
+#team .slogan {
+  position: absolute;
+  top: 100px;
+  left: 60px;
+  font-size: 25px;
+}
