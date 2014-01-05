@@ -8,6 +8,7 @@ body
 ul
     list-style-type: none
     padding: 0
+    margin: 0
 
 .container
     padding: 0
@@ -17,7 +18,7 @@ ul
     clearfix()
 
 .banner
-    background-color: #1e2f36
+    background-color: darkblue
     color: #fff
     .container
         position: relative
@@ -56,31 +57,46 @@ ul
 .navigation
     height: 40px
     line-height: 1
-    box-shadow: 0 5px 5px rgba(0,0,0,.2)
+    box-shadow: 0 0 5px rgba(0,0,0,.5)
     z-index: 999
     background-color: #fff
+    width:100%
     .navbar
         border: none
         min-height: 40px
-        color: #1e2f36
+        color: darkblue
         .navbar-nav
             > .active > a
-                color: #cf0019
+                color: red
             > li > a
                 color: inherit
                 padding: 10px 18px
+
+.breadcrumb
+    background-color: transparent
+    height: 50px
+    line-height: 50px
+    padding: 0
+    margin: 0
+    color: #000
+    a
+        color:inherit
+    .active
+        color: red
+    > li + li:before
+        color: #000
 
 .footer
     @extend $font-sans-serif
     background: url(img/wave-dot.png) repeat-x top
     height: 850px
-    background-color: #1e2f36
+    background-color: darkblue
     color: #fff
     .contact
         clearfix()
         padding-top: 97px
         padding-bottom: 46px
-        border-bottom: 1px solid #4b595e
+        border-bottom: 1px solid darkgreen
         .map
             width:506px
             height:260px
@@ -99,7 +115,7 @@ ul
     .link-groups
         padding-top: 32px
         padding-bottom: 22px
-        border-bottom: 1px solid #4b595e
+        border-bottom: 1px solid darkgreen
         clearfix()
         .group 
             .title
@@ -110,3 +126,20 @@ ul
     .copyright
         padding-top: 30px
         text-align:center
+
+.btn
+    color: darkblue
+    position: relative
+    height: 33px
+    padding: 0 15px
+    border: none
+    background:#fff url(img/btn.png) no-repeat left 1px
+    &:after
+        content:""
+        background:#fff url(img/btn.png) no-repeat right 1px
+        position: absolute
+        height: @height
+        width:12px
+        top: 0
+        right: 0
+

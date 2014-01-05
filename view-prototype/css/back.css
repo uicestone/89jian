@@ -1,0 +1,150 @@
+.form {
+  width: 2000px;
+  display: table-cell;
+  table-layout: fixed;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.main {
+  zoom: 1;
+  margin-bottom: 60px;
+}
+.main:before,
+.main:after {
+  content: "";
+  display: table;
+}
+.main:after {
+  clear: both;
+}
+.sidebar {
+  background: url("img/sidebar.png") no-repeat;
+  width: 210px;
+  float: left;
+  padding: 0 20px 20px;
+  margin-right: 33px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sidebar .block {
+  background: url("img/spliter-dash.png") no-repeat bottom;
+  padding: 20px 0;
+}
+.sidebar .block ul li a,
+.sidebar .block .title {
+  display: block;
+  padding: 0 5px;
+  color: #000;
+  font-size: 21px;
+}
+.sidebar .block ul li .active {
+  color: #fff;
+  background-color: #d21128;
+}
+.sidebar .block .title {
+  margin-bottom: 10px;
+}
+.sidebar .block .content p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.sidebar .block:last-child {
+  background: none;
+}
+.form {
+  zoom: 1;
+}
+.form:before,
+.form:after {
+  content: "";
+  display: table;
+}
+.form:after {
+  clear: both;
+}
+.form .head {
+  background-color: #1e2f36;
+  font-size: 21px;
+  color: #fff;
+  padding: 0 15px;
+}
+.form .row {
+  margin: 0;
+  padding: 25px 0;
+}
+.table thead tr th,
+.table tbody tr td {
+  background: url("img/td-spliter.png") repeat-y right top;
+  font-size: 15px;
+  border: 0;
+}
+.table-border:before /* 左上 */,
+.table-border:after /* 右下 */,
+.table:before /* 右上 */,
+.table:after /* 左下 */ {
+  content: "";
+  background-image: url("img/table-corner.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 13px;
+  height: 13px;
+}
+.table-border {
+  background: url("img/td-spliter.png");
+  background-position: left top;
+  background-repeat: repeat-y;
+  padding-left: 10px;
+  position: relative;
+}
+.table-border:before /* 左上 */ {
+  background-position: left top;
+  left: 0;
+  top: 0;
+}
+.table-border:after /* 右下 */ {
+  background-position: right bottom;
+  bottom: 0;
+  right: 0;
+}
+.table {
+  background-image: url("img/tr-spliter.png");
+  background-position: left top;
+  background-repeat: repeat-x;
+  table-layout: fixed;
+}
+.table:before /* 右上 */ {
+  background-position: right top;
+  right: 0;
+  top: 0;
+}
+.table:after /* 左下 */ {
+  background-position: left bottom;
+  bottom: 0;
+  left: 0;
+}
+.table tr {
+  background: url("img/tr-spliter.png") repeat-x left bottom;
+}
+.table thead tr th {
+  text-align: center;
+}
+.table tbody tr td {
+  padding: 8px 12px;
+  line-height: 1.8;
+}
+.table tbody tr td .title {
+  margin-bottom: 7px;
+}
+.table tbody tr td .btn {
+  margin: 12px 0;
+}
+.table tbody tr td p {
+  margin: 0;
+}
+.table tbody tr td img {
+  display: block;
+  width: 114px;
+  height: 114px;
+  background-color: #1e2f36;
+}

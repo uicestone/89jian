@@ -21,7 +21,6 @@
             }).addClass("sticky-ghost");
         }
 
-
         function fix(elem,top){
 
             elem.css({
@@ -43,32 +42,33 @@
             placeholder && placeholder.remove();
         }
 
-        var old_status = "unfix";
+        var current_status = "unfix";
 
         function computeSticky(){
             var win_scroll_top = $(win).scrollTop();
             if(elem_top - win_scroll_top < top){
-
-                fix(elem,top);
-                if(old_status !== "fix" && cb){
-                    cb({
+                if(current_status !== "fix"){
+                    fix(elem,top);
+                    cb && cb({
                         status:"fix",
                         elem:elem
                     });
-                    old_status = "fix";
+                    current_status = "fix";
                 }
             }else{
-                unfix(elem);
-                if(old_status !== "unfix" && cb){
-                    cb({
+                if(current_status !== "unfix"){
+                    unfix(elem);
+                    cb && cb({
                         status:"unfix",
                         elem:elem
                     });
-                    old_status = "unfix";
+                    current_status = "unfix";
                 }
             }
         }
-
+        $(win).on("resize",function(){
+           placeholder && current_status === "fix" && elem.css("width",placeholder.css("width"));
+        });
         $(win).on("scroll",computeSticky);
         $(computeSticky);
     }

@@ -1,0 +1,117 @@
+@import "nib"
+@import "mixins"
+
+.main
+    clearfix()
+    margin-bottom: 60px
+
+.sidebar
+    background:url(img/sidebar.png) no-repeat
+    width:210px
+    float:left
+    padding:0 20px 20px
+    margin-right: 33px
+    box-sizing:border-box
+    .block
+        background:url(img/spliter-dash.png) no-repeat bottom
+        padding:20px 0
+        ul li 
+            a
+                display: block
+                padding: 0 5px
+                color: #000
+                font-size: 21px
+            .active
+                color: #fff
+                background-color: #d21128
+        .title
+            @extend .sidebar .block ul li a
+            margin-bottom: 10px
+        .content p
+            font-size: 14px
+            margin-bottom: 5px
+        &:last-child
+            background:none
+
+.form 
+    @extend $adjustable-content
+    clearfix()
+    .head
+        background-color:darkblue
+        font-size:21px
+        color:#fff
+        padding:0 15px
+    .row
+        margin:0
+        padding:25px 0
+
+
+$table-cell
+    background: url(img/td-spliter.png) repeat-y right top
+    font-size: 15px
+    border: 0
+
+$table-border-corner
+    content:""
+    background-image: url(img/table-corner.png)
+    background-repeat: no-repeat
+    position: absolute
+    width: 13px
+    height: 13px
+
+.table-border
+    background: url(img/td-spliter.png)
+    background-position: left top
+    background-repeat: repeat-y
+    padding-left:10px
+    position: relative
+    &:before /* 左上 */
+        @extend $table-border-corner
+        background-position: left top
+        left: 0
+        top: 0
+    &:after /* 右下 */
+        @extend $table-border-corner
+        background-position: right bottom
+        background
+        bottom: 0
+        right: 0
+
+.table
+    &:before /* 右上 */
+        @extend $table-border-corner
+        background-position: right top
+        right: 0
+        top: 0
+    &:after /* 左下 */
+        @extend $table-border-corner
+        background-position: left bottom
+        background
+        bottom: 0
+        left: 0
+    background-image: url(img/tr-spliter.png)
+    background-position: left top
+    background-repeat: repeat-x
+    table-layout:fixed
+    tr
+        background: url(img/tr-spliter.png) repeat-x left bottom
+    thead tr
+        th
+            @extend $table-cell
+            text-align:center
+    tbody tr
+        td
+            @extend $table-cell
+            padding:8px 12px
+            line-height: 1.8
+            .title
+                margin-bottom: 7px
+            .btn
+                margin: 12px 0
+            p
+                margin: 0
+            img
+                display:block
+                width:114px
+                height:114px
+                background-color:darkblue

@@ -50,7 +50,7 @@
   margin-bottom: 20px;
 }
 #poetry .article .scene {
-  margin-bottom: 42px;
+  margin: 0 6px 42px 6px;
 }
 #poetry .article .annotation .title {
   font-size: 32px;
