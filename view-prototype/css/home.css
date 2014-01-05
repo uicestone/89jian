@@ -1,3 +1,7 @@
+.setfood .sets .head .title,
+.setfood .sets .head .content,
+.setfood .sets .list li,
+.setfood .others .selections .item .title .name,
 .enviroment .head,
 .enviroment .features .item,
 .enviroment .content,
@@ -14,6 +18,16 @@
   -webkit-writing-mode: vertical-rl;
   writing-mode: tb-rl;
   float: right;
+}
+.setfood .sets .list li .title .set,
+.setfood .sets .list li .title .price,
+.setfood .sets .list li .buy {
+  -webkit-writing-mode: horizontal-tb;
+  writing-mode: lr-tb;
+  float: none;
+}
+.setfood .sets .list li .title .price {
+  font-family: "Trajan Pro", serif;
 }
 .full-section {
   height: 502px;
@@ -41,6 +55,115 @@
 }
 .full-section.section-bg-4 {
   background: url("img/home-section-bg-4.jpg");
+}
+.setfood .sets {
+  zoom: 1;
+  background: url("img/vegetables.jpg") center bottom no-repeat;
+  padding-top: 70px;
+  padding-bottom: 440px;
+}
+.setfood .sets:before,
+.setfood .sets:after {
+  content: "";
+  display: table;
+}
+.setfood .sets:after {
+  clear: both;
+}
+.setfood .sets .head {
+  float: left;
+  width: 160px;
+  margin-left: 75px;
+}
+.setfood .sets .head .title {
+  font-size: 49px;
+  line-height: 1.3;
+}
+.setfood .sets .head .content {
+  font-size: 14px;
+  height: 160px;
+}
+.setfood .sets .list {
+  zoom: 1;
+  float: right;
+  margin-right: 57px;
+  width: 450px;
+}
+.setfood .sets .list:before,
+.setfood .sets .list:after {
+  content: "";
+  display: table;
+}
+.setfood .sets .list:after {
+  clear: both;
+}
+.setfood .sets .list li {
+  margin-left: 60px;
+}
+.setfood .sets .list li .title {
+  background: url("set-spliter.png") top right;
+  font-size: 20px;
+}
+.setfood .sets .list li .title .price {
+  font-size: 34.5px;
+  color: #df4d65;
+  line-height: 1;
+  position: relative;
+  left: 20px;
+  top: 2px;
+}
+.setfood .sets .list li .buy {
+  text-indent: -2500px;
+  background: url("img/buy.png") top;
+  width: 30px;
+  height: 120px;
+}
+.setfood .others {
+  margin: 0 17px;
+}
+.setfood .others h3.title {
+  font-size: 25px;
+  text-align: center;
+  padding: 5px 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #949494;
+}
+.setfood .others .selections {
+  zoom: 1;
+  margin-bottom: 125px;
+}
+.setfood .others .selections:before,
+.setfood .others .selections:after {
+  content: "";
+  display: table;
+}
+.setfood .others .selections:after {
+  clear: both;
+}
+.setfood .others .selections .item {
+  float: left;
+  margin-right: 20px;
+}
+.setfood .others .selections .item .title {
+  float: left;
+  width: 50px;
+  margin-right: 5px;
+}
+.setfood .others .selections .item .title .name {
+  line-height: 1;
+  font-size: 28px;
+}
+.setfood .others .selections .item .title .spell {
+  font-size: 12px;
+}
+.setfood .others .selections .item img {
+  border: 1px solid #d9d9d9;
+  float: left;
+  height: 137px;
+  width: 154px;
+}
+.setfood .others .selections .item.last {
+  margin-right: 0;
 }
 .enviroment {
   background-color: #1d3c35;

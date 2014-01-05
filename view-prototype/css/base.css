@@ -1,4 +1,4 @@
-.pinyin {
+.spell {
   -webkit-writing-mode: vertical-rl;
   writing-mode: tb-rl;
   float: right;
@@ -125,7 +125,7 @@ h2 {
 .breadcrumb li:before {
   color: #000;
 }
-.pinyin {
+.spell {
   font-family: "Trajan Pro", serif;
   text-transform: uppercase;
   color: #cf0019;
