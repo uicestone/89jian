@@ -58,6 +58,7 @@ ul
     height: 40px
     line-height: 1
     box-shadow: 0 0 5px rgba(0,0,0,.5)
+    border-bottom: 1px solid #cccunquote("\9");
     z-index: 999
     background-color: #fff
     width:100%
@@ -66,11 +67,13 @@ ul
         min-height: 40px
         color: darkblue
         .navbar-nav
-            > .active > a
+            li
+                float: left
+            .active a
                 color: red
-            > li > a
+            li a
                 color: inherit
-                padding: 10px 18px
+                padding: 10px 17px
 
 .breadcrumb
     background-color: transparent
@@ -83,8 +86,10 @@ ul
         color:inherit
     .active
         color: red
-    > li + li:before
-        color: #000
+    li
+        display: inline-block
+        &:before
+            color: #000
 
 .footer
     @extend $font-sans-serif
@@ -142,4 +147,5 @@ ul
         width:12px
         top: 0
         right: 0
+        top: -7pxunquote("\9")
 

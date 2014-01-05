@@ -37,7 +37,7 @@
   font-size: 48px;
 }
 #poetry .article {
-  margin-right: 187px;
+  margin-right: 177px;
   float: right;
 }
 #poetry .article .origin {
@@ -50,6 +50,7 @@
   margin-bottom: 20px;
 }
 #poetry .article .scene {
+  display: block;
   margin: 0 6px 42px 6px;
 }
 #poetry .article .annotation .title {
@@ -104,6 +105,7 @@
   float: right;
   text-indent: 2em;
   font-size: 25px;
+  height: 670px;
 }
 #team .slogan {
   position: absolute;
