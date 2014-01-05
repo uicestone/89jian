@@ -63,6 +63,55 @@
         p
             margin-left: 40px
 
+.traditional
+    .container
+        background: url(img/home-traditional-bg.png) no-repeat
+        position: relative
+    .head
+        clearfix()
+        padding-top: 83px
+        padding-bottom: 42px
+        .title
+            @extend $vertical-layout
+            height: 165px
+            margin-left: 18px
+        .desc
+            @extend $vertical-layout
+            height: 240px
+            font-size: 14px
+    .main-article
+        @extend $vertical-layout
+        clearfix()
+        width: 100%
+        padding-bottom: 270px
+        margin:0 35px
+        .title
+            height:330px
+            margin-left: 43px
+        .content
+            font-size: 20px
+            height: 410px
+            p
+                margin-left: 31px
+    .original
+        clearfix()
+        margin-bottom: 150px
+        .refuse
+            float: right
+            margin-right: 35px
+        .article
+            float: left
+            width: 290px
+            .title
+                @extend $vertical-layout
+                font-size: 49px
+                margin-left: 22px
+                height: 290px
+                line-height: 1
+            .content
+                @extend $vertical-layout
+                font-size: 14px
+
 orange=#c25125
 .fresh
     color:#fff
@@ -101,14 +150,14 @@ orange=#c25125
     
 .seasons
     .title
-        padding: 15px
+        padding: 0 15px
         font-size: 38px
         margin-bottom: 10px
     .subtitle
-        padding: 15px
+        padding: 0 15px
         font-size: 20px
         margin-bottom: 30px
     .body
-        padding: 15px
+        padding: 0 15px
         font-size: 14px
         margin-bottom: 230px

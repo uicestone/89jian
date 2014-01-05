@@ -1,6 +1,11 @@
 .enviroment .head,
 .enviroment .features .item,
 .enviroment .content,
+.traditional .head .title,
+.traditional .head .desc,
+.traditional .main-article,
+.traditional .original .article .title,
+.traditional .original .article .content,
 .fresh .timelimit,
 .fresh .desc,
 .fresh .far,
@@ -88,6 +93,85 @@
 .enviroment .content p {
   margin-left: 40px;
 }
+.traditional .container {
+  background: url("img/home-traditional-bg.png") no-repeat;
+  position: relative;
+}
+.traditional .head {
+  zoom: 1;
+  padding-top: 83px;
+  padding-bottom: 42px;
+}
+.traditional .head:before,
+.traditional .head:after {
+  content: "";
+  display: table;
+}
+.traditional .head:after {
+  clear: both;
+}
+.traditional .head .title {
+  height: 165px;
+  margin-left: 18px;
+}
+.traditional .head .desc {
+  height: 240px;
+  font-size: 14px;
+}
+.traditional .main-article {
+  zoom: 1;
+  width: 100%;
+  padding-bottom: 270px;
+  margin: 0 35px;
+}
+.traditional .main-article:before,
+.traditional .main-article:after {
+  content: "";
+  display: table;
+}
+.traditional .main-article:after {
+  clear: both;
+}
+.traditional .main-article .title {
+  height: 330px;
+  margin-left: 43px;
+}
+.traditional .main-article .content {
+  font-size: 20px;
+  height: 410px;
+}
+.traditional .main-article .content p {
+  margin-left: 31px;
+}
+.traditional .original {
+  zoom: 1;
+  margin-bottom: 150px;
+}
+.traditional .original:before,
+.traditional .original:after {
+  content: "";
+  display: table;
+}
+.traditional .original:after {
+  clear: both;
+}
+.traditional .original .refuse {
+  float: right;
+  margin-right: 35px;
+}
+.traditional .original .article {
+  float: left;
+  width: 290px;
+}
+.traditional .original .article .title {
+  font-size: 49px;
+  margin-left: 22px;
+  height: 290px;
+  line-height: 1;
+}
+.traditional .original .article .content {
+  font-size: 14px;
+}
 .fresh {
   color: #fff;
   background-color: #474b2f;
@@ -126,17 +210,17 @@
   font-size: 43px;
 }
 .seasons .title {
-  padding: 15px;
+  padding: 0 15px;
   font-size: 38px;
   margin-bottom: 10px;
 }
 .seasons .subtitle {
-  padding: 15px;
+  padding: 0 15px;
   font-size: 20px;
   margin-bottom: 30px;
 }
 .seasons .body {
-  padding: 15px;
+  padding: 0 15px;
   font-size: 14px;
   margin-bottom: 230px;
 }
