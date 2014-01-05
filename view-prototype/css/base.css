@@ -1,3 +1,8 @@
+.pinyin {
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+  float: right;
+}
 body {
   font-family: "Songti SC", "SimSun", serif;
 }
@@ -10,6 +15,9 @@ body {
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+}
+h2 {
   margin: 0;
 }
 .container {
@@ -116,6 +124,11 @@ ul {
 }
 .breadcrumb li:before {
   color: #000;
+}
+.pinyin {
+  font-family: "Trajan Pro", serif;
+  text-transform: uppercase;
+  color: #cf0019;
 }
 .footer {
   background: url("img/wave-dot.png") repeat-x top;

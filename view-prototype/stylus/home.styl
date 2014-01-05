@@ -1,0 +1,114 @@
+@import "nib"
+@import "mixins"
+
+.full-section
+    height:502px
+    text-align:center
+    color:#fff
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.75)
+    h2
+        font-size: 44px
+        padding-top: 215px
+        margin-top: 0
+        margin-bottom: 15px
+    p
+        font-size: 23px
+    for n in 1..4
+        &.section-bg-{n}
+            background:url(img/home-section-bg- n.jpg)
+
+.enviroment
+    background-color: green
+    color:#fff
+    .container
+        position: relative
+    .head
+        @extend $vertical-layout
+        position: absolute
+        height: 245px
+        top: 65px
+        left: 0
+        .title
+            margin:0
+            font-size: 49px
+            line-height: 1.2
+            margin-left: 20px
+        .describe
+            font-size: 14px
+            height:195px
+    .features
+        background: url(img/home-features.png) right no-repeat
+        right: 0
+        top: 70px
+        width: 650px
+        height: 200px
+        position: absolute
+        .item
+            @extend $vertical-layout
+            font-size: 24px
+            margin-right: 135px
+            margin-left: 40px
+            padding-top: 45px
+            line-height: 1.2
+    .content
+        @extend $vertical-layout
+        width: 100%
+        height: 520px
+        padding-top: 380px
+        padding-bottom: 180px
+        font-size: 26px
+        margin-bottom: 44px
+        line-height: 1.35
+        text-indent: 2em
+        p
+            margin-left: 40px
+
+orange=#c25125
+.fresh
+    color:#fff
+    background-color:#474b2f
+    .container
+        padding-top: 110px
+        padding-bottom: 295px
+        background:url(img/home-fresh.png) 0 110px no-repeat
+    .orange
+        color: orange
+    .timelimit
+        @extend $vertical-layout
+        font-size: 49px
+        height:250px
+        line-height: 1.1
+        margin-left: 35px
+    .desc
+        @extend $vertical-layout
+        height: 392px
+        font-size: 23px
+        margin-left: 25px
+    .far
+        @extend $vertical-layout
+        height: 320px
+        font-size: 69px
+        line-height: 1
+        margin-left:80px
+    .fast
+        @extend $vertical-layout
+        height: 420px
+        font-size: 79px
+        line-height: 1
+    .for-fresh
+        @extend $vertical-layout
+        font-size: 43px
+    
+.seasons
+    .title
+        padding: 15px
+        font-size: 38px
+        margin-bottom: 10px
+    .subtitle
+        padding: 15px
+        font-size: 20px
+        margin-bottom: 30px
+    .body
+        padding: 15px
+        font-size: 14px
+        margin-bottom: 230px
