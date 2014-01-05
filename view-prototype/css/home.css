@@ -1,20 +1,21 @@
+.navpanel li,
 .setfood .sets .head .title,
 .setfood .sets .head .content,
 .setfood .sets .list li,
 .setfood .others .selections .item .title .name,
-.enviroment .head,
-.enviroment .features .item,
-.enviroment .content,
+.environment .head,
+.environment .features .item,
+.environment .content,
 .traditional .head .title,
 .traditional .head .desc,
 .traditional .main-article,
 .traditional .original .article .title,
 .traditional .original .article .content,
-.fresh .timelimit,
-.fresh .desc,
-.fresh .far,
-.fresh .fast,
-.fresh .for-fresh {
+.delivery .timelimit,
+.delivery .desc,
+.delivery .far,
+.delivery .fast,
+.delivery .for-fresh {
   -webkit-writing-mode: vertical-rl;
   writing-mode: tb-rl;
   float: right;
@@ -34,6 +35,10 @@
   text-align: center;
   color: #fff;
   text-shadow: 2px 2px 2px rgba(0,0,0,0.75);
+  padding-top: 40px;
+  margin-top: -40px;
+  background-position: 0 40px;
+  background-repeat: no-repeat;
 }
 .full-section h2 {
   font-size: 44px;
@@ -45,16 +50,53 @@
   font-size: 23px;
 }
 .full-section.section-bg-1 {
-  background: url("img/home-section-bg-1.jpg");
+  background-image: url("img/home-section-bg-1.jpg");
 }
 .full-section.section-bg-2 {
-  background: url("img/home-section-bg-2.jpg");
+  background-image: url("img/home-section-bg-2.jpg");
 }
 .full-section.section-bg-3 {
-  background: url("img/home-section-bg-3.jpg");
+  background-image: url("img/home-section-bg-3.jpg");
 }
 .full-section.section-bg-4 {
-  background: url("img/home-section-bg-4.jpg");
+  background-image: url("img/home-section-bg-4.jpg");
+}
+.navpanel {
+  background: url("img/home-nav-panel.png") no-repeat;
+  height: 588px;
+  width: 41px;
+  padding-top: 40px;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  display: none;
+}
+.navpanel .nav {
+  height: 100%;
+}
+.navpanel li {
+  font-size: 16px;
+  padding: 0 11px;
+}
+.navpanel li a {
+  display: inline-block;
+  color: #000;
+}
+.navpanel li a:hover {
+  background-color: #fff;
+  text-decoration: underline;
+}
+.navpanel li:after {
+  content: "\\";
+  color: #000;
+  display: inline-block;
+  margin: 10px 0;
+}
+.navpanel li.last:after {
+  content: "";
+}
+.navpanel li.active a {
+  color: #cf0019;
 }
 .setfood .sets {
   zoom: 1;
@@ -101,7 +143,7 @@
   margin-left: 60px;
 }
 .setfood .sets .list li .title {
-  background: url("set-spliter.png") top right;
+  background: url("img/set-spliter.png") 7px 0 no-repeat;
   font-size: 20px;
 }
 .setfood .sets .list li .title .price {
@@ -165,30 +207,30 @@
 .setfood .others .selections .item.last {
   margin-right: 0;
 }
-.enviroment {
+.environment {
   background-color: #1d3c35;
   color: #fff;
 }
-.enviroment .container {
+.environment .container {
   position: relative;
 }
-.enviroment .head {
+.environment .head {
   position: absolute;
   height: 245px;
   top: 65px;
   left: 0;
 }
-.enviroment .head .title {
+.environment .head .title {
   margin: 0;
   font-size: 49px;
   line-height: 1.2;
   margin-left: 20px;
 }
-.enviroment .head .describe {
+.environment .head .describe {
   font-size: 14px;
   height: 195px;
 }
-.enviroment .features {
+.environment .features {
   background: url("img/home-features.png") right no-repeat;
   right: 0;
   top: 70px;
@@ -196,14 +238,14 @@
   height: 200px;
   position: absolute;
 }
-.enviroment .features .item {
+.environment .features .item {
   font-size: 24px;
   margin-right: 135px;
   margin-left: 40px;
   padding-top: 45px;
   line-height: 1.2;
 }
-.enviroment .content {
+.environment .content {
   width: 100%;
   height: 520px;
   padding-top: 380px;
@@ -213,7 +255,7 @@
   line-height: 1.35;
   text-indent: 2em;
 }
-.enviroment .content p {
+.environment .content p {
   margin-left: 40px;
 }
 .traditional .container {
@@ -295,41 +337,41 @@
 .traditional .original .article .content {
   font-size: 14px;
 }
-.fresh {
+.delivery {
   color: #fff;
   background-color: #474b2f;
 }
-.fresh .container {
+.delivery .container {
   padding-top: 110px;
   padding-bottom: 295px;
   background: url("img/home-fresh.png") 0 110px no-repeat;
 }
-.fresh .orange {
+.delivery .orange {
   color: #c25125;
 }
-.fresh .timelimit {
+.delivery .timelimit {
   font-size: 49px;
   height: 250px;
   line-height: 1.1;
   margin-left: 35px;
 }
-.fresh .desc {
+.delivery .desc {
   height: 392px;
   font-size: 23px;
   margin-left: 25px;
 }
-.fresh .far {
+.delivery .far {
   height: 320px;
   font-size: 69px;
   line-height: 1;
   margin-left: 80px;
 }
-.fresh .fast {
+.delivery .fast {
   height: 420px;
   font-size: 79px;
   line-height: 1;
 }
-.fresh .for-fresh {
+.delivery .for-fresh {
   font-size: 43px;
 }
 .seasons .title {

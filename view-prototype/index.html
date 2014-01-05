@@ -10,7 +10,7 @@
     <script src="/js/jquery-1.9.1.js"></script>
     <script src="/js/sticky.js"></script>
 </head>
-<body data-spy="scroll" data-target=".navbar-example">
+<body data-spy="scroll" data-target=".navpanel" data-offset="0">
     <!-- header -->
     <div class="banner">
         <div class="container">
@@ -46,7 +46,18 @@
 
     <!-- body -->
     
-    <div class="setfood">
+    <div class="navpanel">
+        <ul class="nav">
+            <li class="item active"><a href="#setfood">精選套餐</a></li>
+            <li class="item"><a href="#environment">生長環境</a></li>
+            <li class="item"><a href="#traditional">種植方式</a></li>
+            <li class="item"><a href="#delivery">保鮮宅配</a></li>
+            <li class="item"><a href="#seasons">四季菜品</a></li>
+            <li class="item last"><a href="#contact">联系我们</a></li>
+        </ul>
+    </div>
+
+    <div class="setfood" id="setfood">
         <div class="container">
             <div class="sets">
                 <div class="head">
@@ -108,12 +119,12 @@
         </div>
     </div>
 
-    <div class="full-section section-bg-1">
-        <h2>保鮮宅配 源生到家</h2>
-        <p>確保24小時內送達您的餐桌，嚴控中轉環節，保證新鮮直送。</p>
+    <div class="full-section section-bg-1" id="environment">
+        <h2>得天獨厚的生長環境</h2>
+        <p>這裏有生態環境最好的高山平原和梯田，青巒疊章，清澗常流，空氣清新<br>日照充足，雨水充沛，常年雲霧滋養</p>
     </div>
 
-    <div class="enviroment">
+    <div class="environment">
         <div class="container">
         <div class="head">
             <div class="spell">Growth environment</div>
@@ -147,11 +158,11 @@
         </div>
     </div>
 
-    <div class="full-section section-bg-2">
-        <h2>保鮮宅配 源生到家</h2>
-        <p>確保24小時內送達您的餐桌，嚴控中轉環節，保證新鮮直送。</p>
+    <div class="full-section section-bg-2" id="traditional">
+        <h2>傳統農業的種養方式</h2>
+        <p>原始農耕和現代化農業管理科技互補，保證食材品質和安全</p>
     </div>
-    <div class="traditional" id="traditional">
+    <div class="traditional">
         <div class="container">
             <div class="head">
                 <div class="spell">The traditional<br>cultivation methods</div>
@@ -204,12 +215,12 @@
         </div>
     </div>
 
-    <div class="full-section section-bg-3">
+    <div class="full-section section-bg-3" id="delivery">
         <h2>保鮮宅配 源生到家</h2>
         <p>確保24小時內送達您的餐桌，嚴控中轉環節，保證新鮮直送。</p>
     </div>
 
-    <div class="fresh" id="fresh">
+    <div class="delivery">
         <div class="container">
         <div class="spell orange">Fresh Logistics</div>
         <h2 class="timelimit orange">冷鏈保鮮的限時專送</h2>
@@ -224,12 +235,12 @@
         </div>
     </div>
 
-    <div class="full-section section-bg-4">
+    <div class="full-section section-bg-4" id="seasons">
         <h2>四季食材合理搭配</h2>
         <p>根据气温和人体 的变化，合理调配膳食，做到四季膳食平衡</p>
     </div>
 
-    <div class="seasons" id="seasons">
+    <div class="seasons">
         <div class="container">
         <img src="img/seasons.jpg" alt="季節">
         <div class="article">
@@ -247,7 +258,7 @@
     </div>
     <!-- end of body -->
 
-    <div class="footer">
+    <div class="footer" id="contact">
         <div class="container">
             <div class="contact">
                 <a target="_blank" href="javascript:;" class="map"><img src="http://maps.googleapis.com/maps/api/staticmap?size=506x260&sensor=true&markers=%E6%B5%99%E6%B1%9F%E7%9C%81%E4%B8%BD%E6%B0%B4%E6%99%AF%E5%AE%81%E7%95%B2%E6%97%8F%E8%87%AA%E6%B2%BB%E5%8E%BF&maptype=satellite" width="506" height="260"></a>
@@ -313,6 +324,16 @@
     <script src="/js/bootstrap.js"></script>
     <script>
         $('.navigation').sticky();
+        (function(){
+            var navpanel = $(".navpanel");
+            $(window).on("scroll",function(){
+                if($(window).scrollTop() > 520){
+                    navpanel.fadeIn();
+                }else{
+                    navpanel.fadeOut(200);
+                }
+            })
+        })();
     </script>
 </body>
 </html>

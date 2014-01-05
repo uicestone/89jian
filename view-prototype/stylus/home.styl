@@ -6,6 +6,10 @@
     text-align:center
     color:#fff
     text-shadow: 2px 2px 2px rgba(0,0,0,0.75)
+    padding-top:40px
+    margin-top:-40px
+    background-position: 0 40px
+    background-repeat: no-repeat
     h2
         font-size: 44px
         padding-top: 215px
@@ -15,7 +19,39 @@
         font-size: 23px
     for n in 1..4
         &.section-bg-{n}
-            background:url(img/home-section-bg- n.jpg)
+            background-image:url(img/home-section-bg- n.jpg)
+
+.navpanel
+    background: url(img/home-nav-panel.png) no-repeat
+    height: 588px
+    width: 41px
+    padding-top: 40px
+    position: fixed
+    top: 50px
+    left: 0
+    display: none
+    .nav
+        height: 100%
+    li
+        @extend $vertical-layout
+        font-size: 16px
+        padding: 0 11px
+        a
+            display: inline-block
+            color:#000
+            &:hover
+                background-color: #fff
+                text-decoration: underline
+        &:after
+            content:"\\"
+            color:#000
+            display:inline-block
+            margin: 10px 0
+        &.last:after
+            content:""
+        &.active
+            a
+                color:red
 
 pink=#df4d65
 .setfood
@@ -46,7 +82,7 @@ pink=#df4d65
                 @extend $vertical-layout
                 margin-left: 60px
                 .title
-                    background: url(set-spliter.png) top right
+                    background: url(img/set-spliter.png) 7px 0 no-repeat
                     font-size: 20px
                     .set
                         @extend $horizon-layout
@@ -97,7 +133,7 @@ pink=#df4d65
                 &.last
                     margin-right: 0
 
-.enviroment
+.environment
     background-color: green
     color:#fff
     .container
@@ -193,7 +229,7 @@ pink=#df4d65
                 font-size: 14px
 
 orange=#c25125
-.fresh
+.delivery
     color:#fff
     background-color:#474b2f
     .container
