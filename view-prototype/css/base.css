@@ -6,6 +6,9 @@
 body {
   font-family: "Songti SC", "SimSun", serif;
 }
+.spell {
+  font-family: "Trajan Pro", serif;
+}
 .footer {
   font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
 }
@@ -126,7 +129,6 @@ h2 {
   color: #000;
 }
 .spell {
-  font-family: "Trajan Pro", serif;
   text-transform: uppercase;
   color: #cf0019;
 }
