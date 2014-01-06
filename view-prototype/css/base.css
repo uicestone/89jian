@@ -4,7 +4,7 @@
   float: right;
 }
 body {
-  font-family: "Songti SC", "SimSun", serif;
+  font-family: "TypeLand KhangXi Dict", "Songti SC", "SimSun", serif;
 }
 .spell {
   font-family: "Trajan Pro", serif;
@@ -116,9 +116,6 @@ h2 {
   margin: 0;
   color: #000;
 }
-.breadcrumb a {
-  color: inherit;
-}
 .breadcrumb .active {
   color: #cf0019;
 }
@@ -126,7 +123,13 @@ h2 {
   display: inline-block;
 }
 .breadcrumb li:before {
-  color: #000;
+  color: inherit;
+}
+.breadcrumb li a {
+  color: inherit;
+}
+.breadcrumb li .divider {
+  color: inherit;
 }
 .spell {
   text-transform: uppercase;
@@ -159,6 +162,10 @@ h2 {
   margin-right: 38px;
   cursor: default;
   float: left;
+}
+.footer .contact .map img {
+  width: 506px;
+  height: 260px;
 }
 .footer .contact .info {
   float: left;

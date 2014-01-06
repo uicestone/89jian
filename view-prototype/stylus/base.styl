@@ -85,14 +85,16 @@ h2
     padding: 0
     margin: 0
     color: #000
-    a
-        color:inherit
     .active
         color: red
     li
         display: inline-block
         &:before
-            color: #000
+            color: inherit
+        a
+            color:inherit
+        .divider
+            color: inherit
 
 .spell
     @extend $vertical-layout
@@ -118,6 +120,9 @@ h2
             margin-right: 38px
             cursor:default
             float:left
+            img
+                width:506px
+                height:260px
         .info
             float:left
             .title

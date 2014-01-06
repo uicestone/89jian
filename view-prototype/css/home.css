@@ -3,7 +3,8 @@
 .setfood .sets .head .content,
 .setfood .sets .list li,
 .setfood .others .selections .item .title .name,
-.environment .head,
+.environment .head .title,
+.environment .head .describe,
 .environment .features .item,
 .environment .content,
 .traditional .head .title,
@@ -215,10 +216,20 @@
   position: relative;
 }
 .environment .head {
+  zoom: 1;
   position: absolute;
   height: 245px;
+  width: 290px;
   top: 65px;
   left: 0;
+}
+.environment .head:before,
+.environment .head:after {
+  content: "";
+  display: table;
+}
+.environment .head:after {
+  clear: both;
 }
 .environment .head .title {
   margin: 0;

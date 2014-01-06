@@ -1,0 +1,15 @@
+.navigation .navbar .navbar-nav li a {
+  padding: 10px 14px;
+}
+.environment .head {
+  height: 280px;
+}
+.traditional .main-article .title {
+  height: 350px;
+}
+.traditional .main-article .content {
+  height: 415px;
+}
+.delivery .timelimit {
+  height: 260px;
+}

@@ -139,17 +139,20 @@ pink=#df4d65
     .container
         position: relative
     .head
-        @extend $vertical-layout
+        clearfix()
         position: absolute
         height: 245px
+        width: 290px
         top: 65px
         left: 0
         .title
+            @extend $vertical-layout
             margin:0
             font-size: 49px
             line-height: 1.2
             margin-left: 20px
         .describe
+            @extend $vertical-layout
             font-size: 14px
             height:195px
     .features
