@@ -14,7 +14,7 @@ class Admin extends LB_Controller{
 	 * 管理中心首页
 	 */
 	function index(){
-		$this->load->view('admin/index');
+        redirect('admin/user');
 	}
 	
 	/**

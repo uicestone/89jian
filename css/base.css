@@ -23,6 +23,9 @@ ul {
 h2 {
   margin: 0;
 }
+input[type="text"], input[type="password"]{
+  box-sizing: content-box;
+}
 .container {
   padding: 0;
   width: 940px;
