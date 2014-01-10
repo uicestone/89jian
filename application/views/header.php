@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/back.css">
+    <? if($this->input->cookie('fontloaded')){ ?><link rel="stylesheet" href="/css/font.css"><? } ?>
     <script src="/js/jquery-1.9.1.js"></script>
     <script src="/js/sticky.js"></script>
 </head>
