@@ -1,5 +1,4 @@
 <?php $this->view('header'); ?>
-    <!-- body -->
     
     <div class="navpanel">
         <ul class="nav">
@@ -25,15 +24,15 @@
                 <ul class="list">
                     <li>
                         <div class="title">套餐<span class="set">A</span><span class="price">238</span>元</div>
-                        <a href="#" class="buy">立即訂購</a>
+                        <a href="/buy" class="buy">立即訂購</a>
                     </li>
                     <li>
                         <div class="title">套餐<span class="set">B</span><span class="price">288</span>元</div>
-                        <a href="#" class="buy">立即訂購</a>
+                        <a href="/buy" class="buy">立即訂購</a>
                     </li>
                     <li>
                         <div class="title">套餐<span class="set">C</span><span class="price">368</span>元</div>
-                        <a href="#" class="buy">立即訂購</a>
+                        <a href="/buy" class="buy">立即訂購</a>
                     </li>
                 </ul>
             </div> 
@@ -211,5 +210,5 @@
         </div>
         </div>
     </div>
-    <!-- end of body -->
+
 <?php $this->view('footer'); ?>
