@@ -26,7 +26,7 @@
                 <? if($this->user->isLogged('admin')){ ?>
                 <a href="/admin" class="signup item">【管理】</a>
                 <? } ?>
-                <a href="/admin" class="signup item">【退出】</a>
+                <a href="/logout" class="signup item">【退出】</a>
 		<? }else{ ?>
                 <a href="/signup" class="signup item">【注冊】</a>
                 <a href="/login" class="signup item">【登陸】</a>
