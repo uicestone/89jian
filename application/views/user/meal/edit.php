@@ -1,7 +1,5 @@
 <?php $this->view('header'); ?>
 <?php $this->view('user/sidebar'); ?>
-<div class="span9">
-	<table>
-	</table>
-</div>
+    <table>
+    </table>
 <?php $this->view('footer'); ?>

@@ -1,3 +1,4 @@
+<?php $this->view('header'); ?>
     <!-- body -->
     <div id="poetry" class="section">
         <div class="container">
@@ -86,3 +87,4 @@
         </div>
     </div>
     <!-- end of body -->
+<?php $this->view('footer'); ?>
