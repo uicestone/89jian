@@ -375,11 +375,11 @@ class User extends LB_Controller{
 			
 			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->id,'status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true))['data'];
 
-			$this->load->view('user/order', compact('orders'));
+			$this->load->view('user/order/list', compact('orders'));
 		}
 		else{
 			$order = $this->object->fetch($id);
-			$this->load->view('user/order_detail', compact('order'));
+			$this->load->view('user/order/edit', compact('order'));
 		}
 		
 		
