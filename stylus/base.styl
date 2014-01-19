@@ -13,6 +13,9 @@ ul
 h2
     margin: 0
 
+input[type="text"], input[type="password"]
+  box-sizing: content-box
+
 .container
     padding: 0
     width: 940px
@@ -136,7 +139,7 @@ h2
         padding-bottom: 22px
         border-bottom: 1px solid darkgreen
         clearfix()
-        .group 
+        .group
             .title
                 margin-bottom: 30px
             li
@@ -162,4 +165,6 @@ h2
         top: 0
         right: 0
         top: -7pxunquote("\9")
-
+    &:hover
+        color: darkblue
+        background:#fff url(img/btn.png) no-repeat left 1px

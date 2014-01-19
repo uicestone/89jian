@@ -13,14 +13,14 @@ var FontLoader = (function(){
             }
         }
 
-        for(var i = 0; i < count; i++){            
+        for(var i = 0; i < count; i++){
             $.ajax({
                 url: "/fonts/" + paths[i],
                 beforeSend: function ( xhr ) {
                   xhr.overrideMimeType("font/opentype");
                 },
                 success: checkDone
-            });   
+            });
         }
     }
 

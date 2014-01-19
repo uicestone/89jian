@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="navigation">
-        <nav class="navbar container">
+        <div class="navbar container">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">HOME / 首页</a></li>
                 <li><a href="/article/about-us">ABOUT US / 关于我们</a></li>
@@ -54,6 +54,6 @@
                 <li><a href="/article/logistic">LOGISTICS / 配送</a></li>
                 <li><a href="/user">MEMBER / 会员专区</a></li>
             </ul>
-        </nav>
+        </div>
     </div>
     <!-- end of header -->
