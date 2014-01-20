@@ -3,18 +3,17 @@
 class User extends LB_Controller{
 	function __construct() {
 		parent::__construct();
+		
+		$this->load->page_name = 'user';
+		$this->load->page_path[] = array('href'=>'/user', 'text'=>'用户中心');
+		
 	}
 	
 	/**
 	 * 用户中心首页
 	 */
 	function index(){
-		if(is_null($this->user->id)){
-			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
-		}
-		
-		$this->load->view('user/index');
-		
+        redirect('user/repository');
 	}
 	
 	/**
@@ -68,16 +67,21 @@ class User extends LB_Controller{
 				}
 
 				if($this->form_validation->run()!==false){
+					if(is_null($this->user->id)){
+						$this->user->id = 1;//因为每个对象必须有user字段，新注册用户的user字段为root
+					}
+
 					$user_id=$this->user->add(array(
 						'name'=>$this->input->post('username'),
 						'password'=>$this->input->post('password'),
-						'email'=>$this->input->post('email')
+						'email'=>$this->input->post('email'),
 					));
-
+					
 					$this->user->sessionLogin($user_id);
 
 					redirect(urldecode($this->input->post('forward')));
 				}
+				
 			}catch(Exception $e){
 				
 			}
@@ -346,7 +350,7 @@ class User extends LB_Controller{
 		
 		$profiles=$this->user->getProfiles();
 		
-			$this->load->page_path[]=array('text'=>lang('profile'),'href'=>'/profile');
+		$this->load->page_path[]=array('text'=>'个人资料','href'=>'/profile');
 		
 		$this->load->view('user/profile', compact('user','profiles','alert'));
 	}
@@ -359,7 +363,9 @@ class User extends LB_Controller{
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 		
-		$this->load->view('user/repository');
+		$this->load->page_path[]=array('text'=>'我的仓库','href'=>'/repository');
+		
+		$this->load->view('user/meal/list');
 		
 	}
 	
@@ -382,6 +388,7 @@ class User extends LB_Controller{
 			$this->load->view('user/order/edit', compact('order'));
 		}
 		
+		$this->load->page_path[]=array('text'=>'我的订单','href'=>'/order');
 		
 	}
 	
@@ -393,7 +400,9 @@ class User extends LB_Controller{
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 		
-		$this->load->view('user/card');
+		$this->load->page_path[]=array('text'=>'卡片管理','href'=>'/card');
+		
+		$this->load->view('user/card/list');
 		
 	}
 	

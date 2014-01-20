@@ -6,6 +6,8 @@ class Admin extends LB_Controller{
 		
 		if(!$this->user->isLogged('admin')){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
+            $this->load->page_name = 'admin';
+            $this->load->page_path[] = array('href'=>'/admin', 'text'=>'管理中心');
 		}
 		
 	}
@@ -60,12 +62,20 @@ class Admin extends LB_Controller{
 
 		$orders = $this->object->getList(array('type'=>'order','status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true))['data'];
 
+		$this->load->page_name = 'admin-order-list';
+		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'订单管理');
+		
 		$this->load->view('admin/order/list', compact('orders'));
 		
 	}
 	
 	function orderEdit($id = null){
 		$order = $this->object->fetch($id);
+		
+		$this->load->page_name = 'admin-order-detail';
+		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'订单管理');
+		$this->load->page_path[] = array('href'=>'/admin/order/'.$order['id'], 'text'=>$order['name']);
+		
 		$this->load->view('admin/order/edit', compact('order'));
 	}
 	
@@ -75,11 +85,20 @@ class Admin extends LB_Controller{
 	 */
 	function logisticList(){
 		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true));
+		
+		$this->load->page_name = 'admin-logistic-edit';
+		$this->load->page_path[] = array('href'=>'/admin/logistic', 'text'=>'配货管理');
+		
 		$this->load->view('admin/logistic/list', compact('meals'));
 	}
 	
 	function logisticEdit($id = null){
 		$meal = $this->object->fetch($id);
+		
+		$this->load->page_name = 'admin-logistic-detail';
+		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'配货管理');
+		$this->load->page_path[] = array('href'=>'/admin/order/'.$meal['id'], 'text'=>$meal['name']);
+		
 		$this->load->view('admin/logistic/edit', compact('meal'));
 	}
 	
@@ -87,11 +106,25 @@ class Admin extends LB_Controller{
 	 * 食谱管理
 	 * @param int $id
 	 */
-	function menuList(){
+	function recipeList(){
+		$recipes = $this->object->getlist(array('type'=>'recipe'));
+		
+		$this->load->page_name = 'admin-recipe-list';
+		$this->load->page_path[] = array('href'=>'/admin/recipe', 'text'=>'食谱管理');
+		
+		$this->load->view('admin/recipe/list', compact('recipes'));
 		
 	}
 	
-	function menuEdit($id = null){
+	function recipeEdit($id = null){
+		
+		$recipe = $this->object->fetch($id);
+		
+		$this->load->page_name = 'admin-recipe-detail';
+		$this->load->page_path[] = array('href'=>'/admin/recipe', 'text'=>'食谱管理');
+		$this->load->page_path[] = array('href'=>'/admin/recipe/'.$recipe['id'], 'text'=>$recipe['name']);
+		
+		$this->load->view('admin/recipe/detail', compact('recipe'));
 		
 	}
 	
@@ -101,11 +134,20 @@ class Admin extends LB_Controller{
 	 */
 	function userList(){
 		$users = $this->user->getList();
+		
+		$this->load->page_name = 'admin-user-list';
+		$this->load->page_path[] = array('href'=>'/admin/user', 'text'=>'用户管理');
+		
 		$this->load->view('admin/user/list', compact('users'));
 	}
 	
 	function userEdit($id=NULL){
 		$user = $this->user->fetch($id);
+		
+		$this->load->page_name = 'admin-user-detail';
+		$this->load->page_path[] = array('href'=>'/admin/user', 'text'=>'用户管理');
+		$this->load->page_path[] = array('href'=>'/admin/user/'.$user['id'], 'text'=>$user['name']);
+		
 		$this->load->view('admin/user/edit', compact('user'));
 	}
 	
@@ -114,11 +156,20 @@ class Admin extends LB_Controller{
 	 */
 	function cardList(){
 		$cards = $this->object->getList(array('type'=>'card'));
+		
+		$this->load->page_name = 'admin-card-list';
+		$this->load->page_path[] = array('href'=>'/admin/card', 'text'=>'卡片管理');
+		
 		$this->load->view('admin/card/list', compact('cards'));
 	}
 	
 	function cardEdit($id = null){
 		$card = $this->object->fetch($id);
+		
+		$this->load->page_name = 'admin-card-detail';
+		$this->load->page_path[] = array('href'=>'/admin/card', 'text'=>'卡片管理');
+		$this->load->page_path[] = array('href'=>'/admin/card/'.$card['id'], 'text'=>$card['name']);
+		
 		$this->load->view('admin/card/edit', compact('card'));
 	}
 	
@@ -127,11 +178,20 @@ class Admin extends LB_Controller{
 	 */
 	function articleList(){
 		$articles = $this->object->getList(array('type'=>'article'));
+		
+		$this->load->page_name = 'admin-article-list';
+		$this->load->page_path[] = array('href'=>'/admin/article', 'text'=>'文章管理');
+		
 		$this->load->view('admin/article/list', compact('articles'));
 	}
 	
 	function articleEdit($id = null){
 		$article = $this->object->fetch($id);
+		
+		$this->load->page_name = 'admin-article-detail';
+		$this->load->page_path[] = array('href'=>'/admin/article', 'text'=>'文章管理');
+		$this->load->page_path[] = array('href'=>'/admin/article/'.$article['id'], 'text'=>$article['name']);
+
 		$this->load->view('admin/article/edit', compact('article'));
 	}
 	
@@ -140,11 +200,20 @@ class Admin extends LB_Controller{
 	 */
 	function configList(){
 		$items = $this->company->config();
+		
+		$this->load->page_name = 'admin-config-list';
+		$this->load->page_path[] = array('href'=>'/admin/config', 'text'=>'系统配置');
+		
 		$this->load->view('admin/config/list', compact('items'));
 	}
 	
 	function configEdit($item = null){
 		$value = $this->company->config($item);
+		
+		$this->load->page_name = 'admin-config-detail';
+		$this->load->page_path[] = array('href'=>'/admin/config', 'text'=>'系统配置');
+		$this->load->page_path[] = array('href'=>'/admin/config/'.$item, 'text'=>$item);
+		
 		$this->load->view('admin/config/edit', compact('value'));
 	}
 	

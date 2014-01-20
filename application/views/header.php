@@ -56,4 +56,15 @@
             </ul>
         </div>
     </div>
-    <!-- end of header -->
+<?if(count($this->page_path)>1){?>
+    <ul class="breadcrumb">
+<?  foreach($this->page_path as $level => $page){?>
+        <li>
+            <?if($level===0){?><strong><?}?>
+            <a href="<?=$page['href']?>"><?=$page['text']?></a>
+            <?if($level===0){?></strong><?}?>
+            <?if($level<count($this->page_path)-1){?><span class="divider">/</span><?}?>
+        </li>
+<?  }?>
+    </ul>
+<?}?>

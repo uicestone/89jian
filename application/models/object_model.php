@@ -4,10 +4,9 @@ class Object_model extends CI_Model{
 	var $id;
 	var $data;//具体对象数据
 	var $meta;//具体对象的元数据
-	var $mod=false;
 	var $relative;
 	var $status;
-	var $tags;//具体对象的标签
+	var $tag;//具体对象的标签
 	
 	static $fields=array(
 		'name'=>NULL,
