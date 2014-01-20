@@ -28,7 +28,7 @@
                     <p>久在樊笼里</p>
                     <p>复得返自然</p>
                 </div>
-                <img src="img/scene.jpg" alt="" class="scene">
+                <img src="/img/scene.jpg" alt="" class="scene">
                 <div class="annotation">
                     <div class="title">【最思家中飯】</div>
                     <div class="content">

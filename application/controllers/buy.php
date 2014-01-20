@@ -23,11 +23,11 @@ class Buy extends LB_Controller{
 			//生成订单
 			$order_id = $this->object->add(array(
 				'type'=>'order',
-				'name'=>$this->object->fetch($this->input->post('package'))['name'].' '.$this->input->post('number').'次',
+				'name'=>$this->object->fetch($this->input->post('package'))['name'].' '.$this->input->post('次数').'次',
 				'meta'=>array(
-					'number'=>$this->input->post('number'),
-					'is_card'=>$this->input->post('is_card'),
-					'date_first_delivery'=>$this->input->post('date_first_delivery')
+					'次数'=>$this->input->post('次数'),
+					'是否卡片'=>$this->input->post('是否卡片'),
+					'首次送货日期'=>$this->input->post('首次送货日期')
 				),
 				'relative'=>array(
 					array(

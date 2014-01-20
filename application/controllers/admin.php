@@ -6,10 +6,10 @@ class Admin extends LB_Controller{
 		
 		if(!$this->user->isLogged('admin')){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
-            $this->load->page_name = 'admin';
-            $this->load->page_path[] = array('href'=>'/admin', 'text'=>'管理中心');
 		}
 		
+		$this->load->page_name = 'admin';
+		$this->load->page_path[] = array('href'=>'/admin', 'text'=>'管理中心');
 	}
 	
 	/**
@@ -31,29 +31,29 @@ class Admin extends LB_Controller{
 
 				$order = $this->object->fetch();
 
-				if(end($order['meta']['is_card'])){
+				if(end($order['meta']['是否卡片'])){
 					$this->object->add(array(
 						'type'=>'card',
-						'name'=>end($order['meta']['number']).'次 '.end($order['relative']['package'])['name'].'卡',
+						'name'=>end($order['meta']['次数']).'次 '.end($order['relative']['package'])['name'].'卡',
 						'relative'=>array(
 							'package'=>end($order['relative']['package'])['id'],
-							'user'=>$order['uid'],
+							'user'=>$order['user'],
 							'order'=>$order['id']
 						),
-						'meta'=>array('次数'=>end($order['meta']['number']))
+						'meta'=>array('次数'=>end($order['meta']['次数']))
 					));
 				}
 				else{
-					for($i=0; $i<end($order['meta']['number']); $i++){
+					for($i=0; $i<end($order['meta']['次数']); $i++){
 						$this->object->add(array(
 							'type'=>'meal',
 							'name'=>end($order['relative']['package'])['name'],
 							'relative'=>array(
 								'package'=>end($order['relative']['package'])['id'],
-								'user'=>$order['uid'],
+								'user'=>$order['user'],
 								'order'=>$order['id']
 							),
-							'meta'=>array('delivery'=>date('Y-m-d',strtotime(end($order['meta']['date_first_delivery']))+$i*7*86400))
+							'meta'=>array('送货日期'=>date('Y-m-d',strtotime(end($order['meta']['首次送货日期']))+$i*7*86400))
 						));
 					}
 				}
@@ -137,7 +137,6 @@ class Admin extends LB_Controller{
 		
 		$this->load->page_name = 'admin-user-list';
 		$this->load->page_path[] = array('href'=>'/admin/user', 'text'=>'用户管理');
-		
 		$this->load->view('admin/user/list', compact('users'));
 	}
 	

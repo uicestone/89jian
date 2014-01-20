@@ -9,20 +9,20 @@
         <div class="control-group">
             <div class="controls">
                 <div class="input-append">
-                    <input type="text" name="number" class="span1" />
+                    <input type="text" name="次数" class="span1" />
                     <span class="add-on">周</span>
                 </div>                
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <?=radio(array(''=>'现货','1'=>'礼品卡'), 'is_card', $this->input->get('is_card'),true)?>
+                <?=radio(array(''=>'现货','1'=>'礼品卡'), '是否卡片', $this->input->get('是否卡片'),true)?>
             </div>
         </div>
         <div class="control-group">
             <div class="control-label">首次送餐日：</div>
             <div class="controls">
-                <input type="text" name="date_first_delivery" class="span2" />
+                <input type="text" name="首次送货日期" class="span2" />
             </div>
         </div>
         <div class="control-group">

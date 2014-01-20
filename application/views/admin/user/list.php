@@ -26,5 +26,5 @@
             </div>
         </form>
     </div>  
-    <!-- end of body -->
+
 <?php $this->view('footer'); ?>
