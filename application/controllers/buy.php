@@ -9,13 +9,6 @@ class Buy extends LB_Controller{
 	}
 	
 	/**
-	 * 自动跳转判断
-	 */
-	function index(){
-		redirect('buy/productoption');
-	}
-	
-	/**
 	 * 产品选项
 	 */
 	function productOption(){

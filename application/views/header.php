@@ -49,8 +49,8 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">HOME / 首页</a></li>
                 <li><a href="/article/about-us">ABOUT US / 关于我们</a></li>
-                <li><a href="/category/food">INGREDIENT / 食材</a></li>
-                <li><a href="/category/suite">SET MEAL / 套餐</a></li>
+                <li><a href="/type/food">INGREDIENT / 食材</a></li>
+                <li><a href="/type/package">SET MEAL / 套餐</a></li>
                 <li><a href="/article/logistic">LOGISTICS / 配送</a></li>
                 <li><a href="/user">MEMBER / 会员专区</a></li>
             </ul>

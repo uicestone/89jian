@@ -3,7 +3,7 @@
     <form method="post" class="form form-horizontal">
         <div class="control-group">
             <div class="controls">
-                <?=radio(array_column($this->object->getList(array('type'=>'package'))['data'], 'name', 'id'), 'package', NULL, true)?>
+                <?=radio(array_column($this->object->getList(array('type'=>'package'))['data'], 'name', 'id'), 'package', $this->input->get('package'), true)?>
             </div>
         </div>
         <div class="control-group">
@@ -16,14 +16,7 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <label class="radio">
-                    <input type="radio" name="is_card" value="">
-                    现货
-                </label>
-                <label class="radio">
-                    <input type="radio" name="is_card" value="1">
-                    礼品卡
-                </label>
+                <?=radio(array(''=>'现货','1'=>'礼品卡'), 'is_card', $this->input->get('is_card'),true)?>
             </div>
         </div>
         <div class="control-group">

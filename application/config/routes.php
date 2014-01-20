@@ -42,7 +42,7 @@ $route['default_controller'] = "index";
 $route['404_override'] = '';
 
 $route['article/(:any)'] = 'article/index/$1';
-$route['category/(:any)'] = 'category/index/$1';
+$route['type/(:any)'] = 'type/index/$1';
 
 $route['signup'] = 'user/signup';
 $route['login'] = 'user/login';

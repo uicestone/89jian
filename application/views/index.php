@@ -22,51 +22,26 @@
                     </div>
                 </div>
                 <ul class="list">
+                    <?php foreach($packages['data'] as $package){ ?>
                     <li>
-                        <div class="title">套餐<span class="set">A</span><span class="price">238</span>元</div>
-                        <a href="/buy" class="buy">立即訂購</a>
+                        <div class="title">套餐<span class="set"><?=$package['name']?></span><span class="price"><?=end($package['meta']['价格'])?></span>元</div>
+                        <a href="/buy/productoption?package=<?=$package['id']?>" class="buy">立即訂購</a>
                     </li>
-                    <li>
-                        <div class="title">套餐<span class="set">B</span><span class="price">288</span>元</div>
-                        <a href="/buy" class="buy">立即訂購</a>
-                    </li>
-                    <li>
-                        <div class="title">套餐<span class="set">C</span><span class="price">368</span>元</div>
-                        <a href="/buy" class="buy">立即訂購</a>
-                    </li>
+                    <?php } ?>
                 </ul>
             </div> 
             <div class="others">
                 <h3 class="title">其他精選單品</h3>
                 <ul class="selections">
+                    <?php foreach($products['data'] as $product){ ?>
                     <li class="item">
                         <div class="title">
-                            <div class="spell">Red Rice</div>
-                            <div class="name">赤谷米</div>
+                            <div class="spell"><?=end($product['meta']['英文名称'])?></div>
+                            <div class="name"><?=$product['name']?></div>
                         </div>
-                        <img src="/products/product1.jpg" alt="赤谷米">
+                        <img src="/uploads/<?=end($product['meta']['缩略图'])?>" alt="<?=$product['name']?>">
                     </li>
-                    <li class="item">
-                        <div class="title">
-                            <div class="spell">Fish in Rice Fields</div>
-                            <div class="name">稻田魚米</div>
-                        </div>
-                        <img src="/products/product2.jpg" alt="稻田魚米">
-                    </li>
-                    <li class="item">
-                        <div class="title">
-                            <div class="spell">Fungus</div>
-                            <div class="name">木耳</div>
-                        </div>
-                        <img src="/products/product3.jpg" alt="木耳">
-                    </li>
-                    <li class="item last">
-                        <div class="title">
-                            <div class="spell">Mushroom</div>
-                            <div class="name">花菇</div>
-                        </div>
-                        <img src="/products/product4.jpg" alt="花菇">
-                    </li>
+                    <?php } ?>
                 </ul>
             </div>
 

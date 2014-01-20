@@ -403,8 +403,8 @@ class Object_model extends CI_Model{
 	function getRow(array $args=array()){
 		!array_key_exists('limit',$args) && $args['limit']=1;
 		$result=$this->getList($args);
-		if(isset($result[0])){
-			return $result[0];
+		if(isset($result['data'][0])){
+			return $result['data'][0];
 		}else{
 			return array();
 		}
