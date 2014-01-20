@@ -57,14 +57,18 @@
         </div>
     </div>
 <?if(count($this->page_path)>1){?>
-    <ul class="breadcrumb">
-<?  foreach($this->page_path as $level => $page){?>
+    <div class="container">
+        <ol class="breadcrumb">
+            <?  foreach($this->page_path as $level => $page){?>
+            <li<?if($level==count($this->page_path)-1){?> class="active"<?}?>>
+                <?if($level===0){?><strong><?}?>
+                <a href="<?=$page['href']?>"><?=$page['text']?></a>
+                <?if($level===0){?></strong><?}?>
+                <?if($level<count($this->page_path)-1){?><span class="divider">/</span><?}?>
+            </li>
+            <?  }?>
+        </ol>
+    </div>
         <li>
-            <?if($level===0){?><strong><?}?>
-            <a href="<?=$page['href']?>"><?=$page['text']?></a>
-            <?if($level===0){?></strong><?}?>
-            <?if($level<count($this->page_path)-1){?><span class="divider">/</span><?}?>
         </li>
-<?  }?>
-    </ul>
 <?}?>

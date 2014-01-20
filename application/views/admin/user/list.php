@@ -1,16 +1,5 @@
 <?php $this->view('header'); ?>
 
-    <!-- body -->
-    <div class="container">
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">企業</a>
-                <span class="divider">/</span>
-            </li>
-            <li class="active">用户管理</li>
-        </ol>
-    </div>
-    
     <div class="container main">
         <?php $this->view('admin/sidebar'); ?>
         <form class="form">

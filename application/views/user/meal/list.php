@@ -1,16 +1,5 @@
 <?php $this->view('header'); ?>
 
-    <!-- body -->
-    <div class="container">
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">用户</a>
-                <span class="divider">/</span>
-            </li>
-            <li class="active">我的厨房</li>
-        </ol>
-    </div>
-    
     <div class="container main">
         <?php $this->view('user/sidebar'); ?>
         <form class="form">
