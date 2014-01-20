@@ -20,12 +20,14 @@ class Buy extends LB_Controller{
 	 */
 	function productOption(){
 		
+		//如果有未填写完成的订单，跳转到物流信息
 		if($this->user->config('incompleted_order')){
 			redirect('buy/logistic');
 		}
 		
 		if($this->input->post() !== false){
 			
+			//生成订单
 			$order_id = $this->object->add(array(
 				'type'=>'order',
 				'name'=>$this->object->fetch($this->input->post('package'))['name'].' '.$this->input->post('number').'次',
@@ -58,7 +60,7 @@ class Buy extends LB_Controller{
 		if($this->input->post() !== false){
 			
 			if(!$this->user->config('incompleted_order')){
-				throw new Exception('no incompleted order found');
+				throw new Exception('No Incompleted Order Found');
 			}
 			
 			$this->object->id = $this->user->config('incompleted_order');
@@ -74,6 +76,13 @@ class Buy extends LB_Controller{
 		}
 		
 		$this->load->view('buy/logistic');
+		
+	}
+	
+	/**
+	 * 支付完成返回页面
+	 */
+	function paymentConfirm(){
 		
 	}
 }
