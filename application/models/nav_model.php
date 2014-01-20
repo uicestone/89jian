@@ -43,27 +43,20 @@ class Nav_model extends CI_Model{
 	}
 	
 	function get(){
-		
-		$result = $this->db->from('nav')
-			->where_in('user', $this->user->groups)
-			->get()->result_array();
-		
-		$nav_items=array();
-		
-		foreach($result as $nav_item){
-			$nav_item['params'] = json_decode($nav_item['params']);
-			$nav_items[$nav_item['id']] = $nav_item;
-		}
-		
-		foreach($nav_items as $id => $nav_item){
-			if(!is_null($nav_item['parent'])){
-				$nav_items[$nav_item['parent']]['sub'][]=$nav_item;
-				unset($nav_items[$id]);
+
+		$nav_items = $this->db->from('nav')->get()->result_array();
+
+		foreach($nav_items as &$nav_item){
+
+			$nav_item['params'] = json_decode($nav_item['params'], JSON_OBJECT_AS_ARRAY);
+
+			if(array_key_exists('href', $nav_item['params'])){
+				$nav_item['href'] = $nav_item['params']['href'];
 			}
+
 		}
 		
-		return array_values($nav_items);
-		
+		return $nav_items;
+
 	}
-	
 }

@@ -10,6 +10,7 @@ class LB_Controller extends CI_Controller{
 		$this->load->model('company_model','company');
 		$this->load->model('object_model','object');
 		$this->load->model('user_model','user');
+		$this->load->model('nav_model','nav');
 		
 		$this->user->initialize();
 		
