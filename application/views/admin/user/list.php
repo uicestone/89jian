@@ -3,7 +3,7 @@
     <div class="container main">
         <?php $this->view('admin/sidebar'); ?>
         <form class="form">
-            <div class="head">用户管理</div>
+            <div class="head"><?=end($this->page_path)['text']?></div>
             <div class="row"><button class="btn">增加新用户</button></div>
             <div class="table-border">
                 <table class="table">
@@ -13,7 +13,7 @@
                     <tbody>
                         <?php foreach ($users['data'] as $user) { ?>								
                         <tr> 
-                            <td><a href="/space/<?=$user['id']?>"><?=$user['name']?></a></td>
+                            <td><?=$user['name']?></td>
                             <td><?=$user['email']?></td>
                             <td><?=$user['group']?></td>
                             <td>

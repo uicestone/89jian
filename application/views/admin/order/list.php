@@ -7,7 +7,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>订单号</th>
                             <th>套餐</th>
                             <th>周数</th>
@@ -19,8 +18,10 @@
                     <tbody>
                         <?php foreach($orders as $order){ ?>
                         <tr>
-                            <td><input type="checkbox" name="checked[]" value="<?=$order['id']?>"></td>
-                            <td><?=$order['num']?></td>
+                            <td>
+                                <input type="checkbox" name="checked[]" value="<?=$order['id']?>">
+                                <?=$order['num']?>
+                            </td>
                             <td><?=array_pop($order['relative']['package'])['name']?></td>
                             <td><?=array_pop($order['meta']['次数'])?></td>
                             <td><?=$order['status']['下单']?></td>

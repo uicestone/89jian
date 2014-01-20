@@ -1,17 +1,20 @@
 <?php $this->view('header'); ?>
-<?php $this->view('admin/sidebar'); ?>
-<?php $this->view('alert'); ?>
-    <form class="form-horizontal" method="post">
-        <div class="control-group">
-            <label class="control-label">值</label>
-            <div class="controls">
-                <input type="text" name="value" value="<?=set_value('value',$value)?>">
+    <div class="container main">
+        <?php $this->view('admin/sidebar'); ?>
+        <?php $this->view('alert'); ?>
+        <form class="form form-horizontal" method="post">
+            <div class="head"><?=end($this->page_path)['text']?></div>
+            <div class="control-group">
+                <label class="control-label">值</label>
+                <div class="controls">
+                    <input type="text" name="value" value="<?=set_value('value',$value)?>">
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button class="btn btn-primary" type="submit" name="submit">保存</button>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-primary" type="submit" name="submit">保存</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>  
 <?php $this->view('footer'); ?>
