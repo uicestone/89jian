@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2014-01-21 01:28:57
+-- Generation Time: 2014-01-21 01:33:29
 -- 服务器版本： 5.5.30-log
 -- PHP Version: 5.5.6
 
@@ -13,7 +13,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `89jian`
 --
-CREATE DATABASE IF NOT EXISTS `89jian` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `89jian` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `89jian`;
 
 -- --------------------------------------------------------
@@ -23,13 +23,13 @@ USE `89jian`;
 --
 
 CREATE TABLE IF NOT EXISTS `captcha` (
-  `captcha_id` bigint(13) unsigned NOT NULL AUTO_INCREMENT,
-  `captcha_time` int(10) unsigned NOT NULL,
+  `captcha_id` bigint(13) NOT NULL AUTO_INCREMENT,
+  `captcha_time` int(11) NOT NULL,
   `ip_address` varchar(16) NOT NULL DEFAULT '0',
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
