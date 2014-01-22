@@ -6,15 +6,16 @@
     margin-bottom: 60px
 
 .sidebar
-    background:url(img/sidebar.png) no-repeat
+    background:url(img/sidebar-bg.png)
     width:210px
     float:left
-    padding:5px 20px 20px
+    padding:5px 20px 0
     margin-right: 33px
     box-sizing:border-box
+    position:relative
     .block
         background:url(img/spliter-dash.png) no-repeat bottom
-        padding:16px 0
+        padding:19px 0
         ul li
             a
                 display: block
@@ -32,6 +33,19 @@
             margin-bottom: 5px
         &:last-child
             background:none
+    .top
+    .bottom
+        background-image: url(img/sidebar-border.png)
+        position: absolute
+        height: 24px
+        width: 100%
+        left: 0
+    .top
+        top: 0
+        background-position: 0 top
+    .bottom
+        bottom: 0
+        background-position: 0 bottom
 
 .form
     @extend $adjustable-content
