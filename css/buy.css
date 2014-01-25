@@ -1,0 +1,75 @@
+.container h1 {
+  margin: 20px 0;
+}
+.packages {
+  zoom: 1;
+}
+.packages:before,
+.packages:after {
+  content: "";
+  display: table;
+}
+.packages:after {
+  clear: both;
+}
+.packages .radio {
+  background-color: #fff;
+  padding: 50px;
+  border: 3px solid #ccc;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 24px;
+  width: 150px;
+  float: left;
+  margin-right: 20px;
+}
+.packages .radio input[type="radio"] {
+  display: none;
+}
+.packages .radio:hover,
+.packages .radio.active {
+  border: 3px solid #1e2f36;
+}
+.buy-form {
+  padding: 30px;
+  margin-bottom: 40px;
+  background-color: #f8f8f8;
+  display: block;
+  width: auto;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+.buy-form .step {
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+.buy-form .step .title {
+  zoom: 1;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.buy-form .step .title:before,
+.buy-form .step .title:after {
+  content: "";
+  display: table;
+}
+.buy-form .step .title:after {
+  clear: both;
+}
+.buy-form .step .title label {
+  float: left;
+  background-color: #1e2f36;
+  color: #fff;
+  width: 20px;
+  text-align: center;
+  margin-right: 5px;
+  margin-bottom: 0;
+}
+.buy-form .step .controls {
+  margin-left: 5px;
+}
+.buy-form .submit-button {
+  text-align: right;
+}
