@@ -216,6 +216,11 @@ input[type="password"] {
   padding: 0 15px;
   border: none;
   background: #fff url("img/btn.png") no-repeat left 1px;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -ms-transition: none;
+  transition: none;
 }
 .btn:after {
   content: "";
