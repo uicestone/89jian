@@ -1,4 +1,5 @@
     <div class="sidebar">
+        <div class="top"></div>
         <div class="block">
             <ul>
                 <li><a href="/user/repository" class="<? if(uri_string() === '/user/repository'){ ?> active<? } ?>">仓库</a></li>
@@ -20,4 +21,5 @@
         <div class="block">
                 <p>世聯研究房價備案制</p>
         </div>
+        <div class="bottom"></div>
     </div>

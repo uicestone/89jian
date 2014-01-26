@@ -1,4 +1,5 @@
     <div class="sidebar">
+        <div class="top"></div>
         <div class="block">
             <ul>
                 <li><a href="/admin/user" class="<? if(uri_string() === 'admin/user'){ ?> active<? } ?>">用户</a></li>
@@ -23,4 +24,5 @@
         <div class="block">
                 <p>世聯研究房價備案制</p>
         </div>
+        <div class="bottom"></div>
     </div>
