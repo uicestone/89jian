@@ -83,6 +83,10 @@ pink=#df4d65
                 margin-left: 60px
                 .title
                     background: url(img/set-spliter.png) 7px 0 no-repeat
+                    background-position: 0px 0unquote("\9")
+                    padding-left: 10pxunquote("\9")
+                    position: relative
+                    left: 10pxunquote("\9")
                     font-size: 20px
                     .set
                         @extend $horizon-layout
@@ -94,6 +98,7 @@ pink=#df4d65
                         line-height: 1
                         position: relative
                         left: 20px
+                        left: 0unquote("\9")
                         top: 2px
                 .buy
                     @extend $horizon-layout
@@ -116,6 +121,8 @@ pink=#df4d65
             .item
                 float:left
                 margin-right: 20px
+                height: 140px
+                width: 211px
                 .title
                     float:left
                     width:50px
@@ -128,7 +135,7 @@ pink=#df4d65
                         font-size: 12px
                 img
                     border: 1px solid #d9d9d9
-                    float:left
+                    display: block
                     height: 137px
                     width: 154px
                 &.last
@@ -152,6 +159,7 @@ pink=#df4d65
             font-size: 49px
             line-height: 1.2
             margin-left: 20px
+            height: 280px
         .describe
             @extend $vertical-layout
             font-size: 14px
@@ -170,6 +178,7 @@ pink=#df4d65
             margin-left: 40px
             padding-top: 45px
             line-height: 1.2
+            height:150px
     .content
         @extend $vertical-layout
         width: 100%
@@ -195,6 +204,8 @@ pink=#df4d65
             @extend $vertical-layout
             height: 165px
             margin-left: 18px
+            font-size: 32px
+            line-height: 38px
         .desc
             @extend $vertical-layout
             height: 240px
@@ -213,6 +224,7 @@ pink=#df4d65
             height: 410px
             p
                 margin-left: 31px
+                margin-left: 29pxunquote("\9") // 字体关系
     .original
         clearfix()
         margin-bottom: 150px
@@ -253,11 +265,13 @@ orange=#c25125
         height: 392px
         font-size: 23px
         margin-left: 25px
+        margin-left: 10pxunquote(\9)
     .far
         @extend $vertical-layout
         height: 320px
         font-size: 69px
         line-height: 1
+        line-height: 0.95unquote(\9)
         margin-left:80px
     .fast
         @extend $vertical-layout

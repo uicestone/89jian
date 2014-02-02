@@ -1,5 +1,5 @@
 <?php $this->view('header'); ?>
-    
+
     <div class="navpanel">
         <ul class="nav">
             <li class="item active"><a href="#setfood">精選套餐</a></li>
@@ -29,7 +29,7 @@
                     </li>
                     <?php } ?>
                 </ul>
-            </div> 
+            </div>
             <div class="others">
                 <h3 class="title">其他精選單品</h3>
                 <ul class="selections">
@@ -57,7 +57,7 @@
         <div class="container">
         <div class="head">
             <div class="spell">Growth environment</div>
-            <h2 class="title">得天獨厚的生長環境</h2>
+            <div class="title">得天獨厚的生長環境</div>
             <div class="describe">
                 海拔八百米以上的丽水地区
                 是蔬菜最适生长区域具有
@@ -95,7 +95,7 @@
         <div class="container">
             <div class="head">
                 <div class="spell">The traditional<br>cultivation methods</div>
-                <h2 class="title">傳統農業的種養方式</h2>
+                <div class="title">傳統農業的種養方式</div>
                 <div class="desc">原始農耕和現代化農業管理科技互補，保證食材品質和安全。</div>
             </div>
             <div class="main-article">
@@ -152,14 +152,14 @@
     <div class="delivery">
         <div class="container">
         <div class="spell orange">Fresh Logistics</div>
-        <h2 class="timelimit orange">冷鏈保鮮的限時專送</h2>
+        <div class="timelimit orange">冷鏈保鮮的限時專送</div>
         <p class="desc">每周五從麗水高山基地采摘，現場配備
         加工間清理分包，冷鏈物流當日連夜發
         車，次日清晨運抵六百公裏外的上海，
         確保二十四小時內送達您的餐桌，嚴控
         中轉環節，保證新鮮直送。</p>
-        <h2 class="far"><span class="orange">十二万里</span>快馬加鞭<br><br><br>披星戴月</h2>
-        <h2 class="fast orange">二十四小時</h2>
+        <div class="far"><span class="orange">十二万里</span>快馬加鞭<br><br><br>披星戴月</div>
+        <div class="fast orange">二十四小時</div>
         <p class="for-fresh">內只爲新鮮送達</p>
         </div>
     </div>

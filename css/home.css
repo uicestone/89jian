@@ -145,6 +145,10 @@
 }
 .setfood .sets .list li .title {
   background: url("img/set-spliter.png") 7px 0 no-repeat;
+  background-position: 0px 0 \9;
+  padding-left: 10px \9;
+  position: relative;
+  left: 10px \9;
   font-size: 20px;
 }
 .setfood .sets .list li .title .price {
@@ -153,6 +157,7 @@
   line-height: 1;
   position: relative;
   left: 20px;
+  left: 0 \9;
   top: 2px;
 }
 .setfood .sets .list li .buy {
@@ -187,6 +192,8 @@
 .setfood .others .selections .item {
   float: left;
   margin-right: 20px;
+  height: 140px;
+  width: 211px;
 }
 .setfood .others .selections .item .title {
   float: left;
@@ -202,7 +209,7 @@
 }
 .setfood .others .selections .item img {
   border: 1px solid #d9d9d9;
-  float: left;
+  display: block;
   height: 137px;
   width: 154px;
 }
@@ -237,6 +244,7 @@
   font-size: 49px;
   line-height: 1.2;
   margin-left: 20px;
+  height: 280px;
 }
 .environment .head .describe {
   font-size: 14px;
@@ -256,6 +264,7 @@
   margin-left: 40px;
   padding-top: 45px;
   line-height: 1.2;
+  height: 150px;
 }
 .environment .content {
   width: 100%;
@@ -290,6 +299,8 @@
 .traditional .head .title {
   height: 165px;
   margin-left: 18px;
+  font-size: 32px;
+  line-height: 38px;
 }
 .traditional .head .desc {
   height: 240px;
@@ -319,6 +330,7 @@
 }
 .traditional .main-article .content p {
   margin-left: 31px;
+  margin-left: 29px \9;
 }
 .traditional .original {
   zoom: 1;
@@ -371,11 +383,13 @@
   height: 392px;
   font-size: 23px;
   margin-left: 25px;
+  margin-left: 10px 9;
 }
 .delivery .far {
   height: 320px;
   font-size: 69px;
   line-height: 1;
+  line-height: 0.95 9;
   margin-left: 80px;
 }
 .delivery .fast {
