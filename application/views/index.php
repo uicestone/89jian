@@ -49,7 +49,7 @@
     </div>
 
     <div class="full-section section-bg-1" id="environment">
-        <h2>得天獨厚的生長環境</h2>
+        <div class="h2">得天獨厚的生長環境</div>
         <p>這裏有生態環境最好的高山平原和梯田，青巒疊章，清澗常流，空氣清新<br>日照充足，雨水充沛，常年雲霧滋養</p>
     </div>
 
@@ -88,7 +88,7 @@
     </div>
 
     <div class="full-section section-bg-2" id="traditional">
-        <h2>傳統農業的種養方式</h2>
+        <div class="h2">傳統農業的種養方式</div>
         <p>原始農耕和現代化農業管理科技互補，保證食材品質和安全</p>
     </div>
     <div class="traditional">
@@ -145,7 +145,7 @@
     </div>
 
     <div class="full-section section-bg-3" id="delivery">
-        <h2>保鮮宅配 源生到家</h2>
+        <div class="h2">保鮮宅配 源生到家</div>
         <p>確保24小時內送達您的餐桌，嚴控中轉環節，保證新鮮直送。</p>
     </div>
 
@@ -165,7 +165,7 @@
     </div>
 
     <div class="full-section section-bg-4" id="seasons">
-        <h2>四季食材合理搭配</h2>
+        <div class="h2">四季食材合理搭配</div>
         <p>根据气温和人体 的变化，合理调配膳食，做到四季膳食平衡</p>
     </div>
 
