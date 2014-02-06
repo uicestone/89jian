@@ -11,12 +11,21 @@
 #poetry .hd .author {
   font-family: "TypeLand KhangXi Dict", "STZhongsong", "Songti SC", "SimSun", serif;
 }
+#poetry .hd,
+#poetry .article .origin,
+#poetry .article .annotation,
+#quality .article,
+#team .title,
+#team .content,
+#team .slogan {
+  display: none;
+}
 #poetry .container {
   zoom: 1;
-  padding-top: 80px;
+  padding-top: 5px;
   position: relative;
-  padding-bottom: 265px;
-  background: url("img/about-section-bg-1.png") no-repeat bottom;
+  height: 1080px;
+  background: url("/img/about/block-1.png") no-repeat bottom;
 }
 #poetry .container:before,
 #poetry .container:after {
@@ -51,7 +60,9 @@
 }
 #poetry .article .scene {
   display: block;
-  margin: 0 6px 42px 6px;
+  position: absolute;
+  top: 230px;
+  left: 0;
 }
 #poetry .article .annotation .title {
   font-size: 32px;
@@ -66,8 +77,9 @@
   color: #fff;
 }
 #quality .container {
-  background: url("img/about-section-bg-2.png") no-repeat;
+  background: url("/img/about/block-2.png") no-repeat;
   padding-bottom: 45px;
+  height: 735px;
 }
 #quality .article {
   margin-left: 390px;
@@ -83,7 +95,7 @@
 }
 #team .container {
   zoom: 1;
-  background: url("img/about-section-bg-3.png") no-repeat left top;
+  background: url("/img/about/block-3.png") no-repeat left top;
   position: relative;
   height: 670px;
   padding-top: 93px;
