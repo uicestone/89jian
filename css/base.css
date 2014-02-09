@@ -58,7 +58,7 @@ input[type="password"] {
 }
 .banner .account .item {
   margin-right: 10px;
-  color: inherit;
+  color: #fff;
 }
 .banner .logo {
   margin: 30px auto;

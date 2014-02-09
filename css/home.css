@@ -1,8 +1,4 @@
 .navpanel li,
-.setfood .sets .head .title,
-.setfood .sets .head .content,
-.setfood .sets .list li,
-.setfood .others .selections .item .title .name,
 .environment .head .title,
 .environment .head .describe,
 .environment .features .item,
@@ -21,15 +17,20 @@
   writing-mode: tb-rl;
   float: right;
 }
-.setfood .sets .list li .title .set,
-.setfood .sets .list li .title .price,
-.setfood .sets .list li .buy {
-  -webkit-writing-mode: horizontal-tb;
-  writing-mode: lr-tb;
-  float: none;
-}
 .setfood .sets .list li .title .price {
   font-family: "Trajan Pro", serif;
+}
+.setfood .sets .head .spell,
+.setfood .sets .head .title,
+.setfood .sets .head .content,
+.environment .head,
+.environment .features,
+.environment .content,
+.traditional .head,
+.traditional .main-article,
+.traditional .original,
+.delivery .wrapper {
+  display: none;
 }
 .full-section {
   height: 502px;
@@ -87,8 +88,7 @@
   background-color: #fff;
   text-decoration: underline;
 }
-.navpanel li:after {
-  content: "\\";
+.navpanel li .split {
   color: #000;
   display: inline-block;
   margin: 10px 0;
@@ -116,7 +116,9 @@
 .setfood .sets .head {
   float: left;
   width: 160px;
+  height: 210px;
   margin-left: 75px;
+  background: url("/img/home/header-select.png") no-repeat center left;
 }
 .setfood .sets .head .title {
   font-size: 49px;
@@ -142,29 +144,32 @@
 }
 .setfood .sets .list li {
   margin-left: 60px;
+  float: right;
 }
 .setfood .sets .list li .title {
-  background: url("img/set-spliter.png") 7px 0 no-repeat;
-  background-position: 0px 0 \9;
-  padding-left: 10px \9;
+  background: url("img/set-spliter.png") 0 0 no-repeat;
   position: relative;
-  left: 10px \9;
   font-size: 20px;
+  width: 1em;
+  font-size: 20px;
+  width: 1em;
+  float: right;
+  padding-left: 18px;
+  margin-left: 10px;
 }
 .setfood .sets .list li .title .price {
   font-size: 34.5px;
   color: #df4d65;
   line-height: 1;
-  position: relative;
-  left: 20px;
-  left: 0 \9;
-  top: 2px;
+  margin: 5px 0;
+  display: inline-block;
 }
 .setfood .sets .list li .buy {
   text-indent: -2500px;
   background: url("img/buy.png") top;
   width: 30px;
   height: 120px;
+  float: right;
 }
 .setfood .others {
   margin: 0 17px;
@@ -203,9 +208,11 @@
 .setfood .others .selections .item .title .name {
   line-height: 1;
   font-size: 28px;
+  width: 1em;
 }
 .setfood .others .selections .item .title .spell {
   font-size: 12px;
+  width: 1em;
 }
 .setfood .others .selections .item img {
   border: 1px solid #d9d9d9;
@@ -217,8 +224,9 @@
   margin-right: 0;
 }
 .environment {
-  background-color: #1d3c35;
   color: #fff;
+  height: 1069px;
+  background: #1d3c35 url("/img/home/home-1.png") no-repeat center;
 }
 .environment .container {
   position: relative;
@@ -280,7 +288,8 @@
   margin-left: 40px;
 }
 .traditional .container {
-  background: url("img/home-traditional-bg.png") no-repeat;
+  background: #fff url("/img/home/home-2.png") no-repeat center;
+  height: 1416px;
   position: relative;
 }
 .traditional .head {
@@ -366,9 +375,8 @@
   background-color: #474b2f;
 }
 .delivery .container {
-  padding-top: 110px;
-  padding-bottom: 295px;
-  background: url("img/home-fresh.png") 0 110px no-repeat;
+  height: 798px;
+  background: url("/img/home/home-3.png") no-repeat center;
 }
 .delivery .orange {
   color: #c25125;

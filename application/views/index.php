@@ -2,12 +2,12 @@
 
     <div class="navpanel">
         <ul class="nav">
-            <li class="item active"><a href="#setfood">精選套餐</a></li>
-            <li class="item"><a href="#environment">生長環境</a></li>
-            <li class="item"><a href="#traditional">種植方式</a></li>
-            <li class="item"><a href="#delivery">保鮮宅配</a></li>
-            <li class="item"><a href="#seasons">四季菜品</a></li>
-            <li class="item last"><a href="#contact">联系我们</a></li>
+            <li class="item active"><a href="#setfood">精選套餐</a><span class="split">\</span></li>
+            <li class="item"><a href="#environment">生長環境</a><span class="split">\</span></li>
+            <li class="item"><a href="#traditional">種植方式</a><span class="split">\</span></li>
+            <li class="item"><a href="#delivery">保鮮宅配</a><span class="split">\</span></li>
+            <li class="item"><a href="#seasons">四季菜品</a><span class="split">\</span></li>
+            <li class="item last"><a href="#contact">联系我们</a><span class="split">\</span></li>
         </ul>
     </div>
 
@@ -24,7 +24,7 @@
                 <ul class="list">
                     <?php foreach($packages['data'] as $package){ ?>
                     <li>
-                        <div class="title">套餐<span class="set"><?=$package['name']?></span><span class="price"><?=end($package['meta']['价格'])?></span>元</div>
+                        <div class="title">套餐<?=$package['name']?><span class="price"><?=end($package['meta']['价格'])?></span>元</div>
                         <a href="/buy/productoption?package=<?=$package['id']?>" class="buy">立即訂購</a>
                     </li>
                     <?php } ?>
@@ -151,6 +151,7 @@
 
     <div class="delivery">
         <div class="container">
+        <div class="wrapper">
         <div class="spell orange">Fresh Logistics</div>
         <div class="timelimit orange">冷鏈保鮮的限時專送</div>
         <p class="desc">每周五從麗水高山基地采摘，現場配備
@@ -161,6 +162,7 @@
         <div class="far"><span class="orange">十二万里</span>快馬加鞭<br><br><br>披星戴月</div>
         <div class="fast orange">二十四小時</div>
         <p class="for-fresh">內只爲新鮮送達</p>
+        </div>
         </div>
     </div>
 
