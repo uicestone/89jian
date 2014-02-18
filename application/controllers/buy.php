@@ -83,7 +83,7 @@ class Buy extends LB_Controller{
 			'service'=>'create_direct_pay_by_user',
 			'partner'=>$this->company->config('alipay_partner_id'),
 			'_input_charset'=>'utf-8',
-			'return_url'=>'http://89jian/buy/paymentconfirm',
+			'return_url'=>base_url().'buy/paymentconfirm',
 			'seller_email'=>'bin_lin@89jian.com',
 			'out_trade_no'=>$order['id'],
 			'subject'=>$order['name'],
