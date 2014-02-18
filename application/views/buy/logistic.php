@@ -27,7 +27,7 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <button type="submit" class="btn">提交订单</button>
+                <button type="submit" class="btn">去支付宝支付</button>
             </div>
         </div>
     </form>

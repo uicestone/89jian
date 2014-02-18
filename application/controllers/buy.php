@@ -20,14 +20,17 @@ class Buy extends LB_Controller{
 		
 		if($this->input->post() !== false){
 			
+			$package = $this->object->fetch($this->input->post('package'));
+			
 			//生成订单
 			$order_id = $this->object->add(array(
 				'type'=>'order',
-				'name'=>$this->object->fetch($this->input->post('package'))['name'].' '.$this->input->post('次数').'次',
+				'name'=>$package['name'].' '.$this->input->post('次数').'次',
 				'meta'=>array(
 					'次数'=>$this->input->post('次数'),
+					'金额'=>$this->input->post('次数') * end($package['meta']['价格']),
 					'是否卡片'=>$this->input->post('是否卡片'),
-					'首次送货日期'=>$this->input->post('首次送货日期')
+					'首次送货日期'=>$this->input->post('首次送货日期'),
 				),
 				'relative'=>array(
 					array(
@@ -42,7 +45,9 @@ class Buy extends LB_Controller{
 			redirect('buy/logistic');
 		}
 		
-		$this->load->view('buy/product_option');
+		$packages = $this->object->getList(array('type'=>'package'))['data'];
+		
+		$this->load->view('buy/product_option', compact('packages'));
 	}
 	
 	/**
@@ -62,9 +67,7 @@ class Buy extends LB_Controller{
 			
 			$this->object->addStatus(array('name'=>'下单'));
 			
-			$this->user->config('incompleted_order', false);
-			
-			redirect('user/order');
+			redirect('buy/pay/'.$this->object->id);
 			
 		}
 		
@@ -72,10 +75,63 @@ class Buy extends LB_Controller{
 		
 	}
 	
+	function pay($order_id){
+		
+		$order = $this->object->fetch($order_id);
+		
+		$alipay_request_args = array(
+			'service'=>'create_direct_pay_by_user',
+			'partner'=>$this->company->config('alipay_partner_id'),
+			'_input_charset'=>'utf-8',
+			'return_url'=>'http://89jian/buy/paymentconfirm',
+			'seller_email'=>'bin_lin@89jian.com',
+			'out_trade_no'=>$order['id'],
+			'subject'=>$order['name'],
+			'payment_type'=>1,
+			'total_fee'=>end($order['meta']['金额'])
+		);
+	  
+		ksort($alipay_request_args);
+		
+		$alipay_request_args_temp = array();
+		
+		foreach($alipay_request_args as $key => $value){
+			$alipay_request_args_temp[] = $key.'='.$value;
+		}
+		
+		$sign_text = implode('&', $alipay_request_args_temp);
+		
+		$alipay_request_args['sign'] = md5($sign_text.$this->company->config('alipay_key'));
+		
+		$alipay_request_args['sign_type'] = 'MD5';
+		
+		$this->object->addMeta(array('key'=>'alipay_sign','value'=>$alipay_request_args['sign']));
+		
+		redirect('?'.http_build_query($alipay_request_args), 'php', $this->company->config('alipay_api'));
+		
+	}
+	
+	
 	/**
 	 * 支付完成返回页面
 	 */
 	function paymentConfirm(){
+		
+		$notify_verify = file_get_contents('https://mapi.alipay.com/gateway.do?service=notify_verify&partner='.$this->company->config('alipay_partner_id').'&notify_id='.$this->input->get('notify_id'));
+		
+		if($notify_verify !== 'true'){
+			throw new Exception('支付校验失败', 400);
+		}
+		
+		$order_id = $this->input->get('out_trade_no');
+		
+		$order = $this->object->fetch($order_id);
+		
+		$this->object->addMeta(array('key'=>'支付宝流水号', 'value'=>$this->input->get('trade_no')));
+		
+		$this->object->addStatus(array('name'=>'支付完成'));
+		
+		redirect('user/order');
 		
 	}
 }

@@ -9,7 +9,7 @@
                     选择套餐
                 </div>
                 <div class="packages">
-                    <?=radio(array_column($this->object->getList(array('type'=>'package'))['data'], 'name', 'id'), 'package', $this->input->get('package'), true)?>
+                    <?=radio(array_column($packages, 'name', 'id'), 'package', $this->input->get('package'), true)?>
                     <label class="radio active"><input name="package" value="3" type="radio" checked="checked">B</label>
                 </div>
             </li>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <?=radio(array(''=>'现货','1'=>'礼品卡'), '是否卡片', $this->input->get('是否卡片'),true)?>
+                        <?=radio(array('0'=>'现货','1'=>'礼品卡'), '是否卡片', $this->input->get('是否卡片'),true)?>
                     </div>
                 </div>
             </li>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="controls">
                     <div class="input-append date" id="datepicker" data-date="2014-01-25" data-date-format="yyyy-mm-dd">
-                        <input class="span2" size="16" type="text" value="2014-01-25">
+                        <input name="首次送货日期" class="span2" size="16" type="text" value="2014-01-25">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                       </div>
                 </div>

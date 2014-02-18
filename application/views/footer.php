@@ -9,7 +9,7 @@
                         Tel: +86 (021) 52832162<br>
                         Fax: +86 (021) 52833621<br>
                         www.89jian.com<br>
-                        微信：bajiu-jian<br>
+                        微信：ba-jiu-jian<br>
                     </div>
                     <img src="/img/qrcode.png" alt="" class="qrcode">
                 </div>
