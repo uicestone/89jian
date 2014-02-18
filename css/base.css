@@ -212,7 +212,6 @@ input[type="password"] {
   color: #1e2f36;
   position: relative;
   height: 33px;
-  line-height: 33px;
   padding: 0 15px;
   border: none;
   background: #fff url("img/btn.png") no-repeat left 1px;
