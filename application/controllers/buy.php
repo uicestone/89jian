@@ -131,6 +131,8 @@ class Buy extends LB_Controller{
 		
 		$this->object->addStatus(array('name'=>'支付完成'));
 		
+		$this->user->config('incompleted_order', false);
+		
 		redirect('user/order');
 		
 	}
