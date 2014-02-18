@@ -58,7 +58,7 @@ class Buy extends LB_Controller{
 		if($this->input->post() !== false){
 			
 			if(!$this->user->config('incompleted_order')){
-				throw new Exception('No Incompleted Order Found');
+				throw new Exception('No Incompleted Order Found', '500');
 			}
 			
 			$this->object->id = $this->user->config('incompleted_order');

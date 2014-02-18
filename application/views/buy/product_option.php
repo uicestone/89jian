@@ -10,7 +10,6 @@
                 </div>
                 <div class="packages">
                     <?=radio(array_column($packages, 'name', 'id'), 'package', $this->input->get('package'), true)?>
-                    <label class="radio active"><input name="package" value="3" type="radio" checked="checked">B</label>
                 </div>
             </li>
 
