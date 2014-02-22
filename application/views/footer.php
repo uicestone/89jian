@@ -54,10 +54,10 @@
                         <li><a href="#">常見問題</a></li>
                         <li><a href="#">聯系我們</a></li>
                     </ul>
-                </li> 
+                </li>
             </ul>
             <div class="copyright">
-                上海八九间蔬菜有限公司 © 2011-2013 All Rights Reserved
+                上海丽原生态农业发展有限公司 © 2011-2013 All Rights Reserved
             </div>
         </div>
     </div>
