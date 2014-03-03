@@ -335,6 +335,10 @@ class Object_model extends CI_Model{
 		
 		$this->db->from('object');
 		
+		if(array_key_exists('num', $args)){
+			$this->db->where('object.num', $args['num']);
+		}
+		
 		$this->db->where('object.company', $this->company->id);
 		
 		$this->db->where($this->_parse_criteria($args), null, false);
