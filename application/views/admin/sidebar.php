@@ -11,18 +11,5 @@
                 <li><a href="/admin/config" class="<? if(uri_string() === 'admin/config'){ ?> active<? } ?>">配置</a></li>
             </ul>
         </div>
-        <div class="block">
-            <div class="title">尋求幫助</div>
-            <div class="content">
-                <p>如何快速發布項目活動？</p>
-                <p>正等待你選出後選人</p>
-                <p>三星LEXD手機創意作品</p>
-                <p>世聯研究房價備案制</p>
-                <p>博策堂開發商正在面臨</p>
-            </div>
-        </div>
-        <div class="block">
-                <p>世聯研究房價備案制</p>
-        </div>
         <div class="bottom"></div>
     </div>
