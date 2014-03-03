@@ -18,41 +18,41 @@
                 <li class="group span3">
                     <div class="title">食品安全</div>
                     <ul class="links">
-                        <li><a href="/article/原生态食材选择指南">原生態食材選擇指南</a></li>
-                        <li><a href="/article/为何选择原生态食品">為何選擇原生態食品</a></li>
+                        <li><a href="/article/%E5%8E%9F%E7%94%9F%E6%80%81%E9%A3%9F%E6%9D%90%E9%80%89%E6%8B%A9%E6%8C%87%E5%8D%97">原生態食材選擇指南</a></li>
+                        <li><a href="/article/%E4%B8%BA%E4%BD%95%E9%80%89%E6%8B%A9%E5%8E%9F%E7%94%9F%E6%80%81%E9%A3%9F%E5%93%81">為何選擇原生態食品</a></li>
                     </ul>
                 </li>
                 <li class="group span2">
                     <div class="title">新手指南</div>
                     <ul class="links">
-                        <li><a href="/article/会员注册">會員註冊</a></li>
-                        <li><a href="/article/购物流程">購物流程</a></li>
-                        <li><a href="/article/会员手册">會員手冊</a></li>
+                        <li><a href="/article/%E4%BC%9A%E5%91%98%E6%B3%A8%E5%86%8C">會員註冊</a></li>
+                        <li><a href="/article/%E8%B4%AD%E4%B9%B0%E6%B5%81%E7%A8%8B">購物流程</a></li>
+                        <li><a href="/article/%E4%BC%9A%E5%91%98%E6%89%8B%E5%86%8C">會員手冊</a></li>
                     </ul>
                 </li>
                 <li class="group span2">
                     <div class="title">支付方式</div>
                     <ul class="links">
-                        <li><a href="/article/在线支付">在綫支付</a></li>
-                        <li><a href="/article/货到付款">貨到付款</a></li>
-                        <li><a href="/article/发票制度">發票制度</a></li>
+                        <li><a href="/article/%E5%9C%A8%E7%BA%BF%E6%94%AF%E4%BB%98">在綫支付</a></li>
+                        <li><a href="/article/%E8%B4%A7%E5%88%B0%E4%BB%98%E6%AC%BE">貨到付款</a></li>
+                        <li><a href="/article/%E5%8F%91%E7%A5%A8%E5%88%B6%E5%BA%A6">發票制度</a></li>
                     </ul>
                 </li>
                 <li class="group span3">
                     <div class="title">配送說明</div>
                     <ul class="links">
-                        <li><a href="/article/冷链配送">冷鏈配送</a></li>
-                        <li><a href="/article/上门自提">上門自提</a></li>
-                        <li><a href="/article/配送范围与费用">配送範圍與費用</a></li>
+                        <li><a href="/article/%E5%86%B7%E9%93%BE%E9%85%8D%E9%80%81">冷鏈配送</a></li>
+                        <li><a href="/article/%E4%B8%8A%E9%97%A8%E8%87%AA%E6%8F%90">上門自提</a></li>
+                        <li><a href="/article/%E9%85%8D%E9%80%81%E8%8C%83%E5%9B%B4%E4%B8%8E%E8%B4%B9%E7%94%A8">配送範圍與費用</a></li>
                     </ul>
                 </li>
                 <li class="group span2">
                     <div class="title">幫助中心</div>
                     <ul class="links">
-                        <li><a href="/article/退换货说明">退換貨說明</a></li>
-                        <li><a href="/article/找回密码">找回密碼</a></li>
-                        <li><a href="/article/常见问题">常見問題</a></li>
-                        <li><a href="/article/联系我们">聯系我們</a></li>
+                        <li><a href="/article/%E9%80%80%E6%8D%A2%E8%B4%A7%E8%AF%B4%E6%98%8E">退換貨說明</a></li>
+                        <li><a href="/article/%E6%89%BE%E5%9B%9E%E5%AF%86%E7%A0%81">找回密碼</a></li>
+                        <li><a href="/article/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常見問題</a></li>
+                        <li><a href="/article/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC">聯系我們</a></li>
                     </ul>
                 </li>
             </ul>
