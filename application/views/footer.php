@@ -19,7 +19,7 @@
                     <div class="title">食品安全</div>
                     <ul class="links">
                         <li><a href="#">原生態食材選擇指南</a></li>
-                        <li><a href="#">為何選擇原生態蔬菜</a></li>
+                        <li><a href="#">為何選擇原生態食品</a></li>
                     </ul>
                 </li>
                 <li class="group span2">
