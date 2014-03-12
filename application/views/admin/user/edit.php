@@ -40,9 +40,6 @@
             <div class="table-border">
                 <?php if(isset($user['id'])){ ?>
                 <table class="table">
-                    <thead>
-                        <tr><th>资料项</th><th>内容</th></tr>
-                    </thead>
                     <tbody>
                         <?php foreach ($user['meta'] as $key => $value) { ?>
                             <tr> 

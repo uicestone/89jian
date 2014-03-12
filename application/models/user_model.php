@@ -13,7 +13,6 @@ class User_model extends Object_model{
 			'name'=>'',
 			'email'=>'',
 			'alias'=>NULL,//别名
-			'password'=>''//密码
 		);
 	}
 	
@@ -63,6 +62,17 @@ class User_model extends Object_model{
 		return $insert_id;
 	}
 	
+	/**
+	 * @param id $user_id
+	 * @param array $data
+	 */
+	function update($user_id, array $data = array()){
+		
+		parent::update($data);
+		$this->db->update('user', array_intersect_key($data, self::$fields), array('id'=>$user_id));
+		return $this->db->affected_rows();
+	}
+	
 	function verify($username,$password){
 		
 		$username=$this->db->escape($username);
@@ -89,13 +99,11 @@ class User_model extends Object_model{
 	}
 	
 	function updatePassword($user_id,$new_password){
-		
 		return $this->db->update('user',array('password'=>$new_password),array('id'=>$user_id));
-		
 	}
 	
-	function updateUsername($user_id,$new_username){
-		return $this->db->update('user',array('name'=>$new_username),array('id'=>$user_id));
+	function updateGroup($user_id, $new_groups){
+		return $this->db->update('user', array('group'=>$new_groups), array('id'=>$user_id));
 	}
 	
 	/**
