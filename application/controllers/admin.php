@@ -175,8 +175,8 @@ class Admin extends LB_Controller{
 	 * 卡管理
 	 */
 	function cardList(){
-		$cards = $this->object->getList(array('type'=>'card'));
 		
+		$cards = $this->object->getList(array('type'=>'card', 'with_relative'=>true, 'with_meta'=>true));
 		$this->load->page_name = 'admin-card-list';
 		$this->load->page_path[] = array('href'=>'/admin/card', 'text'=>'卡片管理');
 		
