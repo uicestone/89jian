@@ -252,7 +252,19 @@ class Admin extends LB_Controller{
 	}
 	
 	function configEdit($item = null){
+		
+		$item = urldecode($item);
+		
+		if($this->input->post('submit') !== false){
+			$value = is_json($this->input->post('value')) ? json_decode($this->input->post('value')) : $this->input->post('value');
+			$this->company->config($item, $value);
+		}
+		
 		$value = $this->company->config($item);
+		
+		if(!is_string($value)){
+			$value = json_encode($value, JSON_UNESCAPED_UNICODE);
+		}
 		
 		$this->load->page_name = 'admin-config-detail';
 		$this->load->page_path[] = array('href'=>'/admin/config', 'text'=>'系统配置');

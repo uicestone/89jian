@@ -89,7 +89,7 @@ class Company_model extends CI_Model{
 				$value=json_encode($value);
 			}
 			
-			return $this->db->upsert('company_config', array('value'=>$value));
+			return $this->db->upsert('company_config', array('value'=>$value,'key'=>$key,'company'=>$this->company->id));
 		}
 	}
 }

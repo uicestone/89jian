@@ -7,7 +7,7 @@
 			<div class="control-group">
 				<label class="control-label">值</label>
 				<div class="controls">
-					<input type="text" name="value" value="<?=set_value('value',$value)?>">
+					<input type="text" name="value" value='<?=set_value('value',$value)?>'>
 				</div>
 			</div>
 			<div class="control-group">
