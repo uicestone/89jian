@@ -1,5 +1,5 @@
 <?php $this->view('header'); ?>
 <?php $this->view('user/sidebar'); ?>
-    <table>
-    </table>
+	<table>
+	</table>
 <?php $this->view('footer'); ?>
