@@ -67,8 +67,6 @@ class User_model extends Object_model{
 	 * @param array $data
 	 */
 	function update($user_id, array $data = array()){
-		
-		parent::update($data);
 		$this->db->update('user', array_intersect_key($data, self::$fields), array('id'=>$user_id));
 		return $this->db->affected_rows();
 	}
