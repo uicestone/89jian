@@ -81,15 +81,39 @@ class Admin extends LB_Controller{
 	
 	/**
 	 * 配货管理
-	 * @param int $id
 	 */
 	function logisticList(){
-		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true));
 		
+		$alert = array();
+		
+		if($this->input->post('assign') !== false && is_array($this->input->post('checked'))){
+			foreach($this->input->post('checked') as $meal_id){
+				$this->object->id = $meal_id;
+				$this->object->addStatus(array('name'=>'配货完成'));
+			}
+			$alert[] = array('message'=>'选定项目已被标记为配货完成');
+		}
+		
+		if($this->input->post('deliver') !== false && is_array($this->input->post('checked'))){
+			
+			$logistic_provider = $this->input->post('logistic_provider');
+			$logictic_number = $this->input->post('logistic_number');
+			
+			foreach($this->input->post('checked') as $meal_id){
+				$this->object->id = $meal_id;
+				$this->object->addStatus(array('name'=>'已发货'));
+				!empty($logistic_provider[$meal_id]) && $this->object->addMeta(array('key'=>'物流供应商', 'value'=>$logistic_provider[$meal_id]));
+				!empty($logictic_number[$meal_id]) && $this->object->addMeta(array('key'=>'物流单号', 'value'=>$logictic_number[$meal_id]));
+			}
+			$alert[] = array('message'=>'选定项目已被标记为已发货，物流供应商和单号信息已保存');
+		}
+		
+		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>array('as_rows'=>true)));
+
 		$this->load->page_name = 'admin-logistic-edit';
 		$this->load->page_path[] = array('href'=>'/admin/logistic', 'text'=>'配货管理');
 		
-		$this->load->view('admin/logistic/list', compact('meals'));
+		$this->load->view('admin/logistic/list', compact('meals', 'alert'));
 	}
 	
 	function logisticEdit($id = null){

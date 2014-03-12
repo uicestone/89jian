@@ -84,7 +84,8 @@ class Object_model extends CI_Model{
 		
 		foreach(array('meta','relative','status','tag') as $field){
 			if(!array_key_exists('with_'.$field,$args) || $args['with_'.$field]){
-				$object[$field]=call_user_func(array($this,'get'.$field));
+				$property_args = array_key_exists('with_'.$field,$args) && is_array($args['with_'.$field]) ? $args['with_'.$field] : array();
+				$object[$field]=call_user_func(array($this,'get'.$field), $property_args);
 			}
 		}
 		
@@ -385,12 +386,15 @@ class Object_model extends CI_Model{
 		$result = array();
 		$result['total'] = $this->db->query('SELECT FOUND_ROWS() rows')->row()->rows;
 		
-		foreach(array('meta','mod','relative','status','tag') as $field){
-			if(array_key_exists('with_'.$field,$args) && $args['with_'.$field]){
-				array_walk($result_array,function(&$row, $index, $field){
+		//获得四属性的参数，决定是否为对象列表获取属性
+		foreach(array('meta','relative','status','tag') as $property){
+			if(array_key_exists('with_'.$property, $args) && $args['with_'.$property]){
+				array_walk($result_array,function(&$row, $index, $userdata){
 					$this->id = $row['id'];
-					$row[$field]=call_user_func(array($this,'get'.$field));
-				},$field);
+					//参数值可以不是true而是一个数组，那样的话这个数组将被传递给get{property}()方法作为参数
+					!is_array($userdata['property_args']) && $userdata['property_args'] = array();
+					$row[$userdata['property']] = call_user_func(array($this, 'get'.$userdata['property']), $userdata['property_args']);
+				}, array('property'=>$property, 'property_args'=>$args['with_'.$property]));
 			}
 		}
 

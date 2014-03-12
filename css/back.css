@@ -128,7 +128,7 @@
   background-image: url("img/tr-spliter.png");
   background-position: left top;
   background-repeat: repeat-x;
-  table-layout: fixed;
+  /*table-layout: fixed;*/
 }
 .table:before /* 右上 */ {
   background-position: right top;

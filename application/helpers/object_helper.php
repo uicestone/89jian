@@ -41,13 +41,19 @@ if(!function_exists('get_relative')){
  * 返回最新的一个状态，或指定状态名的最新一个时间
  */
 if(!function_exists('get_status')){
-	function get_status(array $object, $name){
+	function get_status(array $object, $name = 'name'){
 		if(!array_key_exists('status', $object)){
 			return false;
 		}
 		
-		if(array_is_numerical_index($object['status'])){
-			return array_pop($object['status']);
+		if($object['status'] && array_is_numerical_index($object['status'])){
+			$status = array_pop($object['status']);
+			if(!is_null($name) && array_key_exists($name, $status)){
+				return $status[$name];
+			}
+			else{
+				return $status;
+			}
 		}
 		
 		if(!array_key_exists($name, $object['status'])){

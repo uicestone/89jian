@@ -33,14 +33,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="control-group">
-                <label class="control-label">物流单号：</label>
-                <div class="controls">
-                    <input type="text" name="logistic_num">
-                    <button name="deliver" class="btn">发货</button>
-                </div>
-            </div>
-            
         </form>
     </div>  
 <?php $this->view('footer'); ?>

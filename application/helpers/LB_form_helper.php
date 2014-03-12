@@ -18,7 +18,7 @@ function options($options,$checked=NULL,$label=NULL,$array_key_as_option_value=f
 	$options_html='';
 	
 	if(isset($label)){
-		$options_html.='<option value=""'.($disable_empty_option?' disabled="disabled"':'').">$label</option>";
+		$options_html.='<option value=""'.($disable_empty_option?' disabled="disabled"':'').(is_null($checked)?' selected="selected"':'').">$label</option>";
 	}
 	
 	foreach($options as $option_key=>$option){
