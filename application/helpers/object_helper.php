@@ -10,7 +10,7 @@ if(!function_exists('get_meta')){
 			return false;
 		}
 		
-		return array_pop($object['meta']['key']);
+		return array_pop($object['meta'][$key]);
 	}
 }
 
@@ -18,12 +18,12 @@ if(!function_exists('get_meta')){
  * 返回$relation关系最新的一个关联对象（信息）
  */
 if(!function_exists('get_relative')){
-	function get_relative(array $object, $relation, $field = null){
+	function get_relative(array $object, $relation, $field = 'name'){
 		if(!array_key_exists('relative', $object) || !array_key_exists($relation, $object['relative'])){
 			return false;
 		}
 		
-		$relative = array_pop($object['status'][$relation]);
+		$relative = array_pop($object['relative'][$relation]);
 		
 		if(!$relative){
 			return false;
@@ -33,7 +33,7 @@ if(!function_exists('get_relative')){
 			return $relative;
 		}
 		
-		return $relation[$field];
+		return $relative[$field];
 	}
 }
 
