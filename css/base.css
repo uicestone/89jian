@@ -239,3 +239,14 @@ input[type="password"] {
   color: #1e2f36;
   background: #fff url("img/btn.png") no-repeat left 1px;
 }
+.article-page {
+  width: 940px;
+  padding: 30px;
+  margin: 30px auto;
+  box-shadow: 0 0 5px #888;
+  font-size: 18px;
+  line-height: 2;
+}
+.article-page p{
+  margin-bottom: 1em;
+}

@@ -1,6 +1,6 @@
 <?php $this->view('header'); ?>
-
-<h1><?=$article['name']?></h1>
-<?=end($article['meta']['内容'])?>
-
+<div class="article-page">
+	<h1><?=$article['name']?></h1>
+	<?=end($article['meta']['内容'])?>
+</div>
 <?php $this->view('footer'); ?>
