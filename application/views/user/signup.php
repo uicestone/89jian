@@ -1,4 +1,5 @@
 <?php $this->view('header'); ?>
+<div class="article-page">
 	<h1>注册</h1>
 	<form id="registerform" method="post" class="form-horizontal">
 		<input name="forward"   type="hidden" value='<?=$this->input->get('forward')?>' />
@@ -54,4 +55,5 @@
 			</div>
 		</div>				
 	</form>
+</div>
 <?php $this->view('footer'); ?>

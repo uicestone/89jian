@@ -1,4 +1,5 @@
 <?php $this->view('header'); ?>
+<div class="article-page">
 	<h1>登录</h1>
 	<?php $this->view('alert'); ?>
 	<form method="post" class="form form-horizontal">
@@ -23,4 +24,5 @@
 			</div>
 		</div>				
 	</form>
+</div>
 <?php $this->view('footer'); ?>

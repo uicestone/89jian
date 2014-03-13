@@ -1,4 +1,5 @@
 <?php $this->view('header'); ?>
+<div class="article-page">
 	<h1>找回密码</h1>
 	<?$this->view('alert')?>
 	<form id="registerform" method="post" class="form-horizontal">
@@ -45,4 +46,5 @@
 			</div>
 		</div>				
 	</form>
+</div>	
 <?php $this->view('footer'); ?>
