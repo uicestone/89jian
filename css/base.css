@@ -184,6 +184,9 @@ input[type="password"] {
   font-size: 14px;
   margin-bottom: 12px;
 }
+.footer .contact .qrcode{
+  width: 150px;
+}
 .footer .link-groups {
   padding-top: 32px;
   padding-bottom: 22px;

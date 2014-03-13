@@ -11,7 +11,7 @@
 						www.89jian.com<br>
 						微信：ba-jiu-jian<br>
 					</div>
-					<img src="/img/qrcode.png" alt="" class="qrcode">
+					<img src="/img/qrcode.jpg" alt="" class="qrcode">
 				</div>
 			</div>
 			<ul class="link-groups row">
