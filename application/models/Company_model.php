@@ -1,5 +1,5 @@
 <?php
-class Company_model extends CI_Model{
+class Company_model extends Object_model{
 	
 	var $name;
 	var $type;
@@ -8,10 +8,23 @@ class Company_model extends CI_Model{
 	
 	function __construct(){
 		parent::__construct();
-		
+		$this->table='company';
 		$this->recognize($this->input->server('SERVER_NAME'));
 
-		$this->config->company=$this->config();
+		//获取存在数据库中的公司配置项
+		$this->db->from('company_config')
+			->where('company',$this->id);
+		
+		$config=array_column($this->db->get()->result_array(),'value','key');
+		
+		array_walk($config, function(&$value){
+			$decoded=json_decode($value,true);
+			if(!is_null($decoded)){
+				$value=$decoded;
+			}
+		});
+		
+		$this->config->company=$config;
 		
 	}
 
@@ -19,12 +32,8 @@ class Company_model extends CI_Model{
 		$this->db->select('id,name,type,syscode,sysname')
 			->from('company')
 			->or_where(array('host'=>$host_name,'syscode'=>$host_name));
-		
+
 		$row=$this->db->get()->row();
-		
-		if(!$row){
-			show_error('No company called '.$host_name.' here');
-		}
 		
 		$this->id=intval($row->id);
 		$this->name=$row->name;
@@ -34,52 +43,28 @@ class Company_model extends CI_Model{
 	}
 	
 	/**
-	 * set or get a company config value
-	 * or get all config values of a company
+	 * set or get a  company config value
 	 * json_decode/encode automatically
 	 * @param string $key
 	 * @param mixed $value
+	 * @return
+	 *	get: the config value, false if not found
+	 *	set: the insert or update query
 	 */
-	function config($key=NULL,$value=NULL){
+	function config($key,$value=NULL){
+		$db = $this->load->database('', true);
+		$row=$db->select('id,value')->from('company_config')->where('company',$this->id)->where('key',$key)
+			->get()->row();
 		
-		if(is_null($key)){
-			
-			$this->db->from('company_config')->where('company',$this->id);
-
-			$config=array_column($this->db->get()->result_array(),'value','key');
-
-			return array_map(function($value){
-				
-				$decoded=json_decode($value,true);
-				
-				if(!is_null($decoded)){
-					$value=$decoded;
-				}
-				
-				return $value;
-				
-			}, $config);
-			
-		}
-		elseif(is_null($value)){
-			
-			$row=$this->db->select('id,value')
-				->from('company_config')
-				->where('company',$this->id)
-				->where('key',$key)
-				->get()->row();
-
+		if(is_null($value)){
 			if($row){
 				$json_value=json_decode($row->value);
-				
 				if(is_null($json_value)){
 					return $row->value;
-				}
-				else{
+				}else{
 					return $json_value;
 				}
-			}
-			else{
+			}else{
 				return false;
 			}
 		}
@@ -89,7 +74,7 @@ class Company_model extends CI_Model{
 				$value=json_encode($value);
 			}
 			
-			return $this->db->upsert('company_config', array('value'=>$value,'key'=>$key,'company'=>$this->company->id));
+			return $db->upsert('company_config', array('value'=>$value, 'id'=>$row->id));
 		}
 	}
 }

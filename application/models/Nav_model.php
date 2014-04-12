@@ -7,8 +7,9 @@ class Nav_model extends CI_Model{
 		parent::__construct();
 		
 		self::$fields=array(
-			'user' => $this->user->id,
+			'user' => $this->user->session_id,
 			'name' => '',
+			'template'=>'',
 			'params' => '',
 			'parent' => NULL,
 			'order' => 0
@@ -16,11 +17,10 @@ class Nav_model extends CI_Model{
 		
 	}
 	
-	
 	function add(array $data){
 		
-		if(array_key_exists('param', $data)){
-			$data['param'] = json_encode($data['param']);
+		if(array_key_exists('params', $data)){
+			$data['params'] = json_encode($data['params']);
 		}
 		
 		$this->db->upsert('nav',
@@ -43,20 +43,31 @@ class Nav_model extends CI_Model{
 	}
 	
 	function get(){
-
-		$nav_items = $this->db->from('nav')->get()->result_array();
-
-		foreach($nav_items as &$nav_item){
-
-			$nav_item['params'] = json_decode($nav_item['params'], JSON_OBJECT_AS_ARRAY);
-
-			if(array_key_exists('href', $nav_item['params'])){
-				$nav_item['href'] = $nav_item['params']['href'];
-			}
-
+		
+		$result = $this->db->from('nav')
+			->where_in('user', $this->user->group_ids)
+			->get()->result_array();
+		
+		$nav_items=array();
+		
+		foreach($result as $nav_item){
+			$nav_item['params'] = json_decode($nav_item['params']);
+			$nav_items[$nav_item['id']] = $nav_item;
 		}
 		
-		return $nav_items;
-
+		foreach($nav_items as $id => $nav_item){
+			if(!is_null($nav_item['parent'])){
+				$nav_items[$nav_item['parent']]['sub'][]=$nav_item;
+				unset($nav_items[$id]);
+			}
+		}
+		
+		return array_values($nav_items);
+		
 	}
+	
+	function remove($id){
+		return $this->db->delete('nav', array('id'=>$id));
+	}
+	
 }

@@ -15,6 +15,110 @@ function array_trim($array){
 }
 
 /**
+	用array_dir('/_SESSION/post/id')来代替$_SESSION['post']['id']
+	**仅适用于全局变量如$_SESSION,$_POST
+	用is_null(array_dir(String $arrayindex))来判断是否存在此变量
+	若指定第二个参数$setto,则会改变$arrayindex的值
+*/
+function array_dir($arrayindex){
+	
+	$CI=&get_instance();
+	
+	$args=func_get_args();
+	
+	if(count($args)==1){
+		return $CI->session->userdata($arrayindex);
+	}elseif(count($args)==2){
+		return $CI->session->set_userdata($arrayindex,$args[1]);
+	}
+}
+
+/**
+ * php5.3开始已经自带
+ */
+if(!function_exists('array_replace_recursive')){
+	function array_replace_recursive(&$array_target,$array_source){
+	
+		if(!isset($array_target)){
+			$array_target=$array_source;
+		}else{
+			foreach($array_source as $k=>$v){
+				if(is_array($v)){
+					array_replace_recursive($array_target[$k],$v);
+				}else{
+					$array_target[$k]=$v;
+				}
+			}
+		}
+		return $array_target;
+	}
+}
+
+/**
+ * 将数组的下级数组中的某一key抽出来构成一个新数组
+ * @param $array
+ * @param $keyname
+ * @param $keyname_forkey 母数组中用来作为子数组键名的键值的键名
+ * @return array
+ * php 5.5 开始自带此函数
+ */
+if(!function_exists('array_column')){
+	function array_column($array,$keyname,$keyname_forkey=NULL,$fill_null=false){
+		$array_new=array();
+		foreach($array as $key => $sub_array){
+
+			if(isset($sub_array[$keyname])){
+				if($keyname_forkey===false){
+					$array_new[]=$sub_array[$keyname];
+				}
+				elseif(is_null($keyname_forkey)){
+					$array_new[$key]=$sub_array[$keyname];
+				}
+				else{
+					if(isset($sub_array[$keyname_forkey])){
+						$array_new[$sub_array[$keyname_forkey]]=$sub_array[$keyname];
+					}
+					else{
+						$array_new[$key]=$sub_array[$keyname];
+					}
+				}
+			}
+			elseif($fill_null){
+				if($keyname_forkey===false){
+					$array_new[]=NULL;
+				}
+				elseif(is_null($keyname_forkey)){
+					$array_new[$key]=NULL;
+				}
+				else{
+					if(isset($sub_array[$keyname_forkey])){
+						$array_new[$sub_array[$keyname_forkey]]=NULL;
+					}
+					else{
+						$array_new[$key]=NULL;
+					}
+				}
+			}
+		}
+		return $array_new;
+	}
+}
+
+function array_picksub($array,$keys){
+	$array_new=array();
+	foreach($array as $sub_array){
+		if(array_intersect($keys,array_keys($sub_array))===$keys){
+			$picked=array();
+			foreach($keys as $key_to_pick){
+				$picked[]=$sub_array[$key_to_pick];
+			}
+			$array_new[]=$picked;
+		}
+	}
+	return $array_new;
+}
+
+/**
  * 
  * @param array $arrays
  * array(
@@ -51,6 +155,27 @@ function array_join(array $arrays,$key,$using){
 			
 		}
 	}
+}
+
+/**
+ * 判断某个值是否存在与某一数组的子数组下
+ * 若指定$key_specified，则要判断子数组们的$key_specified键下是否有指定$needle值
+ * 
+ * 这在处理DB::result_array的结果数组时十分有用，其结果数组其中每一行又是一个数组
+ */
+function in_subarray($needle,array $array,$key_specified=NULL){
+	foreach($array as $key => $subarray){
+		if(isset($key_specified)){
+			if(is_array($subarray) && isset($subarray[$key_specified]) && $subarray[$key_specified]==$needle){
+				return $key;
+			}
+		}else{
+			if(in_array($needle,$subarray)){
+				return $key;
+			}
+		}
+	}
+	return false;
 }
 
 /**
@@ -144,11 +269,5 @@ function array_remove_value(array &$array,$remove,$like=false){
 			unset($array[$key]);
 		}
 	}
-}
-
-function array_is_numerical_index($array){
-	return array_reduce(array_keys($array), function($result, $item){
-		return $result && is_integer($item);
-	}, true);
 }
 ?>

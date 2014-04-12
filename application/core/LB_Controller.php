@@ -1,30 +1,38 @@
 <?php
 class LB_Controller extends CI_Controller{
 	
+	var $default_method='index';
+	
+	/**
+	 * 当前控制器允许的用户组
+	 * array()为登录即可
+	 * true为不限制
+	 * 包含子数组时，按照独立方法区分权限，子数组的键名是方法名
+	 * @var bool or array 
+	 */
+	var $permission=array();
+	
 	function __construct(){
 		parent::__construct();
 		
-		/*
-		 * 自动载入的资源，没有使用autoload.php是因为后者载入以后不能起简称...
-		 */
-		$this->load->model('company_model','company');
-		$this->load->model('object_model','object');
-		$this->load->model('user_model','user');
-		$this->load->model('nav_model','nav');
-		
 		$this->user->initialize();
+		
+		if($this->input->accept('application/json')){
+			$this->output->set_content_type('application/json');
+		}
 		
 	}
 	
 	function _output($output){
 		
-		$accepts = explode(',', $this->input->get_request_header('Accept'));
-		
-		if(in_array('application/json', $accepts)){
+		if($this->input->accept('application/json')){
 			echo json_encode($output);
 		}
-		else{
+		elseif(is_string($output)){
 			echo $output;
+		}
+		else{
+			echo var_export($output);
 		}
 		
 	}

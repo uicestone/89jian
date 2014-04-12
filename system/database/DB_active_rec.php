@@ -261,6 +261,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		return $this;
 	}
 
+	// --------------------------------------------------------------------
+
 	/**
 	 * From
 	 *
@@ -344,7 +346,7 @@ class CI_DB_active_record extends CI_DB_driver {
 		$this->_track_aliases($table);
 
 		// Strip apart the condition and protect the identifiers
-		if (preg_match('/([\w\.]+)([\W\s]+)(.+)/', $cond, $match))
+		if (preg_match('/([\w\.]+)([\W\s]+)(.+)/', $cond, $match))//add condition to support unescaped join, useful when join subqueries uicestone 2013/3/20
 		{
 			$match[1] = $this->_protect_identifiers($match[1]);
 			$match[3] = $this->_protect_identifiers($match[3]);
@@ -558,6 +560,10 @@ class CI_DB_active_record extends CI_DB_driver {
 		if(is_null($values) || $values === array())
 		{
 			$values = array(NULL);
+		}
+		elseif ( ! is_array($values))
+		{
+			$values = array($values);
 		}
 
 		$not = ($not) ? ' NOT' : '';
@@ -1259,6 +1265,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		$this->_reset_write();
 		return $this->query($sql);
 	}
+	
+	// --------------------------------------------------------------------
 
 	/**
 	 * On Duplicate Key Update
@@ -2074,6 +2082,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	{
 		$ar_reset_items = array(
 			'ar_select'			=> array(),
+			'ar_found_rows'	=> FALSE,
 			'ar_from'			=> array(),
 			'ar_join'			=> array(),
 			'ar_where'			=> array(),

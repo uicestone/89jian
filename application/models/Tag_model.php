@@ -4,54 +4,96 @@ class Tag_model extends CI_Model{
 		parent::__construct();
 	}
 	
-	function fetch($id){
-		$this->db->from('tag')
-			->where('id',$id);
+	/**
+	 * 获得分类的详细信息，不存在则先添加
+	 * @param string $tag_name
+	 * @param string $taxonomy
+	 * @param array $args
+	 *	description
+	 *	parent
+	 * @return array
+	 */
+	function get($tag_name, $taxonomy, array $args = array()){
 		
-		return $this->db->get()->row();
+		$tag_id = $this->getTagID($tag_name);
+		
+		$tag_taxonomy = $this->db->from('tag_taxonomy')->where(array('tag'=>$tag_id, 'taxonomy'=>$taxonomy))->get()->row();
+		
+		if(is_null($tag_taxonomy)){
+			return $this->add($tag_name, $taxonomy, $args);
+		}
+		
+		return $tag_taxonomy->id;
+		
 	}
 	
 	/**
-	 * 测试一个标签名
-	 * 如果存在则返回id
-	 * 如果不存在则添加后返回id
-	 * @param string $name
+	 * 添加一个分类
+	 * @param int|string $tag_name
+	 * @param string $taxonomy
+	 * @param array $args
+	 *	description
+	 *	parent
 	 */
-	function match($name){
+	function add($tag_name, $taxonomy, array $args = array()){
 		
-		$name=urldecode($name);
+		$tag_id = $this->getTagID($tag_name);
 		
-		$row=$this->db->get_where('tag', array('name'=>$name))->row();
+		$this->db->insert('tag_taxonomy',
+			array_merge(
+				array('tag'=>$tag_id, 'taxonomy'=>$taxonomy),
+				array_intersect_key($args, array('description'=>'', 'parent'=>0))
+			)
+		);
 		
-		if($row){
-			return $row->id;
-		}
-		else{
-			$this->db->insert('tag',array('name'=>$name));
+		return $this->db->insert_id();
+	}
+	
+	/**
+	 * 更新一个分类
+	 * @param int $tag_id
+	 * @param string $taxonomy
+	 * @param array $args
+	 *	description
+	 *	parent
+	 */
+	function update($tag_id, $taxonomy, array $args = array()){
+		return $this->db->update('tag_taxonomy',
+			array_merge(
+				array('tag'=>$tag_id, 'taxonomy'=>$taxonomy),
+				array_intersect_key($args, array('description'=>'', 'parent'=>0))
+			),
+			array('tag'=>$tag_id, 'taxonomy'=>$taxonomy)
+		);
+	}
+	
+	/**
+	 * 删除一个分类
+	 * @param int $id
+	 * @param string $taxonomy
+	 * @param array $args
+	 */
+	function remove($tag_id, $taxonomy){
+		return $this->db->delete('tag_taxonomy', array('tag'=>$tag_id, 'taxonomy'=>$taxonomy));
+	}
+	
+	/**
+	 * 根据名称返回tag id，不存在则先添加
+	 * @param string $tag_name
+	 */
+	function getTagID($tag_name){
+		
+		$tag = $this->db->from('tag')->where('name', $tag_name)->get()->row();
+		
+		if(is_null($tag)){
+			$this->db->insert('tag', array('name'=>$tag_name));
 			return $this->db->insert_id();
 		}
-	}
-	
-	function getList(array $args=array()){
-		$args['company']=$args['display']=false;
-		return parent::getList($args);
-	}
-	
-	/**
-	 * 接受一个tag name，返回与其相关的tag的id和name构成的数组
-	 * @param type $tag
-	 * @param type $relation
-	 */
-	function getRelatives($tag,$relation=NULL){
 		
-		$this->db->select('relative.id,relative.name')
-			->from('tag_relationship')
-			->join('tag','tag.id=tag_relationship.tag','inner')
-			->join('tag relative','relative.id=tag_relationship.relative','inner')
-			->or_where(array('tag.name'=>$tag,'tag.id'=>$tag));
-
-		return array_column($this->db->get()->result_array(),'name','id');
+		return $tag->id;
+		
 	}
+	
 }
 
 ?>

@@ -26,9 +26,10 @@
  */
 
 /**
- * uicestone 2013/4/4注：此类中采用引用$CI->db的方式来操作数据库，这会打断控制器中操作到一半的数据库。
+ * uicestone 2013/4/4注：此类中采用引用$CI->dbde方式来操作数据库，这会打断控制器中操作到一半的数据库。
  * 我将此处全部换成独立的数据库对象。
  * 调用从$this->CI->db改为了$this->db
+ * $db定义写在了LB_Session::construct()内
  */
 class CI_Session {
 
@@ -52,8 +53,7 @@ class CI_Session {
 	var $userdata					= array();
 	var $CI;
 	var $now;
-	var $db;//a local db object for Session uicestone 2013/12/20
-	
+
 	/**
 	 * Session Constructor
 	 *
@@ -91,8 +91,7 @@ class CI_Session {
 		// Are we using a database?  If so, load it
 		if ($this->sess_use_database === TRUE AND $this->sess_table_name != '')
 		{
-			//$this->CI->load->database();
-			$this->db = $this->CI->load->database('default', true);//Seperate the DB object of Session from main controller. uicestone 2013/12/20
+			$this->CI->load->database();
 		}
 
 		// Set the "now" time.  Can either be GMT or server time, based on the
@@ -128,7 +127,7 @@ class CI_Session {
 
 		// Delete expired sessions if necessary
 		$this->_sess_gc();
-		
+
 		log_message('debug', "Session routines successfully run");
 	}
 

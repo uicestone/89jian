@@ -18,7 +18,7 @@ function options($options,$checked=NULL,$label=NULL,$array_key_as_option_value=f
 	$options_html='';
 	
 	if(isset($label)){
-		$options_html.='<option value=""'.($disable_empty_option?' disabled="disabled"':'').(is_null($checked)?' selected="selected"':'').">$label</option>";
+		$options_html.='<option value=""'.($disable_empty_option?' disabled="disabled"':'').">$label</option>";
 	}
 	
 	foreach($options as $option_key=>$option){
@@ -50,7 +50,7 @@ function radio($options,$name,$checked,$array_key_as_option_value=false){
 	$radio='';
 	
 	foreach($options as $option_key=>$option){
-		$radio.='<label class="radio'.($checked==($array_key_as_option_value?$option_key:$option)?' active"':'').'"><input name="'.$name.'" value="'.($array_key_as_option_value?$option_key:$option).'" type="radio"'.($checked==($array_key_as_option_value?$option_key:$option)?' checked="checked"':'').' />'.$option.'</label>';
+		$radio.='<label><input name="'.$name.'" value="'.($array_key_as_option_value?$option_key:$option).'" type="radio"'.($checked==($array_key_as_option_value?$option_key:$option)?' checked="checked"':'').' />'.$option.'</label>';
 	}
 	
 	return $radio;
