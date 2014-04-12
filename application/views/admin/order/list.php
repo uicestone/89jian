@@ -16,16 +16,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($orders as $order){ ?>
+						<?php foreach($orders['data'] as $order){ ?>
 						<tr>
 							<td>
 								<input type="checkbox" name="checked[]" value="<?=$order['id']?>">
 								<?=$order['num']?>
 							</td>
-							<td><?=array_pop($order['relative']['package'])['name']?></td>
-							<td><?=array_pop($order['meta']['次数'])?></td>
-							<td><?=$order['status']['下单']?></td>
-							<td><?=end(array_keys($order['status']))?></td>
+							<td><?=get_relative($order, 'package', 'name')?></td>
+							<td><?=get_meta($order, '次数')?></td>
+							<td><?=get_status($order, '下单');?></td>
+							<td><?=get_status($order)?></td>
 							<td><a href="/admin/order/<?=$order['id']?>">详情</a></td>
 						</tr>
 						<?php } ?>

@@ -247,6 +247,10 @@ input[type="password"] {
   font-size: 18px;
   line-height: 2;
 }
-.article-page p{
+.article-page p {
   margin-bottom: 1em;
+}
+.label p {
+  margin: 0;
+  line-height: 2;
 }

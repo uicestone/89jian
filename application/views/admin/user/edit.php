@@ -28,8 +28,8 @@
 			<div class="control-group">
 				<label class="control-label">组</label>
 				<div class="controls">
-					<input type="text" name="group" value="<?=set_value('group',$user['group'])?>">
-					<span class="label label-important"><?=form_error('group')?></span>
+					<input type="text" name="roles" value="<?=set_value('roles',$user['roles'])?>">
+					<span class="label label-important"><?=form_error('roles')?></span>
 				</div>
 			</div>
 			<div class="control-group">

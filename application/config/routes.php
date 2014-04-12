@@ -96,5 +96,28 @@ $route['object/(:num)/tag/(:any)']='object/tag/$1/$2';
 $route['object/(:num)/permission']='object/permission/$1';
 $route['object/(:num)/(authorize|prohibit)/(read|write|grant)']='object/permission/$1/$2/$3';
 
+/**
+ * specific routes for 89jian
+ */
+$route['article/(:any)'] = 'article/index/$1';
+$route['type/(:any)'] = 'type/index/$1';
+
+$route['home'] = 'user/home';
+$route['order'] = 'user/order';
+$route['card'] = 'user/card';
+$route['repository'] = 'user/repository';
+
+$route['object/(:num)']='object/index/$1';
+$route['object/(:num)/meta']='object/meta/$1';
+$route['object/(:num)/meta/(:any)']='object/meta/$1/$2';
+$route['object/(:num)/relative']='object/relative/$1';
+$route['object/(:num)/relative/(:any)']='object/relative/$1/$2';
+$route['object/(:num)/status']='object/status/$1';
+$route['object/(:num)/status/(:any)']='object/status/$1/$2';
+$route['object/(:num)/tag']='object/tag/$1';
+$route['object/(:num)/tag/(:any)']='object/tag/$1/$2';
+$route['object/(:num)/permission']='object/permission/$1';
+$route['object/(:num)/(authorize|prohibit)/(read|write|grant)']='object/permission/$1/$2/$3';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

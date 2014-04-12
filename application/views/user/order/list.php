@@ -5,7 +5,7 @@
 		<form class="form">
 			<div class="head"><?=end($this->page_path)['text']?></div>
 			<div class="table-border">
-				<table>
+				<table class="table">
 					<thead>
 						<tr>
 							<th></th>
@@ -18,14 +18,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($orders as $order){ ?>
+						<?php foreach($orders['data'] as $order){ ?>
 						<tr>
 							<td><input type="checkbox" name="checked[]" value="<?=$order['id']?>"></td>
-							<td><?=$order['num']?></td>
-							<td><?=end($order['relative']['package'])['name']?></td>
-							<td><?=end($order['meta']['次数'])?></td>
-							<td><?=$order['status']['下单']?></td>
-							<td><?=end(array_keys($order['status']))?></td>
+							<td><?=$order['id']?></td>
+							<td><?=get_relative($order, 'package', 'name')?></td>
+							<td><?=get_meta($order, '次数')?></td>
+							<td><?=get_status($order, '下单')?></td>
+							<td><?=get_status($order)?></td>
 							<td><a href="/user/order/<?=$order['id']?>">详情</a></td>
 						</tr>
 						<?php } ?>

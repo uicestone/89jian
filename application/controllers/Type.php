@@ -8,7 +8,7 @@ class Type extends LB_Controller{
 	function index($slug){
 		$objects = $this->object->getList(array('type'=>$slug));
 		
-		if(file_exists(APPPATH.'/views/type/'.$slug.EXT)){
+		if(file_exists(APPPATH.'/views/type/'.$slug.'.php')){
 			$this->load->view('type/'.$slug, compact('objects'));
 		}
 		else{

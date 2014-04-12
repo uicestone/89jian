@@ -24,7 +24,7 @@
 				<ul class="list">
 					<?php foreach($packages['data'] as $package){ ?>
 					<li>
-						<div class="title">套餐<?=$package['name']?><span class="price"><?=end($package['meta']['价格'])?></span>元</div>
+						<div class="title">套餐<?=$package['name']?><span class="price"><?=get_meta($package, '价格')?></span>元</div>
 						<a href="/buy/productoption?package=<?=$package['id']?>" class="buy">立即訂購</a>
 					</li>
 					<?php } ?>
@@ -36,10 +36,10 @@
 					<?php foreach($products['data'] as $product){ ?>
 					<li class="item">
 						<div class="title">
-							<div class="spell"><?=end($product['meta']['英文名称'])?></div>
+							<div class="spell"><?=get_meta($package, '英文名称')?></div>
 							<div class="name"><?=$product['name']?></div>
 						</div>
-						<img src="/uploads/<?=end($product['meta']['缩略图'])?>" alt="<?=$product['name']?>">
+						<img src="/uploads/<?=get_meta($package, '缩略图')?>" alt="<?=$product['name']?>">
 					</li>
 					<?php } ?>
 				</ul>

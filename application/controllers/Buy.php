@@ -18,7 +18,7 @@ class Buy extends LB_Controller{
 			redirect('buy/logistic');
 		}
 		
-		if($this->input->post() !== false){
+		if(!is_null($this->input->post('next'))){
 			
 			$package = $this->object->fetch($this->input->post('package'));
 			
@@ -28,7 +28,7 @@ class Buy extends LB_Controller{
 				'name'=>$package['name'].' '.$this->input->post('次数').'次',
 				'meta'=>array(
 					'次数'=>$this->input->post('次数'),
-					'金额'=>$this->input->post('次数') * end($package['meta']['价格']),
+					'金额'=>$this->input->post('次数') * get_meta($package, '价格'),
 					'是否卡片'=>$this->input->post('是否卡片'),
 					'首次送货日期'=>$this->input->post('首次送货日期'),
 				),
@@ -55,23 +55,31 @@ class Buy extends LB_Controller{
 	 */
 	function logistic(){
 		
-		if($this->input->post() !== false){
+		if(!$this->user->config('incompleted_order')){
+			throw new Exception('No Incompleted Order Found', '500');
+		}
+
+		$this->object->id = $this->user->config('incompleted_order');
+
+		$order = $this->object->fetch();
+
+		if(!is_null($this->input->post('next'))){
 			
-			if(!$this->user->config('incompleted_order')){
-				throw new Exception('No Incompleted Order Found', '500');
+			try{
+				$this->object->addMeta($this->input->post('meta'), null, true);
+				$this->user->addMeta($this->input->post('meta'), null, true);
+			}
+			catch(Exception $e){
+				$alert[] = array('message'=>$e->getMessage());
 			}
 			
-			$this->object->id = $this->user->config('incompleted_order');
-			$this->object->addMetas($this->input->post('meta'));
-			$this->user->addMetas($this->input->post('meta'));
-			
-			$this->object->addStatus(array('name'=>'下单'));
+			$this->object->addStatus('下单');
 			
 			redirect('buy/pay/'.$this->object->id);
 			
 		}
 		
-		$this->load->view('buy/logistic');
+		$this->load->view('buy/logistic', compact('order', 'alert'));
 		
 	}
 	
@@ -105,9 +113,12 @@ class Buy extends LB_Controller{
 		
 		$alipay_request_args['sign_type'] = 'MD5';
 		
-		$this->object->addMeta(array('key'=>'alipay_sign','value'=>$alipay_request_args['sign']));
+		try{
+			$this->object->addMeta('alipay_sign', $alipay_request_args['sign'], true);
+		}
+		catch(Exception $e){}
 		
-		redirect('?'.http_build_query($alipay_request_args), 'php', $this->company->config('alipay_api'));
+		redirect($this->company->config('alipay_api').'?'.http_build_query($alipay_request_args));
 		
 	}
 	
@@ -127,9 +138,9 @@ class Buy extends LB_Controller{
 		
 		$order = $this->object->fetch($order_id);
 		
-		$this->object->addMeta(array('key'=>'支付宝流水号', 'value'=>$this->input->get('trade_no')));
+		$this->object->addMeta('支付宝流水号', $this->input->get('trade_no'));
 		
-		$this->object->addStatus(array('name'=>'支付完成'));
+		$this->object->addStatus('支付完成');
 		
 		$this->user->config('incompleted_order', false);
 		

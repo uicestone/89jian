@@ -15,7 +15,7 @@
 						<tr> 
 							<td><?=$user['name']?></td>
 							<td><?=$user['email']?></td>
-							<td><?=$user['group']?></td>
+							<td><?=$user['roles']?></td>
 							<td>
 								<a href="/admin/user/<?=$user['id']?>" class="btn btn-small">编辑</a>
 							</td>

@@ -50,7 +50,7 @@
 		<div class="navbar container">
 			<ul class="nav navbar-nav">
 				<?php foreach($this->nav->get() as $nav_item){ ?>
-				<li<?php if('/'.uri_string() === $nav_item['href']){ ?> class="active"<? } ?>><?=anchor($nav_item['href'], $nav_item['name'], $nav_item['params'])?></li>
+				<li<?php if('/'.uri_string() === $nav_item['params']['href']){ ?> class="active"<? } ?>><?=anchor($nav_item['params']['href'], $nav_item['name'], $nav_item['params'])?></li>
 				<?php } ?>
 			</ul>
 		</div>

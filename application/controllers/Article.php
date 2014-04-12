@@ -9,7 +9,7 @@ class Article extends LB_Controller{
 		
 		$article = $this->object->getRow(array('type'=>'article','num'=>$slug,'with_meta'=>true));
 		
-		if(file_exists(APPPATH.'/views/article/'.$slug.EXT)){
+		if(file_exists(APPPATH.'/views/article/'.$slug.'.php')){
 			$this->load->view('article/'.$slug, compact('article'));
 		}
 		else{

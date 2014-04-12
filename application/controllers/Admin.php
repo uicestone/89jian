@@ -24,43 +24,43 @@ class Admin extends LB_Controller{
 	 */
 	function orderList(){
 		
-		if($this->input->post('confirm') !== false && is_array($this->input->post('checked'))){
+		if(!is_null($this->input->post('confirm')) && is_array($this->input->post('checked'))){
 			foreach($this->input->post('checked') as $checked){
 				$this->object->id = intval($checked);
-				$this->object->addStatus(array('name'=>'已确认'));
+				$this->object->addStatus('已确认');
 
 				$order = $this->object->fetch();
 
-				if(end($order['meta']['是否卡片'])){
+				if(get_meta($order, '是否卡片')){
 					$this->object->add(array(
 						'type'=>'card',
-						'name'=>end($order['meta']['次数']).'次 '.end($order['relative']['package'])['name'].'卡',
+						'name'=>get_meta($order, '次数').'次 '.get_relative($order, 'package', 'name').'卡',
 						'relative'=>array(
-							'package'=>end($order['relative']['package'])['id'],
+							'package'=>get_relative($order, 'package', 'id'),
 							'user'=>$order['user'],
 							'order'=>$order['id']
 						),
-						'meta'=>array('次数'=>end($order['meta']['次数']))
+						'meta'=>array('次数'=>get_meta($order, '次数'))
 					));
 				}
 				else{
-					for($i=0; $i<end($order['meta']['次数']); $i++){
+					for($i=0; $i<get_meta($order, '次数'); $i++){
 						$this->object->add(array(
 							'type'=>'meal',
-							'name'=>end($order['relative']['package'])['name'],
+							'name'=>get_relative($order, 'package', 'name'),
 							'relative'=>array(
-								'package'=>end($order['relative']['package'])['id'],
+								'package'=>get_relative($order, 'package', 'id'),
 								'user'=>$order['user'],
 								'order'=>$order['id']
 							),
-							'meta'=>array('送货日期'=>date('Y-m-d',strtotime(end($order['meta']['首次送货日期']))+$i*7*86400))
+							'meta'=>array('送货日期'=>date('Y-m-d',strtotime(get_meta($order, '首次送货日期'))+$i*7*86400))
 						));
 					}
 				}
 			}
 		}
 
-		$orders = $this->object->getList(array('type'=>'order','status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true))['data'];
+		$orders = $this->object->getList(array('type'=>'order','status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
 
 		$this->load->page_name = 'admin-order-list';
 		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'订单管理');
@@ -86,24 +86,24 @@ class Admin extends LB_Controller{
 		
 		$alert = array();
 		
-		if($this->input->post('assign') !== false && is_array($this->input->post('checked'))){
+		if(!is_null($this->input->post('assign')) && is_array($this->input->post('checked'))){
 			foreach($this->input->post('checked') as $meal_id){
 				$this->object->id = $meal_id;
-				$this->object->addStatus(array('name'=>'配货完成'));
+				$this->object->addStatus('配货完成');
 			}
 			$alert[] = array('message'=>'选定项目已被标记为配货完成');
 		}
 		
-		if($this->input->post('deliver') !== false && is_array($this->input->post('checked'))){
+		if(!is_null($this->input->post('deliver')) && is_array($this->input->post('checked'))){
 			
 			$logistic_provider = $this->input->post('logistic_provider');
 			$logictic_number = $this->input->post('logistic_number');
 			
 			foreach($this->input->post('checked') as $meal_id){
 				$this->object->id = $meal_id;
-				$this->object->addStatus(array('name'=>'已发货'));
-				!empty($logistic_provider[$meal_id]) && $this->object->addMeta(array('key'=>'物流供应商', 'value'=>$logistic_provider[$meal_id]));
-				!empty($logictic_number[$meal_id]) && $this->object->addMeta(array('key'=>'物流单号', 'value'=>$logictic_number[$meal_id]));
+				$this->object->addStatus('已发货');
+				!empty($logistic_provider[$meal_id]) && $this->object->addMeta('物流供应商', $logistic_provider[$meal_id]);
+				!empty($logictic_number[$meal_id]) && $this->object->addMeta('物流单号', $logictic_number[$meal_id]);
 			}
 			$alert[] = array('message'=>'选定项目已被标记为已发货，物流供应商和单号信息已保存');
 		}
@@ -168,7 +168,7 @@ class Admin extends LB_Controller{
 		
 		$alert = array();
 		
-		if($this->input->post('submit') !== false){
+		if(!is_null($this->input->post('submit'))){
 			
 			$this->user->update($id, $this->input->post());
 			
@@ -255,7 +255,7 @@ class Admin extends LB_Controller{
 		
 		$item = urldecode($item);
 		
-		if($this->input->post('submit') !== false){
+		if(!is_null($this->input->post('submit'))){
 			$value = is_json($this->input->post('value')) ? json_decode($this->input->post('value')) : $this->input->post('value');
 			$this->company->config($item, $value);
 		}

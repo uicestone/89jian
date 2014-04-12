@@ -113,7 +113,7 @@ $autoload['drivers'] = array('session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('array','date','form','html','language','string');
+$autoload['helper'] = array('array','date','form','html','language','object','string','url');
 
 
 /*
@@ -162,7 +162,7 @@ $autoload['language'] = array('message');
 |	$autoload['model'] = array('first_model' => 'first');
 */
 
-$autoload['model'] = array('object_model'=>'object', 'company_model'=>'company', 'user_model'=>'user', 'tag_model'=>'tag', 'message_model'=>'message');
+$autoload['model'] = array('object_model'=>'object', 'company_model'=>'company' ,'user_model'=>'user', 'tag_model'=>'tag', 'nav_model'=>'nav', 'message_model'=>'message');
 
 
 /* End of file autoload.php */
