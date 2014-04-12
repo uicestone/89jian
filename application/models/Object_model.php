@@ -817,6 +817,10 @@ class Object_model extends CI_Model{
 		return $return;
 	}
 	
+	function addRelative($relation, $relative, $num = '', array $meta = array(), $is_on = true, array $args = array()){
+		return $this->setRelative($relation, $relative, $num, $meta, $is_on, $args);
+	}
+	
 	function removeRelative($relation, $relative){
 		return $this->db->delete('object_relationship', array('object'=>$this->id, 'relation'=>$relation, 'relative'=>$relative));
 	}
@@ -1040,5 +1044,8 @@ class Object_model extends CI_Model{
 		
 	}
 	
+	function addTag($tags, $taxonomy, $append = false){
+		return $this->setTag($tags, $taxonomy, $append);
+	}
 }
 ?>
