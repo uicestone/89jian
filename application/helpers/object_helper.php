@@ -41,7 +41,7 @@ if(!function_exists('get_relative')){
  * 返回最新的一个状态，或指定状态名的最新一个时间
  */
 if(!function_exists('get_status')){
-	function get_status(array $object, $name = 'name'){
+	function get_status(array $object, $name = null){
 		if(!array_key_exists('status', $object)){
 			return false;
 		}
@@ -54,6 +54,11 @@ if(!function_exists('get_status')){
 			else{
 				return $status;
 			}
+		}
+		
+		if(is_null($name)){
+			$status_names = array_keys($object['status']);
+			return array_pop($status_names);
 		}
 		
 		if(!array_key_exists($name, $object['status'])){
