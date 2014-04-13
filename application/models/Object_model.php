@@ -294,7 +294,7 @@ class Object_model extends CI_Model{
 		foreach($args as $arg_name => $arg_value){
 			
 			if($arg_name === 'or'){
-				return $this->_parse_criteria($arg_value, $field, 'OR');
+				$where[] = $this->_parse_criteria($arg_value, $field, 'OR');
 			}
 			
 			if($arg_name === 'gt'){
@@ -368,7 +368,7 @@ class Object_model extends CI_Model{
 				}
 			}
 			
-			elseif(in_array($arg_name,array('name','type','user','time'))){
+			elseif(in_array($arg_name,array('id','num','name','type','user','time'))){
 				if($field === '`object`.`id`'){
 					$where[] = $this->_parse_criteria($arg_value, '`object`.'.$arg_name);
 				}else{
