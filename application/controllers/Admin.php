@@ -230,11 +230,37 @@ class Admin extends LB_Controller{
 	}
 	
 	function articleEdit($id = null){
-		$article = $this->object->fetch($id);
+		
+		$this->object->id = $id;
+		
+		if(!is_null($this->input->post('submit'))){
+			
+			if(is_null($this->object->id)){
+				$this->object->add(array(
+					'type'=>'article',
+					'num'=>urlencode($this->input->post('title')),
+					'name'=>$this->input->post('title'),
+					'meta'=>array('内容'=>$this->input->post('content'))
+				));
+				
+				redirect('admin/article');
+			}
+			else{
+				$this->object->update(array(
+					'name'=>$this->input->post('title'),
+				));
+
+				$this->object->updateMeta('内容', $this->input->post('content'));
+			}
+		}
+		
+		if(!is_null($this->object->id)){
+			$article = $this->object->fetch($id);
+		}
 		
 		$this->load->page_name = 'admin-article-detail';
 		$this->load->page_path[] = array('href'=>'/admin/article', 'text'=>'文章管理');
-		$this->load->page_path[] = array('href'=>'/admin/article/'.$article['id'], 'text'=>$article['name']);
+		$this->load->page_path[] = array('href'=>'/admin/article/'.(isset($article) ? $article['id'] : 'add'), 'text'=>(isset($article) ? $article['name'] : '添加文章'));
 
 		$this->load->view('admin/article/edit', compact('article'));
 	}
