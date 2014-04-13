@@ -1,9 +1,9 @@
 <?php $this->view('header'); ?>
 <div class="article-page">
 	<h1>找回密码</h1>
-	<?$this->view('alert')?>
+	<?php $this->view('alert'); ?>
 	<form id="registerform" method="post" class="form-horizontal">
-		<input name="forward"   type="hidden" value='<?//=$forward?>' />
+		<input name="forward"   type="hidden" value='<?php //=$forward?>' />
 		<div class="control-group">
 			<label class="control-label" for="username">用户名：</label>
 			<div class="controls">

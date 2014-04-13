@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/css/back.css">
 	<link rel="stylesheet" href="/css/buy.css">
 	<link rel="stylesheet" href="/css/datepicker.css">
-	<? if($this->input->cookie('fontloaded')){ ?><link rel="stylesheet" href="/css/font.css"><? } ?>
+	<?php if($this->input->cookie('fontloaded')){ ?><link rel="stylesheet" href="/css/font.css"><?php } ?>
 	<script src="/js/jquery-1.9.1.js"></script>
 	<script src="/js/sticky.js"></script>
 </head>
@@ -23,18 +23,18 @@
 			<img class="logo" src="/img/logo.png" />
 			<div class="account">
 				<span class="welcome item">歡迎來到八九間</span>
-		<? if($this->user->isLogged()){ ?>
+		<?php if($this->user->isLogged()){ ?>
 				<a href="/user" class="signup item">【<?=$this->user->name?>】</a>
-				<? if($this->user->isLogged('admin')){ ?>
+				<?php if($this->user->isLogged('admin')){ ?>
 				<a href="/admin" class="signup item">【管理】</a>
-				<? } ?>
+				<?php } ?>
 				<a href="/logout" class="signup item">【退出】</a>
-		<? }else{ ?>
+		<?php }else{ ?>
 				<a href="/signup" class="signup item">【注冊】</a>
 				<a href="/login" class="signup item">【登陸】</a>
-		<? } ?>
+		<?php } ?>
 			</div>
-			<? if(in_array(uri_string(),array('','article/about-us'))){ ?>
+			<?php if(in_array(uri_string(),array('','article/about-us'))){ ?>
 			<div class="slogan">
 				最<span class="pink">思</span>家中飯
 			</div>
@@ -43,29 +43,29 @@
 				<p>心田一畝粗茶一碗，勝過白銀三千黃金萬兩</p>
 				<p>全國第一生態市麗水。八百米以上高山沃土，原生態刀耕火種，自然熟成輪耕輪種。</p>
 			</div>
-			<? } ?>
+			<?php } ?>
 		</div>
 	</div>
 	<div class="navigation">
 		<div class="navbar container">
 			<ul class="nav navbar-nav">
 				<?php foreach($this->nav->get() as $nav_item){ ?>
-				<li<?php if('/'.uri_string() === $nav_item['params']['href']){ ?> class="active"<? } ?>><?=anchor($nav_item['params']['href'], $nav_item['name'], $nav_item['params'])?></li>
+				<li<?php if('/'.uri_string() === $nav_item['params']['href']){ ?> class="active"<?php } ?>><?=anchor($nav_item['params']['href'], $nav_item['name'], $nav_item['params'])?></li>
 				<?php } ?>
 			</ul>
 		</div>
 	</div>
-<?if(count($this->page_path)>1){?>
+<?php if(count($this->page_path)>1){ ?>
 	<div class="container">
 		<ol class="breadcrumb">
-			<?  foreach($this->page_path as $level => $page){?>
-			<li<?if($level==count($this->page_path)-1){?> class="active"<?}?>>
-				<?if($level===0){?><strong><?}?>
+			<?php  foreach($this->page_path as $level => $page){ ?>
+			<li<?php if($level==count($this->page_path)-1){ ?> class="active"<?php } ?>>
+				<?php if($level===0){ ?><strong><?php } ?>
 				<a href="<?=$page['href']?>"><?=$page['text']?></a>
-				<?if($level===0){?></strong><?}?>
-				<?if($level<count($this->page_path)-1){?><span class="divider">/</span><?}?>
+				<?php if($level===0){ ?></strong><?php } ?>
+				<?php if($level<count($this->page_path)-1){ ?><span class="divider">/</span><?php } ?>
 			</li>
-			<?  }?>
+			<?php  } ?>
 		</ol>
 	</div>
-<?}?>
+<?php } ?>

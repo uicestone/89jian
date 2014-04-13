@@ -51,7 +51,7 @@
 		<div class="control-group">
 			<div class="controls">
 				<button name="signup" type="submit" class="btn btn-primary">注册</button>
-				<label class="checkbox inline"><a href="/login<?if($this->input->get()){?>?<?=http_build_query((array)$this->input->get())?><?}?>">已有账号，立即登录</a></label>
+				<label class="checkbox inline"><a href="/login<?php if($this->input->get()){ ?>?<?=http_build_query((array)$this->input->get())?><?php } ?>">已有账号，立即登录</a></label>
 			</div>
 		</div>				
 	</form>

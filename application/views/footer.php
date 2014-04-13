@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	<script src="/js/bootstrap.js"></script>
-	<? if(!$this->input->cookie('fontloaded')){ ?><script src="/js/fontloader.js"></script><? } ?>
+	<?php if(!$this->input->cookie('fontloaded')){ ?><script src="/js/fontloader.js"></script><?php } ?>
 	<script>
 		$('.navigation').sticky();
 		(function(){
