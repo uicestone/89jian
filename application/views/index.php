@@ -36,10 +36,10 @@
 					<?php foreach($products['data'] as $product){ ?>
 					<li class="item">
 						<div class="title">
-							<div class="spell"><?=get_meta($package, '英文名称')?></div>
+							<div class="spell"><?=get_meta($product, '英文名称')?></div>
 							<div class="name"><?=$product['name']?></div>
 						</div>
-						<img src="/uploads/<?=get_meta($package, '缩略图')?>" alt="<?=$product['name']?>">
+						<img src="/uploads/<?=get_meta($product, '缩略图')?>" alt="<?=$product['name']?>">
 					</li>
 					<?php } ?>
 				</ul>
