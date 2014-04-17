@@ -105,7 +105,7 @@ $route['type/(:any)'] = 'type/index/$1';
 $route['home'] = 'user/home';
 $route['order'] = 'user/order';
 $route['card'] = 'user/card';
-$route['repository'] = 'user/repository';
+$route['meal'] = 'user/meal';
 $route['resetpassword'] = 'user/resetpassword';
 
 $route['admin/(:any)'] = 'admin/$1list';

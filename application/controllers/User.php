@@ -439,17 +439,18 @@ class User extends LB_Controller{
 	/**
 	 * 我的仓库
 	 */
-	function repository(){
-		if(is_null($this->user->id)){
-			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
-		}
+	function meal(){
+		
+		$alert = array();
+		
+		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true));
 
-		$this->load->page_path[]=array('text'=>'我的仓库','href'=>'/repository');
-
-		$this->load->view('user/meal/list');
-
+		$this->load->page_name = 'user-logistic-edit';
+		$this->load->page_path[] = array('href'=>'/user/logistic', 'text'=>'我的仓库');
+		
+		$this->load->view('user/meal/list', compact('meals', 'alert'));
 	}
-
+	
 	/**
 	 * 我的订单
 	 */
