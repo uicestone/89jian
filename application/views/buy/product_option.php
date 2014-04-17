@@ -6,6 +6,16 @@
 			<li class="step">
 				<div class="title">
 					<label>1</label>
+					选择类型
+				</div>
+				<div class="type">
+					<?=radio(array('生鲜类','干货类'), '类型', set_value('类型', '生鲜类'))?>
+				</div>
+			</li>
+
+			<li class="step">
+				<div class="title">
+					<label>2</label>
 					选择套餐
 				</div>
 				<div class="packages">
@@ -15,7 +25,7 @@
 
 			<li class="step">
 				<div class="title">
-					<label>2</label>
+					<label>3</label>
 					预订周数
 				</div>
 				<div class="control-group">
@@ -30,7 +40,7 @@
 
 			<li class="step">
 				<div class="title">
-					<label>3</label>
+					<label>4</label>
 					消费形式
 				</div>
 				<div class="control-group">
@@ -42,7 +52,7 @@
 
 			<li class="step">
 				<div class="title">
-					<label>4</label>
+					<label>5</label>
 					首次送餐日
 				</div>
 				<div class="controls">

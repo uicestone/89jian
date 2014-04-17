@@ -27,6 +27,7 @@ class Buy extends LB_Controller{
 				'type'=>'order',
 				'name'=>$package['name'].' '.$this->input->post('次数').'次',
 				'meta'=>array(
+					'类型'=>$this->input->post('类型'),
 					'次数'=>$this->input->post('次数'),
 					'金额'=>$this->input->post('次数') * get_meta($package, '价格'),
 					'是否卡片'=>$this->input->post('是否卡片'),
@@ -45,7 +46,7 @@ class Buy extends LB_Controller{
 			redirect('buy/logistic');
 		}
 		
-		$packages = $this->object->getList(array('type'=>'package'))['data'];
+		$packages = $this->object->getList(array('type'=>'package','order_by'=>'id asc'))['data'];
 		
 		$this->load->view('buy/product_option', compact('packages'));
 	}
