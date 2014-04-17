@@ -39,7 +39,7 @@
 							<div class="spell"><?=get_meta($product, '英文名称')?></div>
 							<div class="name"><?=$product['name']?></div>
 						</div>
-						<img src="/uploads/<?=get_meta($product, '缩略图')?>" alt="<?=$product['name']?>">
+						<a href="/article/<?=$product['id']?>"><img src="/uploads/<?=get_meta($product, '缩略图')?>" alt="<?=$product['name']?>"></a>
 					</li>
 					<?php } ?>
 				</ul>

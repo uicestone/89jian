@@ -47,7 +47,7 @@ class Welcome extends LB_Controller {
 	{
 		$packages = $this->object->getList(array('type'=>'package', 'meta'=>array('有效'=>true), 'with_meta'=>true));
 		
-		$products = $this->object->getList(array('type'=>'product', 'meta'=>array('首页推荐'=>true), 'with_meta'=>true));
+		$products = $this->object->getList(array('type'=>'article', 'meta'=>array('首页推荐'=>true), 'with_meta'=>true));
 		
 		$this->load->view('index',  compact('packages', 'products'));
 	}
