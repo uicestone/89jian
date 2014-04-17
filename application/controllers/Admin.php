@@ -168,25 +168,23 @@ class Admin extends LB_Controller{
 		
 		$alert = array();
 		
+		$this->user->id = $id;
+		
 		if(!is_null($this->input->post('submit'))){
 			
-			$this->user->update($id, $this->input->post());
+			$data = $this->input->post();
+			
+			if(array_key_exists('password', $data) && $data['password'] === ''){
+				unset($data['password']);
+			}
+			
+			$this->user->update($data);
 			
 			$alert[] = array('type'=>'info', 'message'=>'用户信息已更新');
 			
-			if($this->input->post('password')){
-				$this->user->updatePassword($id, $this->input->post('password'));
-				$alert[] = array('message'=>'用户密码已更新');
-			}
-			
-			if($this->input->post('group')){
-				$this->user->updateGroup($id, $this->input->post('group'));
-				$alert[] = array('message'=>'用户组已更新');
-			}
-			
 		}
 		
-		$user = $this->user->fetch($id);
+		$user = $this->user->fetch();
 		
 		$this->load->page_name = 'admin-user-detail';
 		$this->load->page_path[] = array('href'=>'/admin/user', 'text'=>'用户管理');
