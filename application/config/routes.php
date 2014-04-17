@@ -106,6 +106,7 @@ $route['home'] = 'user/home';
 $route['order'] = 'user/order';
 $route['card'] = 'user/card';
 $route['repository'] = 'user/repository';
+$route['resetpassword'] = 'user/resetpassword';
 
 $route['admin/(:any)'] = 'admin/$1list';
 $route['admin/(:any)/add'] = 'admin/$1edit';
