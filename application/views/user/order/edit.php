@@ -5,7 +5,7 @@
 		<form class="form">
 			<div class="head">我的订单</div>
 			<div class="table-border">
-				<table>
+				<table class="table">
 					<thead>
 						<tr>
 							<th>状态</th>
@@ -21,8 +21,10 @@
 						<?php } ?>
 					</tbody>
 				</table>
+			</div>
 
-				<table>
+			<div class="table-border">
+				<table class="table">
 					<tbody>
 						<?php foreach($order['meta'] as $key => $value){ ?>
 						<tr>

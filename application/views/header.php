@@ -24,7 +24,7 @@
 			<div class="account">
 				<span class="welcome item">歡迎來到八九間</span>
 		<?php if($this->user->isLogged()){ ?>
-				<a href="/user" class="signup item">【<?=$this->user->name?>】</a>
+				<a href="/home" class="signup item">【<?=$this->user->name?>】</a>
 				<?php if($this->user->isLogged('admin')){ ?>
 				<a href="/admin" class="signup item">【管理】</a>
 				<?php } ?>
