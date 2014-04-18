@@ -44,7 +44,7 @@ class Admin extends LB_Controller{
 					));
 				}
 				else{
-					for($i=0; $i<get_meta($order, '次数'); $i++){
+					for($i=0; $i<get_meta($order, '次数'); $i++){//TODO 应当对次数做验证
 						$this->object->add(array(
 							'type'=>'meal',
 							'name'=>get_relative($order, 'package', 'name'),

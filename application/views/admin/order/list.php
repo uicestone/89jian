@@ -20,7 +20,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" name="checked[]" value="<?=$order['id']?>">
-								<?=$order['num']?>
+								<?=$order['id']?>
 							</td>
 							<td><?=get_relative($order, 'package', 'name')?></td>
 							<td><?=get_meta($order, '次数')?></td>
