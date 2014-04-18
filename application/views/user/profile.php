@@ -1,111 +1,54 @@
 <?php $this->view('header'); ?>
-	<form method="post" class="form-horizontal">
-		<div class="tab-content">
-			<?php $this->view('alert'); ?>
-			<div id="address" class="main tab-pane">
-				<div class="control-group">
-					<label class="control-label">* 收货人姓名：</label><input type="text" name="meta[收货人姓名]" value="<?=set_value('meta[收货人姓名]',$meta['收货人姓名'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 证件类型：</label>
-					<select name="meta[证件类型]">
-						<?=options(array('身份证','军官证','港澳台胞证','护照'), set_value('meta[证件类型]',$meta['证件类型']),'证件类型')?>
-					</select>
 
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 证件号码：</label><input type="text" name="meta[证件号码]" value="<?=set_value('meta[证件号码]',$meta['证件号码'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 银行账号：</label><input type="text" name="meta[银行账号]" value="<?=set_value('meta[银行账号]',$meta['银行账号'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 所在地：</label>
-					<select name="meta[邮寄省市]">
-						<?=options(array('上海'), set_value('meta[邮寄省市]',$meta['邮寄省市']), '省市')?>
-					</select>
-					<select name="meta[邮寄地区]">
-						<?=options(array('徐汇','浦东','黄浦','静安','普陀','闸北','杨浦','虹口','宝山','嘉定','青浦','闵行','松江','奉贤'), set_value('meta[邮寄地区]',$meta['邮寄地区']),'地区')?>
-					</select>
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 详细地址：</label><input type="text" name="meta[详细地址]" value="<?=set_value('meta[详细地址]',$meta['详细地址'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 邮政编码：</label><input type="text" name="meta[邮政编码]" value="<?=set_value('meta[邮政编码]',$meta['邮政编码'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 联系电话：</label><input type="text" name="meta[联系电话]" value="<?=set_value('meta[联系电话]',$meta['联系电话'])?>">
-				</div>	
-				<div class="control-group">
-					<label class="control-label">* 送货时间：</label>
-					<select name="meta[送货时间]">
-						<?=options(array('工作日','双休日','不限'), set_value('meta[送货时间]',$meta['送货时间']),'送货时间')?>
-					</select>
-				</div>	
-			</div>
-			<div id="password" class="main tab-pane">
-				<div class="warning">
-					<p>重要提示：每天互联网都会有大量用户的帐号存在</p>
-				</div>
-				<div class="control-group">
-					<label class="control-label">当前密码：</label>
-					<input type="password" name="password" autocomplete="off">
-					<label class="label label-important"><?=form_error('password')?></label>
-				</div>	
-				<div class="control-group">
-					<label class="control-label">新密码：</label>
-					<input type="password" name="password_new">
-					<label class="label label-important"><?=form_error('password_new')?></label>
-				</div>	
-				<div class="control-group">
-					<!--<label class="control-label">安全强度：</label><span><img src="style/ps-grade.png"> 弱</span><span><img src="style/ps-grade-2.png"> 中</span><span><img src="style/ps-grade-3.png"> 强</span>-->
-					<label class="control-label">确认密码：</label>
-					<input type="password" name="password_new_confirm">
-					<label class="label label-important"><?=form_error('password_new_confirm')?></label>
-				</div>	
-			</div>
-			<div class="form-actions">
-				<div class="control">
-					<button type="submit" name="submit" class="btn btn-primary">保存</button>
-				</div>
-			</div>
+<div class="container main">
+	<?php $this->view('user/sidebar'); ?>
+	<form class="form form-horizontal" method="post">
+		<div class="head">我的资料</div>
+		<?php $this->view('alert'); ?>
+		<div class="well well-small">点击资料内容来编辑</div>
+		<div class="table-border">
+			<table class="table">
+				<tbody>
+					<?php foreach($user['meta'] as $key => $value){ ?>
+					<tr>
+						<td><?=$key?></td>
+						<td><span class="meta-value" data-key="<?=$key?>"><?=get_meta($user, $key)?></span></td>
+					</tr>
+					<?php } ?>
+				</tbody>
+			</table>
 		</div>
+		
+		<div class="well well-small">在这里修改你的密码</div>
+		<div class="control-group">
+			<label class="control-label">原密码：</label>
+			<div class="controls"><input type="password" name="password"><label class="label label-important"><?=form_error('password')?></label></div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">新密码：</label>
+			<div class="controls"><input type="password" name="password_new"><label class="label label-important"><?=form_error('password_new')?></label></div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">重复新密码：</label>
+			<div class="controls"><input type="password" name="password_new_confirm"><label class="label label-important"><?=form_error('password_new_confirm')?></label></div>
+		</div>
+		
+		<button type="submit" name="submit" class="btn">保存</button>
+
 	</form>
-	<ul class="nav nav-stacked nav-pills">
-		<li><b>帐号</b></li>
-		<li><a href="#address" data-toggle="pill">收货地址</a></li>
-		<hr>
-		<li><b>帐号安全</b></li>
-		<li><a href="#password" data-toggle="pill">修改密码</a></li>
-	</ul>
-	<script type="text/javascript">
-	$(function(){
+</div>
 
-		$(':input').on('change',function(){
-			$(this).attr('changed','changed');
+<script type="text/javascript">
+	(function($){
+		$(function(){
+			$('.meta-value').on('click', function(){
+				$(this).hide();
+				$('<input />', {'type': 'text', 'name':'meta[' + $(this).data('key') + ']', 'value': $(this).text(), 'class': 'span5', 'style': 'margin-bottom:0'}).insertAfter(this);
+			});
 		});
+	})(jQuery)
+</script>
 
-		$('.btn-group>:button').on('click',function(){
-			$(this).siblings(':button').removeAttr('changed');
-			$(this).attr('changed','changed');
-			$(this).parent().find(':radio[name="'+$(this).attr('name')+'"][value="'+$(this).text()+'"]').prop('checked',true).trigger('change');
-		});
-
-		$('form').on('submit',function(){
-			$(this).find(':input:not([changed]):not([name="submit"])').prop('disabled',true);
-		});
-
-		//http://stackoverflow.com/questions/7862233/twitter-bootstrap-tabs-go-to-specific-tab-on-page-reload
-		if (window.location.hash) {
-			$('.nav-pills a[href='+window.location.hash+']').tab('show') ;
-		} 
-
-		// Change hash for page-reload
-		$('.nav-pills a').on('shown', function (e) {
-			window.location.hash = e.target.hash;
-		});
-
-	});
-	</script>
 <?php $this->view('footer'); ?>

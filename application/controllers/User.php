@@ -281,11 +281,9 @@ class User extends LB_Controller{
 
 		$user=$this->user->fetch();
 
-		$profiles=$this->user->getProfiles();
-
 		$this->load->page_path[]=array('text'=>'个人资料','href'=>'/profile');
 
-		$this->load->view('user/profile', compact('user','profiles','alert'));
+		$this->load->view('user/profile', compact('user','alert'));
 	}
 
 	function config($item = null){
@@ -317,7 +315,7 @@ class User extends LB_Controller{
 	 * 用户中心首页
 	 */
 	function home(){
-        redirect('repository');
+        redirect('meal');
 	}
 
 	function _agree($value){
@@ -443,7 +441,7 @@ class User extends LB_Controller{
 		
 		$alert = array();
 		
-		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true));
+		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true,'has_relative_like'=>array('user'=>$this->user->session_id)));
 
 		$this->load->page_name = 'user-logistic-edit';
 		$this->load->page_path[] = array('href'=>'/user/logistic', 'text'=>'我的仓库');
