@@ -15,7 +15,7 @@ class LB_Email extends CI_Email{
 	{
 		//$subject = $this->_prep_q_encoding($subject);
 		$subject = '=?'. $this->charset .'?B?'. base64_encode($subject) .'?=';
-		$this->_set_header('Subject', $subject);
+		$this->set_header('Subject', $subject);
 		return $this;
 	}
 

@@ -35,14 +35,7 @@
 		<?php } ?>
 			</div>
 			<?php if(in_array(uri_string(),array('','article/about-us'))){ ?>
-			<div class="slogan">
-				最<span class="pink">思</span>家中飯
-			</div>
-			<hr class="spliter">
-			<div class="subslogan">
-				<p>心田一畝粗茶一碗，勝過白銀三千黃金萬兩</p>
-				<p>全國第一生態市麗水。八百米以上高山沃土，原生態刀耕火種，自然熟成輪耕輪種。</p>
-			</div>
+			<div class="slogan"></div>
 			<?php } ?>
 		</div>
 	</div>

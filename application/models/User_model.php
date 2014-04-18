@@ -262,6 +262,24 @@ class User_model extends Object_model{
 			return $this->db->upsert('user_config', array('user'=>$this->session_id,'key'=>$key,'value'=>$value));
 		}
 	}
-
+	
+	/**
+	 * 根据user_config表中一项唯一的值反向获取用户ID，用于重置密码确认时识别用户
+	 * 这并不是一个完美的解决方案，因此仅仅用于89jian，不能并入LubanLock
+	 * @param string $item
+	 * @param string $value
+	 * @return int
+	 */
+	function retrieve_user_by_config($item, $value){
+		return $this->db->select('user')
+			->from('user_config')
+			->where('key',$item)
+			->where('value',json_encode($value))
+			->get()->row()->user;
+	}
+	
+	function remove_config($key){
+		$this->db->delete('user_config',array('user'=>$this->user->id, 'key'=>$key));
+	}
 }
 ?>

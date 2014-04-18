@@ -3,7 +3,7 @@
 class Buy extends LB_Controller{
 	function __construct() {
 		parent::__construct();
-		if(is_null($this->user->id)){
+		if(is_null($this->user->session_id)){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 	}

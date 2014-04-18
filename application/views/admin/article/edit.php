@@ -13,6 +13,7 @@
 			</textarea>
 		</div>
 		<button type="submit" name="submit" class="btn">提交</button>
+		<button type="submit" name="remove" class="btn-link">删除</button>
 	</form>
 </div>  
 

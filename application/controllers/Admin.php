@@ -252,6 +252,11 @@ class Admin extends LB_Controller{
 			}
 		}
 		
+		if(!is_null($this->input->post('remove'))){
+			$this->object->remove();
+			redirect('admin/article');
+		}
+		
 		if(!is_null($this->object->id)){
 			$article = $this->object->fetch($id);
 		}

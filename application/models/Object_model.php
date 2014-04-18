@@ -667,7 +667,32 @@ class Object_model extends CI_Model{
 	 * @param string $prev_value optional 如果不为null，则只更新原来值为$prev_value的记录
 	 * @return boolean
 	 */
-	function updateMeta($key, $value, $prev_value = null){
+	function updateMeta($key, $value = null, $prev_value = null){
+		
+		if(is_array($key)){
+			
+			$meta_ids = array();
+			
+			foreach($key as $sub_key => $sub_func_args){
+				if(is_array($sub_func_args)){
+					
+					$sub_func_args = array_merge(array(
+						'key' => null,
+						'value' => null,
+						'prev_value' => null,
+					), $sub_func_args);
+					
+					extract($sub_func_args);
+					
+					$meta_ids[] = $this->updateMeta($key, $value, $prev_value);
+				}
+				else{
+					$meta_ids[] = $this->updateMeta($sub_key, $sub_func_args, $prev_value);
+				}
+			}
+			
+			return $meta_ids;
+		}
 		
 		if(!$this->allow('write') || !$this->allow_meta($key, 'write')){
 			throw new Exception('no_permission', 403);
@@ -692,7 +717,7 @@ class Object_model extends CI_Model{
 			throw new Exception('duplicated_meta_key_value', 400);
 		}
 		
-		$condition = array('object'=>$this->object->id, 'key'=>$key);
+		$condition = array('object'=>$this->id, 'key'=>$key);
 		
 		if(!is_null($prev_value)){
 			$condition += array('value'=>$prev_value);

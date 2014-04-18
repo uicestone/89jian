@@ -152,9 +152,6 @@ class User extends LB_Controller{
 				}
 
 				if($this->form_validation->run()!==false){
-					if(is_null($this->user->id)){
-						$this->user->id = 1;//因为每个对象必须有user字段，新注册用户的user字段为root
-					}
 
 					$user_id=$this->user->add(array(
 						'name'=>$this->input->post('username'),
@@ -181,8 +178,10 @@ class User extends LB_Controller{
 	 * 用户资料编辑页面
 	 */
 	function profile(){
+		
+		$this->user->id = $this->user->session_id;
 
-		if(is_null($this->user->id)){
+		if(is_null($this->user->session)){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 
@@ -211,14 +210,14 @@ class User extends LB_Controller{
 						throw new Exception();
 					}
 
-					$this->user->update(array('password'=>$this->input->post('password_new')),$this->user->id);
+					$this->user->update(array('password'=>$this->input->post('password_new')));
 					$alert[]=array('title'=>'提示','message'=>'密码已修改','type'=>'info');
 
 				}
 
 				is_array($this->input->post('user')) && $this->user->update($this->input->post('user'));
 
-				is_array($this->input->post('profiles')) && $this->user->updateProfiles($this->input->post('profiles'));
+				is_array($this->input->post('meta')) && $this->user->updateMeta($this->input->post('meta'));
 
 				$this->load->library('upload',array(
 					'upload_path'=>'./uploads/',
@@ -369,7 +368,7 @@ class User extends LB_Controller{
 					throw new Exception;
 				}
 
-				$user = $this->user->getList(array('name'=>$this->input->post('username'),'email'=>$this->input->post('email')));
+				$user = $this->user->getRow(array('name'=>$this->input->post('username'),'email'=>$this->input->post('email')));
 
 				if(empty($user)){
 					$this->form_validation->_field_data['email']['error']='邮箱和用户名不匹配';
@@ -380,10 +379,10 @@ class User extends LB_Controller{
 
 					$token = random_string('alnum', 32);
 
-					$this->user->id=$user[0]['id'];
-					$this->user->set_config('password_reset/to', $this->input->post('password'));
-					$this->user->set_config('password_reset/token', $token);
-					$this->user->id=NULL;
+					$this->user->session_id=$user['id'];
+					$this->user->config('password_reset/to', $this->input->post('password'));
+					$this->user->config('password_reset/token', $token);
+					$this->user->session_id=NULL;
 
 					//$this->user->updatePassword($user[0]['id'], $this->input->post('password'));
 
@@ -391,15 +390,15 @@ class User extends LB_Controller{
 
 					$this->email->initialize(array(
 						'protocol'=>'smtp',
-						'smtp_host'=>$this->config->user_item('email/smtp/server'),
-						'smtp_user'=>$this->config->user_item('email/smtp/username'),
-						'smtp_pass'=>$this->config->user_item('email/smtp/password'),
+						'smtp_host'=>$this->company->config('email/smtp/server'),
+						'smtp_user'=>$this->company->config('email/smtp/username'),
+						'smtp_pass'=>$this->company->config('email/smtp/password'),
 						'mailtype'=>'html',
 						'crlf'=>"\r\n",
 						'newline'=>"\r\n"
 					));
 
-					$this->email->from($this->config->user_item('email/smtp/username'), '智塔帮助');
+					$this->email->from($this->company->config('email/smtp/username'), '智塔帮助');
 					$this->email->to($this->input->post('email')); 
 
 					$this->email->subject('您申请重置您在智塔(Witower.com)的账户密码');
@@ -422,13 +421,13 @@ class User extends LB_Controller{
 	}
 
 	function resetPasswordConfirm($token){
-		$uid = $this->user->retrieve_user_by_config('password_reset/token', $token);
+		$this->user->id = $this->user->retrieve_user_by_config('password_reset/token', $token);
 
-		if($uid){
-			$this->user->init($uid);
-			$this->user->updatePassword($uid, $this->user->config('password_reset/to'));
-			$this->user->remove_config_item('password_reset/to');
-			$this->user->remove_config_item('password_reset/token');
+		if($this->user->id){
+			$this->user->initialize($this->user->id);
+			$this->user->update(array('password'=>$this->user->config('password_reset/to')));
+			$this->user->remove_config('password_reset/to');
+			$this->user->remove_config('password_reset/token');
 
 			redirect('login');
 		}
@@ -453,7 +452,7 @@ class User extends LB_Controller{
 	 * 我的订单
 	 */
 	function order($id = null){
-		if(is_null($this->user->id)){
+		if(is_null($this->user->session_id)){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 
@@ -461,7 +460,7 @@ class User extends LB_Controller{
 
 		if(is_null($id)){
 
-			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->id,'status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
+			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->session_id,'status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
 
 			$this->load->view('user/order/list', compact('orders'));
 		}
@@ -476,7 +475,7 @@ class User extends LB_Controller{
 	 * 卡片管理
 	 */
 	function card(){
-		if(is_null($this->user->id)){
+		if(is_null($this->user->session_id)){
 			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
 		}
 
