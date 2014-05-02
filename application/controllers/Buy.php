@@ -80,6 +80,12 @@ class Buy extends LB_Controller{
 			
 		}
 		
+		if(!is_null($this->input->post('cancel'))){
+			$this->user->remove_config('incompleted_order');
+			$this->object->addStatus('已取消');
+			redirect();
+		}
+		
 		$this->load->view('buy/logistic', compact('order', 'alert'));
 		
 	}

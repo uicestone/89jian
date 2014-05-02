@@ -314,6 +314,11 @@ class User extends LB_Controller{
 	 * 用户中心首页
 	 */
 	function home(){
+		
+		if(is_null($this->user->session_id)){
+			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
+		}
+
         redirect('meal');
 	}
 
@@ -438,6 +443,10 @@ class User extends LB_Controller{
 	 */
 	function meal(){
 		
+		if(is_null($this->user->session_id)){
+			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
+		}
+
 		$alert = array();
 		
 		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true,'has_relative_like'=>array('user'=>$this->user->session_id)));

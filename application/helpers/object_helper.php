@@ -22,7 +22,7 @@ if(!function_exists('get_relative')){
 		if(!array_key_exists('relative', $object) || !array_key_exists($relation, $object['relative'])){
 			return false;
 		}
-		
+
 		$relative = array_pop($object['relative'][$relation]);
 		
 		if(!$relative){
@@ -39,33 +39,29 @@ if(!function_exists('get_relative')){
 
 /**
  * 返回最新的一个状态，或指定状态名的最新一个时间
+ * 对于两种形式表示的status，都可以解析出最新的一个状态中的某个字段（默认为状态名）
+ * @property array $object
+ * @property string|null 状态下的字段名，可以为name, date, comment
  */
 if(!function_exists('get_status')){
-	function get_status(array $object, $name = null){
-		if(!array_key_exists('status', $object)){
+	function get_status(array $object, $name = 'name'){
+		if(!array_key_exists('status', $object) || !$object['status']){
 			return false;
 		}
 		
-		if($object['status'] && array_is_numerical_index($object['status'])){
+		//数字键数组表示的status，每一个子数组是一行status数组
+		if(array_is_numerical_index($object['status'])){
 			$status = array_pop($object['status']);
-			if(!is_null($name) && array_key_exists($name, $status)){
+			if(array_key_exists($name, $status)){
 				return $status[$name];
 			}
-			else{
-				return $status;
-			}
 		}
 		
-		if(is_null($name)){
-			$status_names = array_keys($object['status']);
-			return array_pop($status_names);
-		}
-		
-		if(!array_key_exists($name, $object['status'])){
-			return false;
-		}
-		
-		return $object['status'][$name];
+		//索引键数组表示的status，是status.name和date的键值对
+		$status = $object['status'];
+		asort($status);
+		$status_names = array_keys($status);
+		return $name === 'name' ? array_pop($status_names) : array_pop($status);
 		
 	}
 }
