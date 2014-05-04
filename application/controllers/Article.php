@@ -5,7 +5,7 @@ class Article extends LB_Controller{
 		parent::__construct();
 	}
 	
-	function index($slug){
+	function view($slug){
 		
 		$article = $this->object->getRow(array('type'=>'article','or'=>array('num'=>urlencode($slug),'id'=>$slug),'with_meta'=>true));
 		

@@ -1,7 +1,7 @@
 	<div class="footer" id="contact">
 		<div class="container">
 			<div class="contact">
-				<a target="_blank" href="javascript:;" class="map"><img src="http://maps.googleapis.com/maps/api/staticmap?size=506x260&sensor=true&markers=%E6%B5%99%E6%B1%9F%E7%9C%81%E4%B8%BD%E6%B0%B4%E6%99%AF%E5%AE%81%E7%95%B2%E6%97%8F%E8%87%AA%E6%B2%BB%E5%8E%BF&maptype=satellite" width="506" height="260"></a>
+				<a target="_blank" href="javascript:;" class="map"><img src="<?=site_url()?>/img/map-google.png"></a>
 				<div class="info">
 					<div class="title">Contact Info 联系方式</div>
 					<div class="address">
@@ -63,7 +63,7 @@
 	</div>
 	<script src="/js/bootstrap.js"></script>
 	<?php if(!$this->input->cookie('fontloaded')){ ?><script src="/js/fontloader.js"></script><?php } ?>
-	<script>
+	<script type="text/javascript">
 		$('.navigation').sticky();
 		(function(){
 			var navpanel = $(".navpanel");

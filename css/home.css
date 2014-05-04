@@ -183,7 +183,7 @@
 }
 .setfood .others .selections {
   zoom: 1;
-  margin-bottom: 125px;
+  margin-bottom: 105px;
   margin-right: -20px;
 }
 .setfood .others .selections:before,
@@ -197,6 +197,7 @@
 .setfood .others .selections .item {
   float: left;
   margin-right: 20px;
+  margin-bottom: 20px;
   height: 140px;
   width: 211px;
 }
