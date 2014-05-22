@@ -96,8 +96,6 @@ class Object_model extends CI_Model{
 	
 	function update(array $data){
 
-		$data=array_intersect_key($data, self::$fields);
-		
 		if(empty($data)){
 			return;
 		}
@@ -105,6 +103,12 @@ class Object_model extends CI_Model{
 		if(!$this->allow('write')){
 			throw new Exception('no_permission', 403);
 		}
+		
+		if(array_key_exists('meta', $data)){
+			$this->updateMeta($data['meta']);
+		}
+		
+		$data = array_intersect_key($data, self::$fields);
 		
 		$this->db->set($data)->where('id', $this->id)->update('object');
 		
@@ -713,9 +717,9 @@ class Object_model extends CI_Model{
 			return $this->addMeta($key, $value);
 		}
 		
-		if(array_key_exists($key, $metas) && in_array($value, $metas[$key])){
-			throw new Exception('duplicated_meta_key_value', 400);
-		}
+//		if(array_key_exists($key, $metas) && in_array($value, $metas[$key])){
+//			throw new Exception('duplicated_meta_key_value', 400);
+//		}
 		
 		$condition = array('object'=>$this->id, 'key'=>$key);
 		

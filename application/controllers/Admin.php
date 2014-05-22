@@ -272,12 +272,12 @@ class Admin extends LB_Controller{
 	 * 单品管理
 	 */
 	function productList(){
-		$articles = $this->object->getList(array('type'=>'product'));
+		$products = $this->object->getList(array('type'=>'product'));
 		
 		$this->load->page_name = 'admin-product-list';
 		$this->load->page_path[] = array('href'=>'/admin/product', 'text'=>'单品管理');
 		
-		$this->load->view('admin/article/list', compact('articles'));
+		$this->load->view('admin/product/list', compact('products'));
 	}
 	
 	function productEdit($id = null){
@@ -289,19 +289,20 @@ class Admin extends LB_Controller{
 			if(is_null($this->object->id)){
 				$this->object->add(array(
 					'type'=>'product',
-					'num'=>urlencode($this->input->post('title')),
-					'name'=>$this->input->post('title'),
-					'meta'=>array('内容'=>$this->input->post('content'))
+					'num'=>urlencode($this->input->post('name')),
+					'name'=>$this->input->post('name'),
+					'meta'=>$this->input->post('meta')
 				));
 				
 				redirect('admin/product');
 			}
 			else{
+				
 				$this->object->update(array(
-					'name'=>$this->input->post('title'),
+					'name'=>$this->input->post('name'),
+					'meta'=>$this->input->post('meta')
 				));
 
-				$this->object->updateMeta('内容', $this->input->post('content'));
 			}
 		}
 		
@@ -311,14 +312,14 @@ class Admin extends LB_Controller{
 		}
 		
 		if(!is_null($this->object->id)){
-			$article = $this->object->fetch($id);
+			$product = $this->object->fetch($id);
 		}
 		
 		$this->load->page_name = 'admin-product-detail';
 		$this->load->page_path[] = array('href'=>'/admin/product', 'text'=>'单品管理');
-		$this->load->page_path[] = array('href'=>'/admin/product/'.(isset($article) ? $article['id'] : 'add'), 'text'=>(isset($article) ? $article['name'] : '添加单品'));
+		$this->load->page_path[] = array('href'=>'/admin/product/'.(isset($product) ? $product['id'] : 'add'), 'text'=>(isset($product) ? $product['name'] : '添加单品'));
 
-		$this->load->view('admin/article/edit', compact('article'));
+		$this->load->view('admin/product/edit', compact('product'));
 	}
 	
 	/**
