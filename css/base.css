@@ -166,13 +166,14 @@ input[type="password"] {
 .footer .contact .map {
   width: 506px;
   height: 260px;
-  background-color: #1d3c35;
   margin-right: 38px;
   cursor: default;
   float: left;
 }
 .footer .contact .map img {
-  width: 506px;
+	width: 476px;
+	border: 6px #FFF solid;
+	box-shadow: 3px 3px 10px #000;
 }
 .footer .contact .info {
   float: left;
