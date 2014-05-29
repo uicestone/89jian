@@ -2,38 +2,49 @@
 class User_model extends Object_model{
 	
 	var $session_id;
-	var $name = '';
-	var $roles = array();
+	var $name = '', $email, $password, $roles = array();
 	var $groups = array();
 	var $group_ids = array();//当前用户所属组的object id，包含当前用户的user id
 	
 	static $fields=array(
 		'name'=>'',
-		'email'=>'',
+		'email'=>null,
 		'password'=>'',
 		'roles'=>'',
 		'last_ip'=>'',
-		'last_login'=>NULL
+		'last_login'=>null
 	);
 	
-	function __construct(){
-		parent::__construct();
+	function __construct($data = null, array $args = array()){
+		parent::__construct($data, $args);
 	}
 	
-	function initialize($id=NULL){
-		isset($id) && $this->session_id=$id;
+	function initialize($id = null){
+		
+		$this->session_id = null;
+		$this->group_ids = array();
+		$this->groups = array();
+		
+		isset($id) && $this->session_id = intval($id);
 		
 		if(is_null($this->session_id) && $this->session->userdata('user_id')){
-			$this->session_id=intval($this->session->userdata('user_id'));
+			$this->session_id = intval($this->session->userdata('user_id'));
 		}
 		
 		if(!$this->session_id){
 			return;
 		}
 		
-		$user=$this->fetch($this->session_id, array('with_meta'=>false, 'with_status'=>false, 'with_relative'=>false, 'with_tag'=>false), false);
+		try{
+			$user = $this->fetch($this->session_id, array('with'=>null), false);
+		}catch(Exception $e){
+			if($e->getCode() === 404){
+				$this->sessionLogout();
+				throw new Exception('unauthorized', 401);
+			}
+		}
 		
-		$this->name=$user['name'];
+		$this->name = $user['name'];
 		
 		$this->roles = $this->_parse_roles($user['roles']);
 		
@@ -65,6 +76,11 @@ class User_model extends Object_model{
 		}
 	}
 	
+	/**
+	 * 
+	 * @todo 应当避免掉入死循环
+	 * @todo 应当在数据库建立缓存
+	 */
 	function _get_parent_group($children = array()){
 
 		$parents = $this->getList(array(
@@ -73,7 +89,7 @@ class User_model extends Object_model{
 		));
 		
 		$this->groups = array_merge($this->groups, $parents['data']);
-		$parent_group_ids = array_column($parents['data'], 'id');
+		$parent_group_ids = array_map('intval', array_column($parents['data'], 'id'));
 		$this->group_ids = array_merge($this->group_ids, $parent_group_ids);
 		
 		$this->roles = array_merge($this->roles, array_reduce(
@@ -89,19 +105,20 @@ class User_model extends Object_model{
 		
 	}
 
-	function fetch($id=null, array $args = array(), $permission_check = true){
+	function fetch($id = null, array $args = array(), $permission_check = true){
 		
 		if(is_null($id)){
-			$id=$this->id;
-		}
-		elseif(!array_key_exists('set_id', $args) || $args['set_id']){
-			$this->id=$id;
+			$id = $this->id;
 		}
 		
 		$object = parent::fetch($id, $args, $permission_check);
 		
 		$user = $this->db->select('user.id, user.name, user.email, user.roles, user.last_ip, user.last_login')->from('user')->where('id', $id)->get()->row_array();
 		
+		if(!$user){
+			throw new Exception(lang('user').' '.$id.' '.lang('not_found'), 404);
+		}
+
 		return array_merge($object, $user);
 	}
 	
@@ -122,7 +139,7 @@ class User_model extends Object_model{
 	 */
 	function add(array $data, array $args = array()){
 		
-		$data['type'] = 'user';
+		!array_key_exists('type', $data) && $data['type'] = 'user';
 		
 		if(array_key_exists('object', $args)){
 			$insert_id = $args['object'];
@@ -131,10 +148,10 @@ class User_model extends Object_model{
 			$insert_id = parent::add($data);
 		}
 
-		$data=array_merge(self::$fields,array_intersect_key($data,self::$fields));
+		$data = array_merge(self::$fields, array_intersect_key($data,self::$fields));
 		
-		$data['id']=$insert_id;
-		$data['company']=$this->company->id;
+		$data['id'] = $insert_id;
+		$data['company'] = get_instance()->company->id;
 
 		$this->db->insert('user',$data);
 		
@@ -156,7 +173,7 @@ class User_model extends Object_model{
 		$this->db
 			->from('user')
 			->where('name', $username)
-			->where('company', $this->company->id)
+			->where('company', get_instance()->company->id)
 			->where('password', $password);
 		
 		$user=$this->db->get()->row_array();
@@ -196,6 +213,7 @@ class User_model extends Object_model{
 	 */
 	function sessionLogout(){
 		$this->session->sess_destroy();
+		$this->initialize();
 	}
 
 	/**

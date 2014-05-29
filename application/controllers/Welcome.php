@@ -53,5 +53,4 @@ class Welcome extends LB_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/Welcome.php */
+?>

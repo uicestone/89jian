@@ -78,10 +78,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['login']='user/login';
-$route['logout']='user/logout';
-$route['profile']='user/profile';
-$route['signup']='user/signup';
+$route['(login|logout|profile|signup)']='user/$1';
 $route['user/(:num)']='user/index/$1';
 
 $route['object/(:num)']='object/index/$1';
