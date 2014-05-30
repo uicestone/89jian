@@ -151,7 +151,27 @@ class Object_model extends CI_Model{
 			$this->updateMeta($data['meta']);
 		}
 		
+		if(array_key_exists('relative', $data)){
+			$this->setRelative($data['relative']);
+		}
+		
+		if(array_key_exists('status', $data)){
+			$this->updateStatus($data['status']);
+		}
+		
+		if(array_key_exists('tag', $data)){
+			$this->setTag($data['tag']);
+		}
+		
+		if(array_key_exists('permission', $data)){
+			$this->authorize($data['permission']);
+		}
+		
 		$data = array_intersect_key($data, self::$fields);
+		
+		if(empty($data)){
+			return;
+		}
 		
 		$this->db->set($data)->where('id', $this->id)->update('object');
 		
