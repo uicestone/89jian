@@ -117,8 +117,8 @@ class User extends LB_Controller{
 
 		$captcha=create_captcha(array(
 			'word'=>random_string('alnum',4),
-			'img_path' => './uploads/captcha/',
-			'img_url' => '/uploads/captcha/',
+			'img_path' => './img/captcha/',
+			'img_url' => site_url() . '/img/captcha/',
 			'img_width' => 80
 		));
 
@@ -337,8 +337,8 @@ class User extends LB_Controller{
 
 		$captcha=create_captcha(array(
 			'word'=>random_string('alnum',4),
-			'img_path' => './uploads/captcha/',
-			'img_url' => '/uploads/captcha/',
+			'img_path' => './img/captcha/',
+			'img_url' => site_url() . '/img/captcha/',
 			'img_width' => 80
 		));
 
