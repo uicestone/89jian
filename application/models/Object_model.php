@@ -130,6 +130,10 @@ class Object_model extends CI_Model{
 			}
 		}
 		
+		if(!array_key_exists('permission', $data)){
+			$this->authorize('private');
+		}
+		
 		return $this->id;
 	}
 	
