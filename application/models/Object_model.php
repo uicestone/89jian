@@ -131,7 +131,9 @@ class Object_model extends CI_Model{
 		}
 		
 		if(!array_key_exists('permission', $data)){
-			$this->authorize('private');
+			try{
+				$this->authorize('private', null, false);
+			}catch(Exception $e){}
 		}
 		
 		return $this->id;
