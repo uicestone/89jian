@@ -45,11 +45,17 @@ class Welcome extends LB_Controller {
 	 */
 	public function index()
 	{
-		$packages = $this->object->getList(array('type'=>'package', 'meta'=>array('有效'=>true), 'with_meta'=>true));
+		$packages = $this->object->getList(array('type'=>'package', 'with'=>array('tag', 'meta')));
+		
+		$price_levels = array();
+		
+		foreach($packages['data'] as $package){
+			$price_levels[get_tag($package, '价格档次')] = get_meta($package, '价格');
+		}
 		
 		$products = $this->object->getList(array('type'=>'product', 'meta'=>array('首页推荐'=>true), 'with_meta'=>true));
 		
-		$this->load->view('home',  compact('packages', 'products'));
+		$this->load->view('home',  compact('price_levels', 'products'));
 	}
 }
 

@@ -22,10 +22,10 @@
 					</div>
 				</div>
 				<ul class="list">
-					<?php foreach($packages['data'] as $package){ ?>
+					<?php foreach($price_levels as $level => $price){ ?>
 					<li>
-						<div class="title">套餐<?=$package['name']?><span class="price"><?=get_meta($package, '价格')?></span>元</div>
-						<a href="/buy/productoption?package=<?=$package['id']?>" class="buy">立即訂購</a>
+						<div class="title">套餐<?=$level?><span class="price"><?=$price?></span>元</div>
+						<a href="/buy/?package=<?=$level?>" class="buy">立即訂購</a>
 					</li>
 					<?php } ?>
 				</ul>
@@ -39,7 +39,7 @@
 							<div class="spell"><?=get_meta($product, '英文名称')?></div>
 							<div class="name"><?=$product['name']?></div>
 						</div>
-						<a href="/product/<?=$product['id']?>"><img src="<?=site_url()?>/img/<?=get_meta($product, '缩略图')?>" alt="<?=$product['name']?>"></a>
+						<a href="/product/<?=$product['id']?>"><img src="<?=site_url()?>img/<?=get_meta($product, '缩略图')?>" alt="<?=$product['name']?>"></a>
 					</li>
 					<?php } ?>
 				</ul>

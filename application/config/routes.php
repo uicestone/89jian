@@ -98,7 +98,7 @@ $route['object/(:num)/(authorize|prohibit)/(read|write|grant)']='object/permissi
  */
 $route['article/(:any)'] = 'article/view/$1';
 $route['product/(:any)'] = 'product/view/$1';
-$route['package/(:any)'] = 'package/view/$1';
+$route['package/(:any)'] = 'package/type/$1';
 
 $route['home'] = 'user/home';
 $route['order'] = 'user/order';

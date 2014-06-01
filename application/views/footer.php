@@ -1,7 +1,7 @@
 	<div class="footer" id="contact">
 		<div class="container">
 			<div class="contact">
-				<a target="_blank" href="javascript:;" class="map"><img src="<?=site_url()?>/img/map-google.png"></a>
+				<a target="_blank" href="javascript:;" class="map"><img src="<?=site_url()?>img/map-google.png"></a>
 				<div class="info">
 					<div class="title">Contact Info 联系方式</div>
 					<div class="address">

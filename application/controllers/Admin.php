@@ -326,10 +326,10 @@ class Admin extends LB_Controller{
 	 * 套餐管理
 	 */
 	function packageList(){
-		$packages = $this->object->getList(array('type'=>'package'));
+		$packages = $this->object->getList(array('type'=>'package', 'with'=>array('tag', 'meta')));
 		
 		$this->load->page_name = 'admin-package-list';
-		$this->load->page_path[] = array('href'=>'/admin/package', 'text'=>'文章管理');
+		$this->load->page_path[] = array('href'=>'/admin/package', 'text'=>'套餐管理');
 		
 		$this->load->view('admin/package/list', compact('packages'));
 	}
@@ -343,9 +343,10 @@ class Admin extends LB_Controller{
 			if(is_null($this->object->id)){
 				$this->object->add(array(
 					'type'=>'package',
-					'num'=>urlencode($this->input->post('title')),
-					'name'=>$this->input->post('title'),
-					'meta'=>array('内容'=>$this->input->post('content'))
+					'name'=>$this->input->post('name'),
+					'meta'=>$this->input->post('meta'),
+					'tag'=>$this->input->post('tag'),
+					'permission'=>'public'
 				));
 				
 				redirect('admin/package');
@@ -369,8 +370,8 @@ class Admin extends LB_Controller{
 		}
 		
 		$this->load->page_name = 'admin-package-detail';
-		$this->load->page_path[] = array('href'=>'/admin/package', 'text'=>'文章管理');
-		$this->load->page_path[] = array('href'=>'/admin/package/'.(isset($package) ? $package['id'] : 'add'), 'text'=>(isset($package) ? $package['name'] : '添加文章'));
+		$this->load->page_path[] = array('href'=>'/admin/package', 'text'=>'套餐管理');
+		$this->load->page_path[] = array('href'=>'/admin/package/'.(isset($package) ? $package['id'] : 'add'), 'text'=>(isset($package) ? $package['name'] : '添加套餐'));
 
 		$this->load->view('admin/package/edit', compact('package'));
 	}
