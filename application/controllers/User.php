@@ -130,48 +130,84 @@ class User extends LB_Controller{
 
 		$this->db->insert('captcha', $data);
 
-		$this->form_validation->set_rules(array(
-			array('field'=>'email','label'=>'E-mail','rules'=>'required|valid_email|is_unique[user.email]'),
-			array('field'=>'username','label'=>'用户名','rules'=>'required|is_unique[user.name]'),
-			array('field'=>'password','label'=>'密码','rules'=>'required'),
-			array('field'=>'repassword','label'=>'重复密码','rules'=>'required|matches[password]'),
-		))
-			->set_message('matches','两次%s输入不一致')
+		$this->form_validation
+			->set_rules('email', 'E-mail', 'required|valid_email|is_unique[user.email]')
 			->set_message('test','同意用户协议')
 			->set_rules('agree','同意用户协议','callback__agree');
 
 		if(!is_null($this->input->post('signup'))){
+			
 			try{
 				// 首先删除旧的验证码
 				$this->db->where('captcha_time < ', time()-7200)->delete('captcha');
 
 				// 然后再看是否有验证码存在:
 				if ($this->db->where(array('word'=>$this->input->post('captcha'), 'ip_address'=>$this->input->ip_address()))->count_all_results('captcha') === 0){
-					$this->form_validation->_field_data['captcha']['error']='验证码错误';
+					$this->form_validation->_field_data['captcha']['error'] = '验证码错误';
 					throw new Exception;
 				}
+				
+				if($this->input->post('with_card') === '1'){
+					$this->form_validation->set_rules(array(
+						array('field'=>'card_num','label'=>'卡号','rules'=>'required'),
+						array('field'=>'card_pass','label'=>'卡密码','rules'=>'required'),
+					));
+				}else{
+					$this->form_validation->set_rules(array(
+						array('field'=>'username','label'=>'用户名','rules'=>'required|is_unique[user.name]'),
+						array('field'=>'password','label'=>'密码','rules'=>'required'),
+						array('field'=>'repassword','label'=>'重复密码','rules'=>'required|matches[password]'),
+					))
+						->set_message('matches','两次%s输入不一致');
+				}
+				
+				$this->form_validation->run();
+				
+				$new_user = array();
+					
+				if($this->input->post('with_card') === '1'){
+					
+					$card = $this->object->getRow(array('type'=>'card', 'num'=>$this->input->post('card_num'), 'with'=>array('meta', 'status')));
 
-				if($this->form_validation->run()!==false){
-
-					$user_id=$this->user->add(array(
+					if(!$card || get_meta($card, 'code') !== $this->input->post('card_pass') || array_key_exists('激活', $card['status'])){
+						$this->form_validation->_field_data['card_pass']['error'] = '卡号或密码错误';
+						throw new Exception;
+					}
+					
+					$new_user = array(
+						'name'=>$card['num'],
+						'password'=>get_meta($card, 'code'),
+						'email'=>$this->input->post('email'),
+						'relative'=>array('card'=>$card['id'])
+					);
+					
+					$this->object->id = $card['id'];
+					$this->object->addStatus('激活');
+					
+				}
+				
+				else{
+					$new_user = array(
 						'name'=>$this->input->post('username'),
 						'password'=>$this->input->post('password'),
 						'email'=>$this->input->post('email')
-					));
-
-					$this->user->sessionLogin($user_id);
-
-					redirect(urldecode($this->input->post('forward')));
+					);
 				}
 
-			}catch(Exception $e){
+				$user_id = $this->user->add($new_user);
 
+				$this->user->sessionLogin($user_id);
+
+				redirect(urldecode($this->input->post('forward')));
+
+			}catch(Exception $e){
+				$e->getMessage() && $alert[] = array('message'=>$e->getMessage());
 			}
 		}
 
 		$this->load->page_name='signup';
 
-		$this->load->view('user/signup',compact('captcha'));
+		$this->load->view('user/signup',compact('captcha', 'alert'));
 	}
 
 	/**
