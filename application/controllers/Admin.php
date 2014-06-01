@@ -291,7 +291,8 @@ class Admin extends LB_Controller{
 					'type'=>'product',
 					'num'=>urlencode($this->input->post('name')),
 					'name'=>$this->input->post('name'),
-					'meta'=>$this->input->post('meta')
+					'meta'=>$this->input->post('meta'),
+					'permission'=>'public'
 				));
 				
 				redirect('admin/product');
