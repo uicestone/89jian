@@ -494,7 +494,7 @@ class Object_model extends CI_Model{
 				}
 			}
 			
-			elseif(in_array($arg_name,array('id','name','type','user','time','time_insert'))){
+			elseif(in_array($arg_name,array('id','num','name','type','user','time','time_insert'))){
 				if($field === '`object`.`id`'){
 					$where[] = $this->_parse_criteria($arg_value, '`object`.'.$arg_name);
 				}else{
