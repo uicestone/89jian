@@ -38,30 +38,57 @@ if(!function_exists('get_relative')){
 }
 
 /**
- * 返回最新的一个状态，或指定状态名的最新一个时间
- * 对于两种形式表示的status，都可以解析出最新的一个状态中的某个字段（默认为状态名）
+ * 返回最新的一个状态或其一个字段，或指定状态名的最新一个时间
+ * 支持两种形式表示的status
  * @property array $object
- * @property string|null 状态下的字段名，可以为name, date, comment
+ * @property string|null 为null时，返回最新一个状态；为name,date,comment时，返回最新一个状态的一个字段；为其他字符串时，返回该名称状态的最新一个时间
  */
 if(!function_exists('get_status')){
 	function get_status(array $object, $name = 'name'){
+		
 		if(!array_key_exists('status', $object) || !$object['status']){
 			return false;
 		}
 		
-		//数字键数组表示的status，每一个子数组是一行status数组
-		if(array_is_numerical_index($object['status'])){
-			$status = array_pop($object['status']);
-			if(array_key_exists($name, $status)){
-				return $status[$name];
+		$status = array();
+		
+		foreach($object['status'] as $index => $row){
+			if(is_integer($row)){
+				$status[$row['date']] = $row;
+			}
+			else{
+				foreach($row as $date){
+					$status[$date] = array('name'=>$index, 'date'=>$date);
+				}
 			}
 		}
 		
-		//索引键数组表示的status，是status.name和date的键值对
-		$status = $object['status'];
-		asort($status);
-		$status_names = array_keys($status);
-		return $name === 'name' ? array_pop($status_names) : array_pop($status);
+		ksort($status);
+		
+		if(in_array($name, array('name', 'date', 'comment'))){
+			end($status);
+			$latest_status = current($status);;
+
+			if(is_null($name)){
+				return $latest_status;
+			}
+			elseif(array_key_exists($name, $latest_status)){
+				return $latest_status[$name];
+			}
+			
+			return false;
+			
+		}
+		else{
+			$status_k_v_pairs = array_column($status, 'date', 'name');
+			
+			if(array_key_exists($name, $status_k_v_pairs)){
+				return $status_k_v_pairs[$name];
+			}
+			
+			return false;
+			
+		}
 		
 	}
 }
