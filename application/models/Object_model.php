@@ -563,7 +563,7 @@ class Object_model extends CI_Model{
 		
 		// 若用户或所在组具有对象{type}-admin role，则具有全部权限
 		if(get_instance()->user->roles){
-			$permission_condition .= "\nOR `object`.`type` IN ('".implode("', '", array_map(function($role){return $role . '-admin';}, get_instance()->user->roles))."')";
+			$permission_condition .= "\nOR `object`.`type` IN ('".implode("', '", array_map(function($role){return preg_replace('/-admin$/', '', $role);}, get_instance()->user->roles))."')";
 		}
 		
 		// 一般读权限检查
