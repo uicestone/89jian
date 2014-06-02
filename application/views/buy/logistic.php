@@ -1,7 +1,7 @@
 <?php $this->view('header'); ?>
 <div class="article-page">
 	<h1>订单详情</h1>
-	<div class="table-border" style="width:388px">
+	<div class="table-border" style="width:400px">
 		<table class="table">
 			<tbody>
 				<tr>
@@ -18,6 +18,9 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<hr>
+	
 	<h1>收货信息</h1>
 	<form method="post" class="form form-horizontal">
 		

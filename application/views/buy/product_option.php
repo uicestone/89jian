@@ -3,13 +3,16 @@
 	<h1>订单选项</h1>
 	<form method="post" class="form form-horizontal buy-form">
 		<div class="steps">
+			
 			<li class="step">
 				<div class="title">
 					<label>1</label>
-					选择类型
+					消费形式
 				</div>
-				<div class="type">
-					<?=radio(array('生鲜类','干货类'), '类型', set_value('类型', '生鲜类'))?>
+				<div class="control-group">
+					<div class="controls">
+						<?=radio(array('否'=>'现货','是'=>'礼品卡'), '是否卡片', $this->input->get('是否卡片') ? '是' : '否', true)?>
+					</div>
 				</div>
 			</li>
 
@@ -19,7 +22,15 @@
 					选择套餐
 				</div>
 				<div class="packages">
-					<?=radio(array_column($packages, 'name', 'id'), 'package', $this->input->get('package'), true)?>
+				<?php foreach($packages['data'] as $package){ ?>
+					<label class="radio">
+						<input type="radio" name="package" value="<?=$package['id']?>">
+						<?=$package['name']?>
+						<a href="<?=site_url()?>package/<?=$package['id']?>" target="_blank">
+							<p class="description">¥<?=get_meta($package, '价格')?>/周 <?=get_tag($package, '内容分类')?> &raquo;</p>
+						</a>
+					</label>
+				<?php } ?>
 				</div>
 			</li>
 
@@ -40,19 +51,7 @@
 
 			<li class="step">
 				<div class="title">
-					<label>4</label>
-					消费形式
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<?=radio(array('0'=>'现货','1'=>'礼品卡'), '是否卡片', $this->input->get('是否卡片'),true)?>
-					</div>
-				</div>
-			</li>
-
-			<li class="step">
-				<div class="title">
-					<label>5</label>
+ 					<label>4</label>
 					首次送餐日
 				</div>
 				<div class="controls">
@@ -72,6 +71,5 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/js/buy.js"></script>
 <?php $this->view('footer'); ?>

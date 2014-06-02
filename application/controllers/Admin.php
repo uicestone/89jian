@@ -31,7 +31,7 @@ class Admin extends LB_Controller{
 
 				$order = $this->object->fetch();
 
-				if(get_meta($order, '是否卡片')){
+				if(get_meta($order, '是否卡片') === '是'){
 					$this->object->add(array(
 						'type'=>'card',
 						'name'=>get_meta($order, '次数').'次 '.get_relative($order, 'package', 'name').'卡',
@@ -60,7 +60,7 @@ class Admin extends LB_Controller{
 			}
 		}
 
-		$orders = $this->object->getList(array('type'=>'order','status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
+		$orders = $this->object->getList(array('type'=>'order','with_status'=>true,'with_meta'=>true,'with_relative'=>true));
 
 		$this->load->page_name = 'admin-order-list';
 		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'订单管理');
@@ -238,7 +238,8 @@ class Admin extends LB_Controller{
 					'type'=>'article',
 					'num'=>urlencode($this->input->post('title')),
 					'name'=>$this->input->post('title'),
-					'meta'=>array('内容'=>$this->input->post('content'))
+					'meta'=>array('内容'=>$this->input->post('content')),
+					'permission'=>'public'
 				));
 				
 				redirect('admin/article');

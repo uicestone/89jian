@@ -4,6 +4,10 @@
 		<?php $this->view('user/sidebar'); ?>
 		<form class="form">
 			<div class="head">我的订单</div>
+			<?php if(!in_array('支付完成', array_column($order['status'], 'name'))){ ?>
+			<a href="<?=site_url()?>buy/pay/<?=$order['id']?>" class="btn">去支付宝支付</a>
+			<hr>
+			<?php } ?>
 			<div class="table-border">
 				<table class="table">
 					<thead>
@@ -13,10 +17,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($order['status'] as $status => $date){ ?>
+						<?php foreach($order['status'] as $status){ ?>
 						<tr>
-							<td><?=$status?></td>
-							<td><?=$date?></td>
+							<td><?=$status['name']?></td>
+							<td><?=$status['date']?></td>
 						</tr>
 						<?php } ?>
 					</tbody>

@@ -63,8 +63,10 @@
 	</div>
 	<script src="/js/bootstrap.js"></script>
 	<?php if(!$this->input->cookie('fontloaded')){ ?><script src="/js/fontloader.js"></script><?php } ?>
+	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		$('.navigation').sticky();
+		$("#datepicker").datepicker();
 		(function(){
 			var navpanel = $(".navpanel");
 			$(window).on("scroll",function(){

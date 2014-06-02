@@ -27,7 +27,7 @@
 			</div>
 		</div>		
 
-		<div id="with-card" class="conditional-fields" style="display:none">
+		<div id="signup-with-card" class="conditional-fields" style="display:none">
 			<div class="control-group">
 				<label class="control-label" for="card_num">卡号：</label>
 				<div class="controls">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		
-		<div id="without-card" class="conditional-fields" style="display:none">
+		<div id="signup-without-card" class="conditional-fields" style="display:none">
 			<div class="control-group">
 				<label class="control-label" for="username">用户名：</label>
 				<div class="controls">
@@ -99,14 +99,18 @@ $(function(){
 	
 	function checkHash(){
 		$('div.conditional-fields').hide();
-		$('div' + window.location.hash).show();
+		
 		if(window.location.hash === '#with-card'){
 			$(':input[name="with_card"][value="1"]').prop('checked', true);
 			$(':input[name="with_card"][value="0"]').prop('checked', false);
+			$('div#signup-with-card').show();
+			$('div#signup-without-card').hide();
 		}
 		else{
 			$(':input[name="with_card"][value="1"]').prop('checked', false);
 			$(':input[name="with_card"][value="0"]').prop('checked', true);
+			$('div#signup-without-card').show();
+			$('div#signup-with-card').hide();
 		}
 	}
 	

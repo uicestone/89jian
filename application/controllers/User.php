@@ -161,7 +161,9 @@ class User extends LB_Controller{
 						->set_message('matches','两次%s输入不一致');
 				}
 				
-				$this->form_validation->run();
+				if($this->form_validation->run() === false){
+					throw new Exception;
+				}
 				
 				$new_user = array();
 					
@@ -181,9 +183,6 @@ class User extends LB_Controller{
 						'relative'=>array('card'=>$card['id'])
 					);
 					
-					$this->object->id = $card['id'];
-					$this->object->addStatus('激活');
-					
 				}
 				
 				else{
@@ -198,6 +197,21 @@ class User extends LB_Controller{
 
 				$this->user->sessionLogin($user_id);
 
+				
+				if($this->input->post('with_card') === '1'){
+					$this->object->id = $card['id'];
+					$this->object->authorize('private', null, false);
+					
+					$this->object->addStatus('激活');
+					$this->object->updateMeta('已激活', '是');
+					
+					// 将卡上的套餐信息写入当前用户
+					$bought = array( get_meta($card, '套餐') => get_meta($card, '次数') );
+
+					$this->user->addMeta('已购', json_encode($bought));
+					$this->user->addMeta('套餐', get_meta($card, '套餐'));
+				}
+				
 				redirect(urldecode($this->input->post('forward')));
 
 			}catch(Exception $e){
@@ -485,12 +499,20 @@ class User extends LB_Controller{
 
 		$alert = array();
 		
-		$meals = $this->object->getList(array('type'=>'meal','with_relative'=>true,'with_meta'=>true,'with_status'=>true,'has_relative_like'=>array('user'=>$this->user->session_id)));
+		if(!is_null($this->input->post('start'))){
+			$this->user->updateMeta('下次送餐日期', $this->input->post('下次送餐日期'));
+		}
+		elseif(!is_null($this->input->post('stop'))){
+			$this->user->updateMeta('下次送餐日期', '');
+		}
+		
+		$user = $this->user->fetch($this->user->session_id);
+		$bought = json_decode(get_meta($user, '已购'));
 
 		$this->load->page_name = 'user-logistic-edit';
 		$this->load->page_path[] = array('href'=>'/user/logistic', 'text'=>'我的仓库');
 		
-		$this->load->view('user/meal/list', compact('meals', 'alert'));
+		$this->load->view('user/meal', compact('user', 'bought', 'alert'));
 	}
 	
 	/**
@@ -510,7 +532,7 @@ class User extends LB_Controller{
 			$this->load->view('user/order/list', compact('orders'));
 		}
 		else{
-			$order = $this->object->fetch($id);
+			$order = $this->object->fetch($id, array('with_status'=>array('as_rows'=>true)));
 			$this->load->view('user/order/edit', compact('order'));
 		}
 

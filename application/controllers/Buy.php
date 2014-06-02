@@ -11,23 +11,19 @@ class Buy extends LB_Controller{
 	/**
 	 * 产品选项
 	 */
-	function productOption(){
-		
-		//如果有未填写完成的订单，跳转到物流信息
-		if($this->user->config('incompleted_order')){
-			redirect('buy/logistic');
-		}
+	function index(){
 		
 		if(!is_null($this->input->post('next'))){
-			
+			// TODO 应当对次数做验证，这个表单需要验证
 			$package = $this->object->fetch($this->input->post('package'));
 			
 			//生成订单
 			$order_id = $this->object->add(array(
 				'type'=>'order',
-				'name'=>$package['name'].' '.$this->input->post('次数').'次',
+				'name'=>$package['name'].' '.$this->input->post('次数').'周',
 				'meta'=>array(
-					'类型'=>$this->input->post('类型'),
+					'套餐'=>get_tag($package, '价格档次'),
+					'类型'=>get_tag($package, '内容分类'),
 					'次数'=>$this->input->post('次数'),
 					'金额'=>$this->input->post('次数') * get_meta($package, '价格'),
 					'是否卡片'=>$this->input->post('是否卡片'),
@@ -41,12 +37,13 @@ class Buy extends LB_Controller{
 				),
 			));
 			
-			$this->user->config('incompleted_order', $order_id);
-			
-			redirect('buy/logistic');
+			redirect('buy/logistic/' . $order_id);
 		}
 		
-		$packages = $this->object->getList(array('type'=>'package','order_by'=>'id asc'))['data'];
+		$packages = $this->object->getList(array_merge(
+			array('type'=>'package', 'with'=>array('tag', 'meta')),
+			$this->input->get('package') ? array('tag'=>array('价格档次'=>$this->input->get('package'))) : array()
+		));
 		
 		$this->load->view('buy/product_option', compact('packages'));
 	}
@@ -54,15 +51,9 @@ class Buy extends LB_Controller{
 	/**
 	 * 物流信息
 	 */
-	function logistic(){
+	function logistic($order_id){
 		
-		if(!$this->user->config('incompleted_order')){
-			throw new Exception('No Incompleted Order Found', '500');
-		}
-
-		$this->object->id = $this->user->config('incompleted_order');
-
-		$order = $this->object->fetch();
+		$order = $this->object->fetch($order_id);
 
 		if(!is_null($this->input->post('next'))){
 			
@@ -81,8 +72,7 @@ class Buy extends LB_Controller{
 		}
 		
 		if(!is_null($this->input->post('cancel'))){
-			$this->user->remove_config('incompleted_order');
-			$this->object->addStatus('已取消');
+			$this->object->addStatus('取消');
 			redirect();
 		}
 		
@@ -145,11 +135,52 @@ class Buy extends LB_Controller{
 		
 		$order = $this->object->fetch($order_id);
 		
-		$this->object->addMeta('支付宝流水号', $this->input->get('trade_no'));
+		$order->addMeta('支付宝流水号', $this->input->get('trade_no'));
 		
-		$this->object->addStatus('支付完成');
+		$order->addStatus('支付完成');
 		
-		$this->user->config('incompleted_order', false);
+		// 如果是卡，那么拿一张卡并写入订单信息
+		if(get_meta($order, '是否卡片') === '是'){
+			$card = $this->object->getRow(array('type'=>'card', 'meta'=>array('已绑定套餐'=>'否')));
+			
+			if(!$card){
+				throw new Exception('获得卡片错误，请联系客服处理', 500);
+			}
+			
+			$this->object->id = $card['id'];
+			
+			$this->object->authorize(array('read'=>true,'write'=>true), null, false);
+			
+			$this->object->updateMeta('已绑定套餐', '是');
+			$this->object->addMeta('套餐', get_meta($order, '套餐'));
+			$this->object->addMeta('次数', get_meta($order, '次数'));
+			$this->object->addRelative('package', get_relative($order, 'package', 'id'));
+			
+			$this->object->authorize('public', null, false);
+			
+			// 购买的卡并不立即与用户发生关联，最终用户拿到卡，导入到自己的账号，才完成关联（直接导入“餐”，并不关联“卡”本身）
+			
+		}
+		// 如果不是卡，那么直接将餐信息写入用户账户
+		else{
+			
+			$bought = json_decode($this->user->getMeta('已购'));
+			
+			if(!$bought){
+				$bought = array();
+			}
+			
+			if(array_key_exists(get_meta($order, '套餐'), $bought)){
+				$bought[get_meta($order, '套餐')] += get_meta($order, '次数');
+			}
+			else{
+				$bought = array( get_meta($order, '套餐') => get_meta($order, '次数') );
+			}
+			
+			$this->user->updateMeta('已购', json_encode($bought));
+			$this->user->updateMeta('套餐', get_meta($order, '套餐'));
+			
+		}
 		
 		redirect('user/order');
 		

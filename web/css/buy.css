@@ -14,7 +14,8 @@
 }
 .packages .radio {
   background-color: #fff;
-  padding: 50px;
+  height: 80px;
+  padding: 30px 50px 0;
   border: 3px solid #ccc;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -23,6 +24,13 @@
   width: 150px;
   float: left;
   margin-right: 20px;
+}
+.packages .radio .a {
+  color: #000;
+}
+.packages .radio .description {
+  font-size: 15px;
+  margin: 10px 0;
 }
 .packages .radio input[type="radio"] {
   display: none;
