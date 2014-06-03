@@ -214,7 +214,7 @@ class Object_model extends CI_Model{
 	 * 特别的：
 	 *	若对象权限表中没有此对象，则所有用户有读权限
 	 *	若对象权限表中没有此对象，且用户为对象创建者或用户就是对象本身，那么有所有权限
-	 *	TODO 若用户roles包含'对象{type}-admin'，则有全部权限
+	 *	TODO 若用户roles包含'对象{type}-admin'，则有全部权限 (目前实现了$users根据当前用户roles的判断)
 	 * @param string $permission	read | write | grant
 	 * @param array|int $users	默认为get_instance()->user->group_ids，即当前用户和递归所属组
 	 * @return boolean
@@ -232,6 +232,13 @@ class Object_model extends CI_Model{
 		
 		if(!is_array($users)){
 			$users = array($users);
+		}
+		
+		if(in_array(get_instance()->user->session_id, $users)){
+			$this->fetch($this->id, array('with'=>false), false);
+			if(in_array($this->type . '-admin', get_instance()->user->roles)){
+				return true;
+			}
 		}
 		
 		$result = $this->db->from('object_permission')->where('object', $this->id)->get()->result_array();
