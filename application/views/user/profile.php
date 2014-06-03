@@ -19,15 +19,25 @@
 			</table>
 		</div>
 		
-		<div class="well well-small">在这里修改你的密码</div>
+		<div class="well well-small">在这里修改你的用户信息</div>
+		<div class="control-group">
+			<label class="control-label">用户名：</label>
+			<div class="controls"><input type="text" name="name" value="<?=set_value('name', $user['name'])?>"> <label class="label label-important"><?=form_error('name')?></label></div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">邮箱：</label>
+			<div class="controls"><input type="text" name="email" value="<?=set_value('email', $user['email'])?>" autocomplete="off"> <label class="label label-important"><?=form_error('email')?></label></div>
+		</div>
+		
 		<div class="control-group">
 			<label class="control-label">原密码：</label>
-			<div class="controls"><input type="password" name="password"><label class="label label-important"><?=form_error('password')?></label></div>
+			<div class="controls"><input type="password" name="password_old"> <label class="label label-important"><?=form_error('password')?></label></div>
 		</div>
 		
 		<div class="control-group">
 			<label class="control-label">新密码：</label>
-			<div class="controls"><input type="password" name="password_new"><label class="label label-important"><?=form_error('password_new')?></label></div>
+			<div class="controls"><input type="password" name="password"> <label class="label label-important"><?=form_error('password_new')?></label></div>
 		</div>
 		
 		<div class="control-group">

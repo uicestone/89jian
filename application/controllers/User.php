@@ -239,31 +239,45 @@ class User extends LB_Controller{
 		if(!is_null($this->input->post('submit'))){
 
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules(array());
+			
+			$this->form_validation->set_rules(array(
+				array('field'=>'name', 'label'=>'用户名', 'rules'=>'required'),
+				array('field'=>'email', 'label'=>'E-mail', 'rules'=>'required|valid_email'),
+			));
 
 			try{
-
-				if($this->input->post('password_new')){
+				
+				$post_data = $this->input->post();
+				
+				if($post_data['password'] !== ''){
 
 					$this->form_validation->set_rules(array(
-						array('field'=>'password','label'=>'密码','rules'=>'required'),
-						array('field'=>'password_new','label'=>'新密码','rules'=>'required'),
-						array('field'=>'password_new_confirm','label'=>'重复密码','rules'=>'required|matches[password_new]')
+						array('field'=>'password_old','label'=>'密码','rules'=>'required'),
+						array('field'=>'password','label'=>'新密码','rules'=>'required'),
+						array('field'=>'password_new_confirm','label'=>'重复密码','rules'=>'required|matches[password]')
 					))
 						->set_message('matches','两次%s输入不一致');
 
-					if(!$this->user->verify($this->user->name, $this->input->post('password'))){
+					if(!$this->user->verify($this->user->name, $this->input->post('password_old'))){
 						$this->form_validation->_field_data['password']['error']='原密码错误';
 						throw new Exception();
 					}
 
-					if(!$this->form_validation->run()){
-						throw new Exception();
-					}
+				}
+				else{
+					unset($post_data['password']);
+				}
+				
+				if(!$this->form_validation->run()){
+					throw new Exception();
+				}
 
-					$this->user->update(array('password'=>$this->input->post('password_new')));
+				if(!$this->user->update($post_data)){
+					throw new Exception('用户名或邮箱重复');
+				}
+				
+				if(isset($post_data['password'])){
 					$alert[]=array('title'=>'提示','message'=>'密码已修改','type'=>'info');
-
 				}
 
 				is_array($this->input->post('user')) && $this->user->update($this->input->post('user'));
