@@ -8,7 +8,7 @@
 			<div class="table-border">
 				<table class="table">
 					<thead>
-						<tr><th>名称</th><th>电子邮件</th><th>组</th><th></th></tr>
+						<tr><th>名称</th><th>电子邮件</th><th style="width:45%">组</th><th style="width:65px">操作</th></tr>
 					</thead>
 					<tbody>
 						<?php foreach ($users['data'] as $user) { ?>								
