@@ -170,11 +170,31 @@ class Admin extends LB_Controller{
 	}
 	
 	function cardEdit($id = null){
-		$card = $this->object->fetch($id);
+		
+		if(!is_null($this->input->post('submit'))){
+			
+			$this->object->add(array(
+				'type'=>'card',
+				'num'=>$this->input->post('num'),
+				'name'=>$this->input->post('num'),
+				'meta'=>array(
+					'code'=>$this->input->post('code'),
+					'已绑定套餐'=>'否',
+					'已激活'=>'否'
+				)
+			));
+			
+			redirect('admin/card');
+			
+		}
+		
+		if(!is_null($id)){
+			$card = $this->object->fetch($id);
+		}
 		
 		$this->load->page_name = 'admin-card-detail';
 		$this->load->page_path[] = array('href'=>'/admin/card', 'text'=>'卡片管理');
-		$this->load->page_path[] = array('href'=>'/admin/card/'.$card['id'], 'text'=>$card['name']);
+		$this->load->page_path[] = array('href'=>'/admin/card/'.(isset($card) ? $card['id'] : 'add'), 'text'=>(isset($card) ? $card['name'] : '添加卡片'));
 		
 		$this->load->view('admin/card/edit', compact('card'));
 	}
