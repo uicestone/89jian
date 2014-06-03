@@ -24,42 +24,6 @@ class Admin extends LB_Controller{
 	 */
 	function orderList(){
 		
-		if(!is_null($this->input->post('confirm')) && is_array($this->input->post('checked'))){
-			foreach($this->input->post('checked') as $checked){
-				$this->object->id = intval($checked);
-				$this->object->addStatus('已确认');
-
-				$order = $this->object->fetch();
-
-				if(get_meta($order, '是否卡片') === '是'){
-					$this->object->add(array(
-						'type'=>'card',
-						'name'=>get_meta($order, '次数').'次 '.get_relative($order, 'package', 'name').'卡',
-						'relative'=>array(
-							'package'=>get_relative($order, 'package', 'id'),
-							'user'=>$order['user'],
-							'order'=>$order['id']
-						),
-						'meta'=>array('次数'=>get_meta($order, '次数'))
-					));
-				}
-				else{
-					for($i=0; $i<get_meta($order, '次数'); $i++){//TODO 应当对次数做验证
-						$this->object->add(array(
-							'type'=>'meal',
-							'name'=>get_relative($order, 'package', 'name'),
-							'relative'=>array(
-								'package'=>get_relative($order, 'package', 'id'),
-								'user'=>$order['user'],
-								'order'=>$order['id']
-							),
-							'meta'=>array('送货日期'=>date('Y-m-d',strtotime(get_meta($order, '首次送货日期'))+$i*7*86400))
-						));
-					}
-				}
-			}
-		}
-
 		$orders = $this->object->getList(array('type'=>'order','with_status'=>true,'with_meta'=>true,'with_relative'=>true));
 
 		$this->load->page_name = 'admin-order-list';
