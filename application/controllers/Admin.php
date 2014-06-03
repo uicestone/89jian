@@ -181,7 +181,8 @@ class Admin extends LB_Controller{
 					'code'=>$this->input->post('code'),
 					'已绑定套餐'=>'否',
 					'已激活'=>'否'
-				)
+				),
+				'permission'=>'public'
 			));
 			
 			redirect('admin/card');

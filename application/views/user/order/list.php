@@ -19,7 +19,7 @@
 					<tbody>
 						<?php foreach($orders['data'] as $order){ ?>
 						<tr>
-							<td><input type="checkbox" name="checked[]" value="<?=$order['id']?>"> <?=$order['id']?></td>
+							<td><?=$order['id']?></td>
 							<td><?=get_relative($order, 'package', 'name')?></td>
 							<td><?=get_meta($order, '次数')?></td>
 							<td><?=get_status($order, '下单')?></td>

@@ -4,10 +4,6 @@
 	<div class="table-border" style="width:400px">
 		<table class="table">
 			<tbody>
-				<tr>
-					<td>套餐</td>
-					<td><?=get_relative($order, 'package')?></td>
-				</tr>
 				<?php foreach($order['meta'] as $key => $value){ ?>
 				<?php if(in_array($key, array('收货人','联系电话','收货地址','邮编'))){ break; }?>
 				<tr>

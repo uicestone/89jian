@@ -202,6 +202,7 @@ class User extends LB_Controller{
 					$this->object->id = $card['id'];
 					$this->object->authorize('private', null, false);
 					
+					$this->object->addRelative('user', $this->user->session_id);
 					$this->object->addStatus('激活');
 					$this->object->updateMeta('已激活', '是');
 					
@@ -537,18 +538,6 @@ class User extends LB_Controller{
 		}
 
 	}
-
-	/**
-	 * 卡片管理
-	 */
-	function card(){
-		if(is_null($this->user->session_id)){
-			redirect('login?'.http_build_query(array('forward'=>substr($this->input->server('REQUEST_URI'),1))));
-		}
-
-		$this->load->page_path[]=array('text'=>'卡片管理','href'=>'/card');
-
-		$this->load->view('user/card/list');
-
-	}}
+	
+}
 ?>

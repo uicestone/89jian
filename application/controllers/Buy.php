@@ -20,10 +20,11 @@ class Buy extends LB_Controller{
 			//生成订单
 			$order_id = $this->object->add(array(
 				'type'=>'order',
-				'name'=>$package['name'].' '.$this->input->post('次数').'周',
+				'name'=>$package['name'] . ' (' . get_tag($package, '内容分类') . ' ' . get_tag($package, '价格档次') . ') ' .$this->input->post('次数').'周',
 				'meta'=>array(
-					'套餐'=>get_tag($package, '价格档次'),
-					'类型'=>get_tag($package, '内容分类'),
+					'套餐'=>$package['name'] . ' (' . get_tag($package, '内容分类') . ' ' . get_tag($package, '价格档次') . ')',
+					'内容分类'=>get_tag($package, '内容分类'),
+					'价格档次'=>get_tag($package, '价格档次'),
 					'次数'=>$this->input->post('次数'),
 					'金额'=>$this->input->post('次数') * get_meta($package, '价格'),
 					'是否卡片'=>$this->input->post('是否卡片'),
@@ -53,8 +54,8 @@ class Buy extends LB_Controller{
 	 */
 	function logistic($order_id){
 		
-		$order = $this->object->fetch($order_id);
-
+		$this->object->id = $order_id;
+		
 		if(!is_null($this->input->post('next'))){
 			
 			try{
@@ -75,6 +76,17 @@ class Buy extends LB_Controller{
 			$this->object->addStatus('取消');
 			redirect();
 		}
+		
+		$current_user = $this->user->fetch($this->user->session_id);
+		
+		$this->object->updateMeta(array(
+			'收货人'=>(string) get_meta($current_user, '收货人'),
+			'联系电话'=>(string) get_meta($current_user, '联系电话'),
+			'收货地址'=>(string) get_meta($current_user, '收货地址'),
+			'邮编'=>(string) get_meta($current_user, '邮编')
+		));
+		
+		$order = $this->object->fetch($order_id);
 		
 		$this->load->view('buy/logistic', compact('order', 'alert'));
 		
@@ -135,9 +147,9 @@ class Buy extends LB_Controller{
 		
 		$order = $this->object->fetch($order_id);
 		
-		$order->addMeta('支付宝流水号', $this->input->get('trade_no'));
+		$this->object->addMeta('支付宝流水号', $this->input->get('trade_no'));
 		
-		$order->addStatus('支付完成');
+		$this->object->addStatus('支付完成');
 		
 		// 如果是卡，那么拿一张卡并写入订单信息
 		if(get_meta($order, '是否卡片') === '是'){
@@ -152,8 +164,12 @@ class Buy extends LB_Controller{
 			$this->object->authorize(array('read'=>true,'write'=>true), null, false);
 			
 			$this->object->updateMeta('已绑定套餐', '是');
-			$this->object->addMeta('套餐', get_meta($order, '套餐'));
-			$this->object->addMeta('次数', get_meta($order, '次数'));
+			$this->object->addMeta(array(
+				'套餐'=>get_meta($order, '套餐'),
+				'价格档次'=>get_meta($order, '价格档次'),
+				'内容分类'=>get_meta($order, '内容分类'),
+				'次数'=>get_meta($order, '次数')
+			));
 			$this->object->addRelative('package', get_relative($order, 'package', 'id'));
 			
 			$this->object->authorize('public', null, false);
@@ -179,6 +195,7 @@ class Buy extends LB_Controller{
 			
 			$this->user->updateMeta('已购', json_encode($bought));
 			$this->user->updateMeta('套餐', get_meta($order, '套餐'));
+			$this->user->updateMeta('下次送餐日期', get_meta($order, '首次送货日期'));
 			
 		}
 		

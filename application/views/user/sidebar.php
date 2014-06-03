@@ -3,7 +3,6 @@
 		<div class="block">
 			<ul>
 				<li><a href="/meal" class="<?php if(strpos(uri_string(), 'meal') !== false){ ?> active<?php } ?>">仓库</a></li>
-				<li><a href="/card" class="<?php if(strpos(uri_string(), 'card') !== false){ ?> active<?php } ?>">卡片</a></li>
 				<li><a href="/order" class="<?php if(strpos(uri_string(), 'order') !== false){ ?> active<?php } ?>">订单</a></li>
 				<li><a href="/profile" class="<?php if(strpos(uri_string(), 'profile') !== false){ ?> active<?php } ?>">资料</a></li>
 			</ul>
