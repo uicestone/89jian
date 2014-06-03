@@ -168,11 +168,11 @@ class User_model extends Object_model{
 		parent::remove();
 	}
 	
-	function verify($username,$password){
+	function verify($username, $password){
 		
 		$this->db
 			->from('user')
-			->where('name', $username)
+			->where("(`name` = '" . $username . "' OR `email` = '" . $username . "')")
 			->where('company', get_instance()->company->id)
 			->where('password', $password);
 		
