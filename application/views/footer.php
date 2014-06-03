@@ -66,7 +66,7 @@
 	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		$('.navigation').sticky();
-		$("#datepicker").datepicker();
+		$("#datepicker").datepicker({language:'zh-CN'});
 		(function(){
 			var navpanel = $(".navpanel");
 			$(window).on("scroll",function(){
