@@ -339,7 +339,7 @@ class Admin extends LB_Controller{
 			}
 			else{
 				$this->object->update(array(
-					'name'=>$this->input->post('title'),
+					'name'=>$this->input->post('name'),
 				));
 
 				$this->object->updateMeta('内容', $this->input->post('content'));
