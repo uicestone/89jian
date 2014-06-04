@@ -4,6 +4,7 @@
 		<form class="form form-horizontal" method="post">
 			<div class="head"><?=end($this->page_path)['text']?></div>
 			<?php $this->view('alert'); ?>
+			<?php if($bought){ ?>
 			<div class="table-border">
 				<table class="table">
 					<thead>
@@ -23,12 +24,12 @@
 				</table>
 			</div>
 			送餐状态：
-			<?php if(get_meta($user, '下次送餐日期')){ ?>
+			<?php	if(get_meta($user, '下次送餐日期')){ ?>
 			每周送餐中，下次送餐日期：<?=get_meta($user, '下次送餐日期')?>
 			<div class="pull-right">
 				<button type="submit" name="stop" class="btn">暂停送餐</button>
 			</div>
-			<? } else{ ?>
+			<?	} else{ ?>
 			暂停送餐中
 			<div class="pull-right">
 				<div class="input-append date" id="datepicker" data-date="<?=date('Y-m-d', time() + 86400 * 7)?>" data-date-format="yyyy-mm-dd">
@@ -37,6 +38,9 @@
 				</div>
 				<button type="submit" name="start" class="btn">开始送餐</button>
 			</div>
+			<?php	} ?>
+			<?php }else{ ?>
+			<p class="well well-small">您还没有购买任何套餐</p>
 			<?php } ?>
 		</form>
 	</div>  
