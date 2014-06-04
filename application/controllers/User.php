@@ -4,7 +4,7 @@ class User extends LB_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->page_name = 'user';
-		$this->load->page_path[] = array('href'=>'/user', 'text'=>'用户中心');
+		$this->load->page_path[] = array('href'=>'/home', 'text'=>'用户中心');
 	}
 	
 	function index($id = NULL){
@@ -207,7 +207,7 @@ class User extends LB_Controller{
 					$this->object->updateMeta('已激活', '是');
 					
 					// 将卡上的套餐信息写入当前用户
-					$bought = array( get_meta($card, '套餐') => get_meta($card, '次数') );
+					$bought = array( get_meta($card, '价格档次') => get_meta($card, '次数') );
 
 					$this->user->addMeta('已购', json_encode($bought));
 					$this->user->addMeta('套餐', get_meta($card, '套餐'));
@@ -521,6 +521,47 @@ class User extends LB_Controller{
 			$this->user->updateMeta('下次送餐日期', '');
 		}
 		
+		if(!is_null($this->input->post('card_activation'))){
+
+			try{
+				
+				$card = $this->object->getRow(array('type'=>'card', 'num'=>$this->input->post('card_num'), 'with'=>array('meta', 'status')));
+				
+				if(!$card || get_meta($card, 'code') !== $this->input->post('card_pass') || array_key_exists('激活', $card['status'])){
+					throw new Exception('卡号或密码错误', 400);
+				}
+
+				$this->object->id = $card['id'];
+				$this->object->authorize('private', null, false);
+
+				$this->object->addRelative('user', $this->user->session_id);
+				$this->object->addStatus('激活');
+				$this->object->updateMeta('已激活', '是');
+
+				// 将卡上的套餐信息写入当前用户
+				$this->user->getMeta();
+				$bought = isset($this->user->meta['已购']) ? json_decode($this->user->meta['已购'][0], JSON_OBJECT_AS_ARRAY) : false;
+				
+				if(!$bought){
+					$bought = array();
+				}
+
+				if(array_key_exists(get_meta($card, '价格档次'), $bought)){
+					$bought[get_meta($card, '价格档次')] += get_meta($card, '次数');
+				}
+				else{
+					$bought[get_meta($card, '价格档次')] = get_meta($card, '次数');
+				}
+
+				$this->user->updateMeta('已购', json_encode($bought));
+				$this->user->updateMeta('套餐', get_meta($card, '套餐'));
+				
+			}catch(Exception $e){
+				$e->getMessage() && $alert[] = array('message'=>$e->getMessage());
+			}
+			
+		}
+		
 		$user = $this->user->fetch($this->user->session_id);
 		$bought = json_decode(get_meta($user, '已购'));
 
@@ -542,7 +583,7 @@ class User extends LB_Controller{
 
 		if(is_null($id)){
 
-			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->session_id,'status'=>array('下单'),'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
+			$orders = $this->object->getList(array('type'=>'order','user'=>$this->user->session_id,'with_status'=>true,'with_meta'=>true,'with_relative'=>true));
 
 			$this->load->view('user/order/list', compact('orders'));
 		}

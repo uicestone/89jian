@@ -15,7 +15,7 @@
 						<?php foreach($order['status'] as $name => $date){ ?>
 						<tr>
 							<td><?=$name?></td>
-							<td><?=$date?></td>
+							<td><?=implode(', ', $date)?></td>
 						</tr>
 						<?php } ?>
 					</tbody>

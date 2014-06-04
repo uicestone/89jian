@@ -74,17 +74,19 @@ class Buy extends LB_Controller{
 		
 		if(!is_null($this->input->post('cancel'))){
 			$this->object->addStatus('取消');
-			redirect();
+			redirect('order');
 		}
 		
 		$current_user = $this->user->fetch($this->user->session_id);
 		
-		$this->object->updateMeta(array(
-			'收货人'=>(string) get_meta($current_user, '收货人'),
-			'联系电话'=>(string) get_meta($current_user, '联系电话'),
-			'收货地址'=>(string) get_meta($current_user, '收货地址'),
-			'邮编'=>(string) get_meta($current_user, '邮编')
-		));
+		if(get_meta($current_user, '收货人') && get_meta($current_user, '联系电话') && get_meta($current_user, '收货地址') && get_meta($current_user, '邮编')){
+			$this->object->updateMeta(array(
+				'收货人'=>(string) get_meta($current_user, '收货人'),
+				'联系电话'=>(string) get_meta($current_user, '联系电话'),
+				'收货地址'=>(string) get_meta($current_user, '收货地址'),
+				'邮编'=>(string) get_meta($current_user, '邮编')
+			));
+		}
 		
 		$order = $this->object->fetch($order_id);
 		
@@ -137,15 +139,15 @@ class Buy extends LB_Controller{
 	 */
 	function paymentConfirm(){
 		
-		$notify_verify = file_get_contents('https://mapi.alipay.com/gateway.do?service=notify_verify&partner='.$this->company->config('alipay_partner_id').'&notify_id='.$this->input->get('notify_id'));
+//		$notify_verify = file_get_contents('https://mapi.alipay.com/gateway.do?service=notify_verify&partner='.$this->company->config('alipay_partner_id').'&notify_id='.$this->input->get('notify_id'));
+//		
+//		if($notify_verify !== 'true'){
+//			throw new Exception('支付校验失败', 400);
+//		}
+//		
+//		$order_id = $this->input->get('out_trade_no');
 		
-		if($notify_verify !== 'true'){
-			throw new Exception('支付校验失败', 400);
-		}
-		
-		$order_id = $this->input->get('out_trade_no');
-		
-		$order = $this->object->fetch($order_id);
+		$order = $this->object->fetch(16589);
 		
 		$this->object->addMeta('支付宝流水号', $this->input->get('trade_no'));
 		
@@ -180,17 +182,18 @@ class Buy extends LB_Controller{
 		// 如果不是卡，那么直接将餐信息写入用户账户
 		else{
 			
-			$bought = json_decode($this->user->getMeta('已购'));
+			$this->user->getMeta();
+			$bought = isset($this->user->meta['已购']) ? json_decode($this->user->meta['已购'][0], JSON_OBJECT_AS_ARRAY) : false;
 			
 			if(!$bought){
 				$bought = array();
 			}
 			
-			if(array_key_exists(get_meta($order, '套餐'), $bought)){
-				$bought[get_meta($order, '套餐')] += get_meta($order, '次数');
+			if(array_key_exists(get_meta($order, '价格档次'), $bought)){
+				$bought[get_meta($order, '价格档次')] += get_meta($order, '次数');
 			}
 			else{
-				$bought = array( get_meta($order, '套餐') => get_meta($order, '次数') );
+				$bought[get_meta($order, '价格档次')] = get_meta($order, '次数');
 			}
 			
 			$this->user->updateMeta('已购', json_encode($bought));

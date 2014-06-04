@@ -28,7 +28,7 @@
 						<?php foreach($card['status'] as $name => $date){ ?>
 						<tr>
 							<td><?=$name?></td>
-							<td><?=$date?></td>
+							<td><?=implode(', ', $date)?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
@@ -52,16 +52,18 @@
 				</div>
 			</div>
 			<?php } ?>
+			<?php if(!isset($card) || get_meta($card, '已激活') !== '是'){ ?>
 			<div class="control-group">
 				<label class="control-label">
 					绑定套餐：
 				</label>
 				<div class="controls">
-					<select name="package"><?=options(array_column($packages['data'], 'name', 'id'), get_relative($card, 'package', 'id'), '未绑定', true, false, false)?></select>
+					<select name="package"><?=options(array_column($packages['data'], 'name', 'id'), isset($card) ? get_relative($card, 'package', 'id') : '', '未绑定', true, false, false)?></select>
 					数量：
-					<input type="number" name="amount" value="<?=set_value('amount', get_meta($card, '次数'))?>">
+					<input type="number" name="amount" value="<?=set_value('amount', isset($card) ? get_meta($card, '次数') : '')?>">
 				</div>
 			</div>
+			<?php } ?>
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" name="submit" class="btn">保存</button>

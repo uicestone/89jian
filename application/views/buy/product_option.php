@@ -42,7 +42,7 @@
 				<div class="control-group">
 					<div class="controls">
 						<div class="input-append">
-							<input type="text" name="次数" class="span1" value="1" />
+							<input type="number" name="次数" class="span1" value="1" />
 							<span class="add-on">周</span>
 						</div>
 					</div>
