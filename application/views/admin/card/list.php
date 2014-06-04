@@ -13,14 +13,16 @@
 							<th>卡号</th>
 							<th>套餐</th>
 							<th>次数</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach($cards['data'] as $card){ ?>
 						<tr>
-							<td><a href="/admin/card/<?=$card['id']?>"><?=$card['num']?></a></td>
+							<td><?=$card['num']?></td>
 							<td><?=get_meta($card, '套餐')?></td>
 							<td><?=get_meta($card, '次数')?></td>
+							<td><a href="/admin/card/<?=$card['id']?>">查看</a></td>
 						</tr>
 						<?php } ?>
 					</tbody>

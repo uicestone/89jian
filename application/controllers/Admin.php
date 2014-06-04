@@ -173,17 +173,35 @@ class Admin extends LB_Controller{
 		
 		if(!is_null($this->input->post('submit'))){
 			
-			$this->object->add(array(
-				'type'=>'card',
-				'num'=>$this->input->post('num'),
-				'name'=>$this->input->post('num'),
-				'meta'=>array(
-					'code'=>$this->input->post('code'),
-					'已绑定套餐'=>'否',
-					'已激活'=>'否'
-				),
-				'permission'=>'public'
-			));
+			if(is_null($id)){
+				$id = $this->object->add(array(
+					'type'=>'card',
+					'num'=>$this->input->post('num'),
+					'name'=>$this->input->post('num'),
+					'meta'=>array(
+						'code'=>$this->input->post('code'),
+						'已绑定套餐'=>'否',
+						'已激活'=>'否'
+					),
+					'permission'=>'public'
+				));
+			}
+			
+			if($this->input->post('package')){
+				
+				$package = $this->object->fetch($this->input->post('package'));
+				
+				$this->object->id = $id;
+				
+				$this->object->setRelative('package', $package['id']);
+				$this->object->updateMeta(array(
+					'已绑定套餐'=>'是',
+					'套餐'=>$package['name'] . ' (' . get_tag($package, '内容分类') . ' ' . get_tag($package, '价格档次') . ')',
+					'价格档次'=>get_tag($package, '价格档次'),
+					'内容分类'=>get_tag($package, '内容分类'),
+					'次数'=>$this->input->post('amount')
+				));
+			}
 			
 			redirect('admin/card');
 			
@@ -193,11 +211,13 @@ class Admin extends LB_Controller{
 			$card = $this->object->fetch($id);
 		}
 		
+		$packages = $this->object->getList(array('type'=>'package'));
+		
 		$this->load->page_name = 'admin-card-detail';
 		$this->load->page_path[] = array('href'=>'/admin/card', 'text'=>'卡片管理');
 		$this->load->page_path[] = array('href'=>'/admin/card/'.(isset($card) ? $card['id'] : 'add'), 'text'=>(isset($card) ? $card['name'] : '添加卡片'));
 		
-		$this->load->view('admin/card/edit', compact('card'));
+		$this->load->view('admin/card/edit', compact('card', 'packages'));
 	}
 	
 	/**

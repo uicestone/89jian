@@ -6,6 +6,18 @@
 			<?php if(isset($card)){ ?>
 			<div class="table-border">
 				<table class="table">
+					<tbody>
+						<?php foreach($card['meta'] as $key => $value){ ?>
+						<tr>
+							<td><?=$key?></td>
+							<td><?=implode(', ', $value)?></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+			<div class="table-border">
+				<table class="table">
 					<thead>
 						<tr>
 							<th>状态</th>
@@ -17,18 +29,6 @@
 						<tr>
 							<td><?=$name?></td>
 							<td><?=$date?></td>
-						</tr>
-						<?php } ?>
-					</tbody>
-				</table>
-			</div>
-			<div class="table-border">
-				<table class="table">
-					<tbody>
-						<?php foreach($card['meta'] as $key => $value){ ?>
-						<tr>
-							<td><?=$key?></td>
-							<td><?=implode(', ', $value)?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
@@ -51,12 +51,22 @@
 					<input type="text" name="code">
 				</div>
 			</div>
+			<?php } ?>
+			<div class="control-group">
+				<label class="control-label">
+					绑定套餐：
+				</label>
+				<div class="controls">
+					<select name="package"><?=options(array_column($packages['data'], 'name', 'id'), get_relative($card, 'package', 'id'), '未绑定', true, false, false)?></select>
+					数量：
+					<input type="number" name="amount" value="<?=set_value('amount', get_meta($card, '次数'))?>">
+				</div>
+			</div>
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" name="submit" class="btn">保存</button>
 				</div>
 			</div>
-			<?php } ?>
 		</form>
 	</div>  
 
