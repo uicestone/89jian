@@ -55,9 +55,19 @@ class Company_model extends Object_model{
 	 *	get: the config value, false if not found
 	 *	set: the insert or update query
 	 */
-	function config($key,$value=NULL){
+	function config($key = null, $value = null){
 		$db = $this->load->database('', true);
-		$row=$db->select('id,value')->from('company_config')->where('company',$this->id)->where('key',$key)
+		
+		if(is_null($key)){
+			$result = $db->select('id, key, value')
+				->from('company_config')
+				->where('company', $this->id)
+				->get()->result_array();
+			
+			return array_column($result, 'value', 'key');
+		}
+		
+		$row = $db->select('id,value')->from('company_config')->where('company', $this->id)->where('key',$key)
 			->get()->row();
 		
 		if(is_null($value)){
