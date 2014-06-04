@@ -402,6 +402,7 @@ class Admin extends LB_Controller{
 		if(!is_null($this->input->post('submit'))){
 			$value = is_json($this->input->post('value')) ? json_decode($this->input->post('value')) : $this->input->post('value');
 			$this->company->config($item, $value);
+			redirect('admin/config');
 		}
 		
 		$value = $this->company->config($item);
@@ -412,7 +413,7 @@ class Admin extends LB_Controller{
 		
 		$this->load->page_name = 'admin-config-detail';
 		$this->load->page_path[] = array('href'=>'/admin/config', 'text'=>'系统配置');
-		$this->load->page_path[] = array('href'=>'/admin/config/'.$item, 'text'=>$item);
+		$this->load->page_path[] = array('href'=>'/admin/config/' . urlencode($item), 'text'=>$item);
 		
 		$this->load->view('admin/config/edit', compact('value'));
 	}

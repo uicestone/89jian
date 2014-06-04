@@ -6,13 +6,14 @@
 			<div class="table-border">
 				<table class="table">
 					<thead>
-						<tr><th>键</th><th>值</th></tr>
+						<tr><th>键</th><th>值</th><th>操作</th></tr>
 					</thead>
 					<tbody>
 						<?php foreach ($items as $key => $value) { ?>								
 						<tr> 
-							<td><a href="/admin/config/<?=$key?>"><?=$key?></a></td>
+							<td><?=$key?></td>
 							<td><?=is_string($value) ? $value : json_encode($value, JSON_UNESCAPED_UNICODE)?></td>
+							<td><a href="/admin/config/<?=urlencode($key)?>">编辑</a></td>
 						</tr>
 						<?php } ?>
 					</tbody>

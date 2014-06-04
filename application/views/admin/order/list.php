@@ -11,6 +11,7 @@
 							<th>套餐</th>
 							<th>周数</th>
 							<th>下单时间</th>
+							<th>是否卡片</th>
 							<th>状态</th>
 							<th>操作</th>
 						</tr>
@@ -22,6 +23,7 @@
 							<td><?=get_relative($order, 'package', 'name')?></td>
 							<td><?=get_meta($order, '次数')?></td>
 							<td><?=get_status($order, '下单');?></td>
+							<td><?=get_meta($order, '是否卡片')?></td>
 							<td><?=get_status($order)?></td>
 							<td><a href="/admin/order/<?=$order['id']?>">查看</a></td>
 						</tr>

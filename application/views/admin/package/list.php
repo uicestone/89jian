@@ -10,6 +10,9 @@
 						<?php foreach($packages['data'] as $package){ ?>
 						<tr>
 							<td><a href="/package/<?=$package['id']?>" target="_blank"><?=$package['name']?></a></td>
+							<td><?=get_tag($package, '价格档次')?>档</td>
+							<td>¥<?=get_meta($package, '价格')?></td>
+							<td><?=get_tag($package, '内容分类')?></td>
 							<td><a href="/admin/package/<?=$package['id']?>">编辑</a></td>
 						</tr>
 						<?php } ?>
