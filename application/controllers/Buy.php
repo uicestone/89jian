@@ -31,10 +31,8 @@ class Buy extends LB_Controller{
 					'首次送货日期'=>$this->input->post('首次送货日期'),
 				),
 				'relative'=>array(
-					array(
-						'relation'=>'package',
-						'relative'=>$this->input->post('package')
-					)
+					'package'=>$this->input->post('package'),
+					'purchaser'=>$this->user->session_id
 				),
 			));
 			
@@ -139,15 +137,15 @@ class Buy extends LB_Controller{
 	 */
 	function paymentConfirm(){
 		
-//		$notify_verify = file_get_contents('https://mapi.alipay.com/gateway.do?service=notify_verify&partner='.$this->company->config('alipay_partner_id').'&notify_id='.$this->input->get('notify_id'));
-//		
-//		if($notify_verify !== 'true'){
-//			throw new Exception('支付校验失败', 400);
-//		}
-//		
-//		$order_id = $this->input->get('out_trade_no');
+		$notify_verify = file_get_contents('https://mapi.alipay.com/gateway.do?service=notify_verify&partner='.$this->company->config('alipay_partner_id').'&notify_id='.$this->input->get('notify_id'));
 		
-		$order = $this->object->fetch(16589);
+		if($notify_verify !== 'true'){
+			throw new Exception('支付校验失败', 400);
+		}
+		
+		$order_id = $this->input->get('out_trade_no');
+		
+		$order = $this->object->fetch($order_id);
 		
 		$this->object->addMeta('支付宝流水号', $this->input->get('trade_no'));
 		
@@ -176,7 +174,10 @@ class Buy extends LB_Controller{
 			
 			$this->object->authorize('public', null, false);
 			
-			// 购买的卡并不立即与用户发生关联，最终用户拿到卡，导入到自己的账号，才完成关联（直接导入“餐”，并不关联“卡”本身）
+			$this->object->id = $order['id'];
+			$this->object->addRelative('card', $card['id']);
+			
+			// 购买的卡并不立即充入用户账户，最终用户拿到卡，导入到自己的账号，才完成关联（直接导入“餐”，并不关联“卡”本身）
 			
 		}
 		// 如果不是卡，那么直接将餐信息写入用户账户

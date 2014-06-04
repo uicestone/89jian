@@ -36,6 +36,10 @@ class Admin extends LB_Controller{
 	function orderEdit($id = null){
 		$order = $this->object->fetch($id);
 		
+		if(!is_null($this->input->post('deliver_card'))){
+			$this->object->addStatus('卡片已发出', null, $this->input->post('card_delivery_comment'));
+		}
+		
 		$this->load->page_name = 'admin-order-detail';
 		$this->load->page_path[] = array('href'=>'/admin/order', 'text'=>'订单管理');
 		$this->load->page_path[] = array('href'=>'/admin/order/'.$order['id'], 'text'=>$order['name']);

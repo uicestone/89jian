@@ -14,6 +14,7 @@
 						<tr>
 							<th>状态</th>
 							<th>时间</th>
+							<th>备注</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -21,6 +22,7 @@
 						<tr>
 							<td><?=$status['name']?></td>
 							<td><?=$status['date']?></td>
+							<td><?=$status['comment']?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
